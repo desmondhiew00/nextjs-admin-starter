@@ -6,7 +6,7 @@ import { useMemo, useRef } from "react";
 import { toast } from "sonner";
 
 import { type DataTableRef, createDataTable } from "@/components/common/data-table";
-import { useModalContext } from "@/context/modal-context";
+import { useConfirmModal } from "@/context/confirm-modal-context";
 import {
   type AdminFragment,
   type AdminOrderByWithRelationInput,
@@ -28,7 +28,7 @@ export default function AdminTable() {
   const session = useAuthSession();
 
   const ref = useRef<DataTableRef<AdminFragment>>(null);
-  const { confirmDelete } = useModalContext();
+  const { confirmDelete } = useConfirmModal();
 
   const authId = session?.user?.id as number;
 

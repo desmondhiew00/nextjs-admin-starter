@@ -1,7 +1,8 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { type SubmitErrorHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -29,7 +30,7 @@ export default function ForgotPasswordForm() {
     defaultValues: { email: "" },
   });
 
-  const onSubmit = async (data: FormValues) => {
+  const onFormSubmit = async (data: FormValues) => {
     setLoading(true);
     try {
       await sendForgotPasswordLink(data.email);
@@ -39,6 +40,10 @@ export default function ForgotPasswordForm() {
       toast.error(parseErrorMessage(e));
     }
     setLoading(false);
+  };
+
+  const onFormError: SubmitErrorHandler<FormValues> = (e) => {
+    Object.values(e).map((e) => toast.error(e.message));
   };
 
   if (success) {
@@ -63,12 +68,7 @@ export default function ForgotPasswordForm() {
         subtitle="Enter your email and we will send you a link to reset your password."
       />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit, (e) => {
-            Object.values(e).map((e) => toast.error(e.message));
-          })}
-          className="w-full space-y-2"
-        >
+        <form onSubmit={form.handleSubmit(onFormSubmit, onFormError)} className="w-full space-y-2">
           <FormTextInput control={form.control} name="email" label="Email" type="email" />
           <div className="pt-6">
             <Button loading={loading} className="ml-auto w-full" type="submit">

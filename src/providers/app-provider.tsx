@@ -4,7 +4,7 @@ import { AppProgressBar } from "next-nprogress-bar";
 import type React from "react";
 
 import { primaryColor } from "@/configs/app.config";
-import { ModalContextProvider } from "@/context/modal-context";
+import { ConfirmConfirmModalContextProvider } from "@/context/confirm-modal-context";
 
 import { Suspense } from "react";
 import { QueryProvider } from "./query-provider";
@@ -19,9 +19,9 @@ export default function Providers({
     <>
       <QueryProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ModalContextProvider>
+          <ConfirmConfirmModalContextProvider>
             <Suspense fallback={null}>{children}</Suspense>
-          </ModalContextProvider>
+          </ConfirmConfirmModalContextProvider>
         </ThemeProvider>
       </QueryProvider>
 

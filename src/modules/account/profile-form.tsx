@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { type SubmitErrorHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -31,7 +31,7 @@ export function ProfileForm() {
     },
   });
 
-  const onSubmit = async (formValues: FormValues) => {
+  const onFormSubmit = async (formValues: FormValues) => {
     setSubmitting(true);
     try {
       // TODO: Implement profile update logic
@@ -43,15 +43,14 @@ export function ProfileForm() {
     setSubmitting(false);
   };
 
+  const onFormError: SubmitErrorHandler<FormValues> = (e) => {
+    Object.values(e).map((e) => toast.error(e.message));
+  };
+
   return (
     <div className="sm:max-w-md">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit, (e) => {
-            Object.values(e).map((e) => toast.error(e.message));
-          })}
-          className="grid w-full gap-4 space-y-2"
-        >
+        <form onSubmit={form.handleSubmit(onFormSubmit, onFormError)} className="grid w-full gap-4 space-y-2">
           <FormTextInput control={form.control} name="name" label="Name" disabled={submitting} />
           <FormItemPreview label="Email" value={session?.user?.email} />
 

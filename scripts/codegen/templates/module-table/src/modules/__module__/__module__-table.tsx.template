@@ -6,7 +6,7 @@ import { useMemo, useRef } from "react";
 import { toast } from "sonner";
 
 import { type DataTableRef, createDataTable } from "@/components/common/data-table";
-import { useModalContext } from "@/context/modal-context";
+import { useConfirmModal } from "@/context/confirm-modal-context";
 import {
   type <%= pascalCase(singular(module)) %>Fragment,
   type <%= pascalCase(singular(module)) %>OrderByWithRelationInput,
@@ -28,7 +28,7 @@ export default function <%= pascalCase(singular(module)) %>Table() {
   const session = useAuthSession();
 
   const ref = useRef<DataTableRef<<%= pascalCase(singular(module)) %>Fragment>>(null);
-  const { confirmDelete } = useModalContext();
+  const { confirmDelete } = useConfirmModal();
 
   const authId = session?.user?.id as number;
 

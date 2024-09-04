@@ -2,15 +2,15 @@ import { createContext, useContext, useRef } from "react";
 
 import { ConfirmModal, type ConfirmModalRef, type ConfirmOptions } from "@/components/common/confirm-modal";
 
-interface ModalContext {
+interface ConfirmModalContext {
   modal: React.MutableRefObject<ConfirmModalRef | null>;
 }
 
-const ModalContext = createContext<ModalContext>({
+const ConfirmModalContext = createContext<ConfirmModalContext>({
   modal: { current: null },
 });
 
-export const ModalContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const ConfirmConfirmModalContextProvider = ({ children }: { children: React.ReactNode }) => {
   const modal = useRef<ConfirmModalRef>(null);
 
   const contextValue = {
@@ -18,16 +18,17 @@ export const ModalContextProvider = ({ children }: { children: React.ReactNode }
   };
 
   return (
-    <ModalContext.Provider value={contextValue}>
+    <ConfirmModalContext.Provider value={contextValue}>
       {children}
       <ConfirmModal ref={modal} />
-    </ModalContext.Provider>
+    </ConfirmModalContext.Provider>
   );
 };
 
-export const useModalContext = () => {
-  const context = useContext(ModalContext);
-  if (context === undefined) throw new Error("useModalContext must be used within a ModalContextProvider");
+export const useConfirmModal = () => {
+  const context = useContext(ConfirmModalContext);
+  if (context === undefined)
+    throw new Error("useConfirmModal must be used within a ConfirmConfirmModalContextProvider");
 
   return {
     modal: context.modal.current,
