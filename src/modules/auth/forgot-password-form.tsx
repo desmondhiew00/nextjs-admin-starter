@@ -32,7 +32,7 @@ export default function ForgotPasswordForm() {
   const onSubmit = async (data: FormValues) => {
     setLoading(true);
     try {
-      sendForgotPasswordLink(data.email).catch(() => {});
+      await sendForgotPasswordLink(data.email);
       toast.success("Reset password link sent successfully. Please check your email.");
       setSuccess(true);
     } catch (e) {

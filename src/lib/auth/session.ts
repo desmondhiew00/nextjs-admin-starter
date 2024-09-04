@@ -31,15 +31,16 @@ export const updateSessionUser = (user: Partial<SessionUser>) => {
 };
 
 export const signIn = async (email: string, password: string) => {
-  await AuthAction.signInRequest(email, password);
+  const data = await AuthAction.signInRequest(email, password);
+  if (data) await SessionManager.setSession(data);
   if (typeof window !== "undefined") {
     window.location.href = "/";
   }
 };
 
 export const signOut = async () => {
-  SessionManager.clearSession();
   AuthAction.signOutRequest();
+  await SessionManager.clearSession();
   if (typeof window !== "undefined") {
     window.location.href = AUTH_PATH;
   }

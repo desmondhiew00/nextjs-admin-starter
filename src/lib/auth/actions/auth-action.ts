@@ -1,10 +1,6 @@
 "use server";
 
 import apiFetcher from "@/lib/api-fetcher";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { AUTH_PATH } from "../configs";
-import { clearSession, setSession } from "./session-manager";
 import type { AuthApiResponse } from "./types";
 
 const loginApiUrl = "/auth/login";
@@ -15,7 +11,8 @@ export const signInRequest = async (email: string, password: string) => {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
-  if (res?.data) setSession(res.data);
+  if (res?.data) return res.data;
+  return null;
 };
 
 export const refreshTokenRequest = async (refreshToken?: string): Promise<AuthApiResponse | null> => {
@@ -31,7 +28,5 @@ export const refreshTokenRequest = async (refreshToken?: string): Promise<AuthAp
 };
 
 export const signOutRequest = async () => {
-  clearSession();
-  revalidatePath("/");
-  redirect(AUTH_PATH);
+  //
 };

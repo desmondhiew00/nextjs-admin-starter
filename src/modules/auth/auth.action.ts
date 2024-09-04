@@ -14,7 +14,7 @@ export async function sendForgotPasswordLink(email: string) {
 }
 
 export async function validateResetPasswordToken(token: string) {
-  const response = await apiFetcher("/auth/validate-reset-password-token", {
+  const response = await apiFetcher("/auth/validate-forgot-password-token", {
     method: "GET",
     params: { token },
   });

@@ -24,7 +24,6 @@ export const getSessionData = async () => {
 
 export const setSession = async (session: Session) => {
   const encrypted = await encrypt(JSON.stringify(session));
-  console.log("encrypted: ", encrypted);
   cookies().set(COOKIE_NAME, encrypted, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -34,8 +33,8 @@ export const setSession = async (session: Session) => {
 };
 
 export const clearSession = async () => {
-  revalidatePage("/");
   cookies().delete(COOKIE_NAME);
+  revalidatePage("/");
 };
 
 /**

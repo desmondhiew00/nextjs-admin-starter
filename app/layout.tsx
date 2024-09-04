@@ -6,6 +6,7 @@ import { AuthProvider } from "@/lib/auth/react/auth-provider";
 import Providers from "@/providers/app-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={`${inter.className}`}>
         <AuthProvider>
           <Providers>
+            <Suspense fallback={null}>{children}</Suspense>
             <Toaster richColors expand />
-            {children}
           </Providers>
         </AuthProvider>
       </body>

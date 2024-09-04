@@ -26,7 +26,7 @@ const formSchema = z
   });
 type FormValues = z.infer<typeof formSchema>;
 
-export default function ResetPasswordForm({ token }: { token: string }) {
+export default function ResetPasswordForm({ token, email }: { token: string; email: string }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -70,6 +70,7 @@ export default function ResetPasswordForm({ token }: { token: string }) {
       <div className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">Reset Your Password</h1>
         <p className="text-sm text-muted-foreground">Enter your new password to reset your password.</p>
+        <h3 className="p-2 rounded bg-secondary font-medium">{email}</h3>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onFormSubmit, onFormError)} className="w-full space-y-2">
