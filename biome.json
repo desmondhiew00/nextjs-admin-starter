@@ -1,0 +1,43 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.6.4/schema.json",
+  "files": {
+    "ignore": ["src/graphql/index.ts"]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "useExhaustiveDependencies": "off",
+        "noUnusedVariables": "warn",
+        "noUnusedImports": "warn"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off",
+        "noThisInStatic": "off"
+      },
+      "suspicious": {
+        "noAsyncPromiseExecutor": "off"
+      },
+      "a11y": {
+        "useKeyWithClickEvents": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "ignore": []
+  }
+}
