@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Page(_props: PageProps) {
   return (
     <>
-      <BreadCrumb items={[{ title: "<%= pascalCase(module) %>", href: "<%= parsedRoute %>" }]} />
+      <BreadCrumb items={[{ title: "<%= pascalCase(plural(module)) %>", href: "<%= parsedRoute %>" }]} />
 
       <div className="flex items-start justify-between">
         <Heading title="<%= pascalCase(plural(module)) %>" description="Manage <%= plural(module) %>." />
