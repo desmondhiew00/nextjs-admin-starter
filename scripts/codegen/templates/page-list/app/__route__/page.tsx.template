@@ -1,0 +1,30 @@
+import type { Metadata } from "next";
+
+import BreadCrumb from "@/components/layout/breadcrumb";
+import { Heading } from "@/components/ui/heading";
+import { LinkButton } from "@/components/ui/link-button";
+import { Separator } from "@/components/ui/separator";
+import <%= pascalCase(singular(module)) %>Table from "@/modules/<%= kebabCase(singular(module)) %>/<%= kebabCase(singular(module)) %>-table";
+import type { PageProps } from "@/types";
+
+export const metadata: Metadata = {
+  title: "<%= pascalCase(plural(module)) %>",
+  description: "",
+};
+
+export default async function Page(_props: PageProps) {
+  return (
+    <>
+      <BreadCrumb items={[{ title: "<%= pascalCase(plural(module)) %>", href: "<%= parsedRoute %>" }]} />
+
+      <div className="flex items-start justify-between">
+        <Heading title="<%= pascalCase(plural(module)) %>" description="Manage <%= plural(module) %>." />
+        <LinkButton href="<%= parsedRoute %>/new" label="Add New" />
+      </div>
+
+      <Separator />
+
+      <<%= pascalCase(singular(module)) %>Table />
+    </>
+  );
+}

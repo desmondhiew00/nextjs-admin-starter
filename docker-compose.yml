@@ -1,0 +1,10 @@
+services:
+  yebeng-admin:
+    container_name: yebeng-admin
+    restart: always
+    ports:
+      - '3000:3000'
+    build:
+      dockerfile: ./Dockerfile
+      args:
+        - NODE_ENV=test
