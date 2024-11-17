@@ -1,0 +1,16 @@
+@keyframes moveRightFade {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+}
+
+.move-right-fade {
+  animation: moveRightFade 0.5s ease-out;
+  animation-iteration-count: infinite;
+  animation-duration: 2s;
+}

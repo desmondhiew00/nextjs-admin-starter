@@ -1,0 +1,90 @@
+"use client";
+
+import { useRouter } from "next-nprogress-bar";
+import { type ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
+import { useMemo, useRef } from "react";
+import { toast } from "sonner";
+
+import { type DataTableRef, createDataTable } from "@/components/common/data-table";
+import { useConfirmModal } from "@/context/confirm-modal-context";
+import {
+  type <%= pascalCase(singular(module)) %>Fragment,
+  type <%= pascalCase(singular(module)) %>OrderByWithRelationInput,
+  type <%= pascalCase(singular(module)) %>WhereInput,
+  type InputMaybe,
+  SortOrder,
+  use<%= pascalCase(plural(module)) %>Query,
+} from "@/graphql";
+import { useAuthSession } from "@/lib/auth/client";
+import { getListingQueryParams } from "@/lib/query-router";
+import { parseErrorMessage } from "@/lib/utils";
+import { columns } from "./<%= kebabCase(singular(module)) %>-columns";
+
+const DataTable = createDataTable<<%= pascalCase(singular(module)) %>Fragment, <%= pascalCase(singular(module)) %>Fragment>();
+
+export default function <%= pascalCase(singular(module)) %>Table() {
+  const _router = useRouter();
+  const searchParams = useSearchParams();
+  const session = useAuthSession();
+
+  const ref = useRef<DataTableRef<<%= pascalCase(singular(module)) %>Fragment>>(null);
+  const { confirmDelete } = useConfirmModal();
+
+  const authId = session?.user?.id as number;
+
+  const queryOptions = useMemo(() => getQueryOptions(searchParams, authId), [searchParams, authId]);
+  const query = use<%= pascalCase(plural(module)) %>Query(queryOptions);
+
+  const data = query.data?.<%= camelCase(plural(module)) %>.data;
+  const total = query.data?.<%= camelCase(plural(module)) %>.total || 0;
+
+  const onEdit = (_record: <%= pascalCase(singular(module)) %>Fragment) => {
+    // Implement edit logic
+  };
+
+  const onDelete = (record: <%= pascalCase(singular(module)) %>Fragment) => {
+    confirmDelete({
+      presetDesc: { label: "<%= singular(module) %>", value: record.email },
+      onConfirm: async () => {
+        try {
+          // TODO: Implement delete logic
+          toast.success("<%= pascalCase(singular(module)) %> deleted successfully");
+          query.refetch();
+        } catch (e) {
+          toast.error(parseErrorMessage(e));
+        }
+      },
+    });
+  };
+
+  const tableColumns = columns({ onEdit, onDelete });
+
+  return (
+    <DataTable
+      loading={query.isFetching}
+      selectable={false}
+      ref={ref}
+      columns={tableColumns}
+      total={total}
+      data={data || []}
+    />
+  );
+}
+
+const getQueryOptions = (searchParams: ReadonlyURLSearchParams, authId: number) => {
+  const { from, to, sortBy, direction, limit, offset } = getListingQueryParams(searchParams, "client");
+  const keyword = searchParams.get("keyword");
+
+  const where: InputMaybe<<%= pascalCase(singular(module)) %>WhereInput> = {
+    id: { not: { equals: authId } },
+    AND: [],
+  };
+
+  if (from) where.AND?.push({ createdAt: { gte: from } });
+  if (to) where.AND?.push({ createdAt: { lte: to } });
+  if (keyword) where.AND?.push({ name: { contains: keyword } });
+
+  const orderBy: InputMaybe<<%= pascalCase(singular(module)) %>OrderByWithRelationInput> = sortBy ? { [sortBy]: direction } : { name: SortOrder.Asc };
+
+  return { where, orderBy, take: limit, skip: offset };
+};

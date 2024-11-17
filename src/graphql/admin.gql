@@ -1,0 +1,53 @@
+fragment Admin on Admin {
+  id
+  name
+  email
+  active
+  createdAt
+}
+
+fragment AdminInfo on Admin {
+  id
+  name
+  email
+  active
+  createdAt
+}
+
+query Admins(
+  $where: AdminWhereInput
+  $orderBy: [AdminOrderByWithRelationInput!]
+  $cursor: AdminWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [AdminScalarFieldEnum!]
+) {
+  admins(where: $where, orderBy: $orderBy, cursor: $cursor, take: $take, skip: $skip, distinct: $distinct) {
+    total
+    data {
+      ...Admin
+    }
+  }
+}
+
+query Admin($where: AdminWhereUniqueInput!) {
+  admin(where: $where) {
+    ...AdminInfo
+  }
+}
+
+mutation CreateAdmin($input: CreateAdminInput!) {
+  createAdmin(input: $input) {
+    ...AdminInfo
+  }
+}
+
+mutation UpdateAdmin($id: Float!, $input: UpdateAdminInput!) {
+  updateAdmin(id: $id, input: $input) {
+    ...AdminInfo
+  }
+}
+
+mutation DeleteAdmin($id: Float!) {
+  deleteAdmin(id: $id)
+}
