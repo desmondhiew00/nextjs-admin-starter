@@ -21,7 +21,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const toFormData = (record?: AdminFragment): FormValues => {
   return {
-    name: record?.name || "",
+    name: record?.fullName || "",
   };
 };
 

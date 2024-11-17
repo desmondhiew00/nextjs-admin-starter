@@ -10,11 +10,10 @@ import * as z from "zod";
 import FormTextInput from "@/components/common/form-text-input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useNavigator } from "@/hooks/use-navigation";
-import { signIn } from "@/lib/auth";
 import { validator } from "@/lib/form-validator";
 import { parseErrorMessage } from "@/lib/utils";
-import type { Route } from "next";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next-nprogress-bar";
 
 const formSchema = z.object({
   email: validator.email("Email"),
@@ -24,7 +23,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function LoginForm() {
-  const { navigate } = useNavigator();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -40,8 +39,13 @@ export default function LoginForm() {
   const onFormSubmit = async (data: FormValues) => {
     setLoading(true);
     try {
-      await signIn(data.email, data.password);
-      navigate((callbackUrl || "/") as Route);
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+      if (res?.error) throw new Error("Invalid credentials");
+      router.push(callbackUrl || "/");
     } catch (e: unknown) {
       toast.error(parseErrorMessage(e));
     } finally {

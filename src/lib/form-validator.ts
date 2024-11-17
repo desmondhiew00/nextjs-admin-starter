@@ -1,3 +1,4 @@
+import { type CountryCode, parsePhoneNumber } from "libphonenumber-js";
 import z from "zod";
 
 /* ----------------------------- Error Messages ----------------------------- */
@@ -16,7 +17,7 @@ export const msgTemplate = {
 
 /* -------------------------------- Validator ------------------------------- */
 
-type StringOptions = { required: boolean };
+type StringOptions = { required?: boolean };
 type NumOptions = { min?: number; max?: number };
 
 export const validator = {
@@ -38,7 +39,6 @@ export const validator = {
         invalid_type_error: msgTemplate.invalidType(label, "string"),
       })
       .trim();
-
     if (required) return str.min(1, { message: msgTemplate.required(label) });
     return str;
   },
@@ -70,6 +70,24 @@ export const validator = {
     if (maxSize > 9)
       v.refine((file) => file.size <= maxSize * 1024 * 1024, { message: `${label} must be at most ${maxSize}MB` });
     return v;
+  },
+  phoneNo: (label: string, { countryCode, required = true }: { countryCode?: CountryCode; required?: boolean }) => {
+    const str = z
+      .string({
+        required_error: msgTemplate.required(label),
+        invalid_type_error: msgTemplate.invalidType(label, "string"),
+      })
+      .trim();
+
+    if (required) return str.min(1, { message: msgTemplate.required(label) });
+    return str.refine(
+      (v) => {
+        if (!v) return true;
+        const parsed = parsePhoneNumber(v, countryCode);
+        return parsed.isValid();
+      },
+      { message: "Invalid phone number format" },
+    );
   },
 };
 

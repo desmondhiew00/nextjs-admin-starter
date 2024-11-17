@@ -1,6 +1,6 @@
 fragment Admin on Admin {
   id
-  name
+  fullName
   email
   active
   createdAt
@@ -8,7 +8,7 @@ fragment Admin on Admin {
 
 fragment AdminInfo on Admin {
   id
-  name
+  fullName
   email
   active
   createdAt

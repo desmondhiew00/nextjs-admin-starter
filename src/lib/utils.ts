@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { type ClassValue, clsx } from "clsx";
 import { parsePhoneNumber } from "libphonenumber-js";
 import { twMerge } from "tailwind-merge";
@@ -8,21 +7,8 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const parseErrorMessage = (e: unknown) => {
-  if (e instanceof AxiosError) {
-    const { response } = e;
-    if (response) {
-      const { data } = response;
-      if (data) {
-        if (typeof data === "string") return data;
-        if (typeof data === "object") {
-          if (data.message) return data.message;
-          if (data.error) return data.error;
-        }
-      }
-    }
-  }
-  if (e instanceof String) return e;
   if (e instanceof Error) return e.message;
+  if (e instanceof String) return e;
   return "An unknown error occurred";
 };
 

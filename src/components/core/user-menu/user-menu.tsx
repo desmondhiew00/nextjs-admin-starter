@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { signOut } from "next-auth/react";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,17 +16,17 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/lib/auth";
-import { useAuthSession } from "@/lib/auth/client";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next-nprogress-bar";
 
 export function UserMenuClient() {
   const router = useRouter();
-  const session = useAuthSession();
+  const { data: session } = useSession();
   const openRef = useRef(false);
   const [open, setOpen] = useState(false);
-  const username = session?.user?.fullName;
-  const email = session?.user?.email;
+
+  const username = session?.authUser?.fullName;
+  const email = session?.authUser?.email;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -91,7 +93,11 @@ export function UserMenuClient() {
           </DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={signOut}>
+        <DropdownMenuItem
+          onClick={() => {
+            signOut({ redirectTo: "/login" });
+          }}
+        >
           Log out
           <DropdownMenuShortcut>^Q</DropdownMenuShortcut>
         </DropdownMenuItem>

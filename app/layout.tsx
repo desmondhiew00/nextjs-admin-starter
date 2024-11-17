@@ -1,9 +1,7 @@
-import "@/styles/globals.css";
-
 import { Toaster } from "@/components/ui/sonner";
 import { AppName } from "@/configs/app.config";
-import { AuthProvider } from "@/lib/auth/client";
 import Providers from "@/providers/app-provider";
+import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
@@ -22,12 +20,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
         <Suspense fallback={null}>
-          <AuthProvider>
-            <Providers>
-              <Suspense fallback={null}>{children}</Suspense>
-              <Toaster richColors expand />
-            </Providers>
-          </AuthProvider>
+          <Providers>
+            <Suspense fallback={null}>{children}</Suspense>
+            <Toaster richColors expand />
+          </Providers>
         </Suspense>
       </body>
     </html>

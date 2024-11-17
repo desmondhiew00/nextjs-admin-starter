@@ -1,12 +1,11 @@
 "use client";
 
-import { AppProgressBar } from "next-nprogress-bar";
-import type React from "react";
-
 import { primaryColor } from "@/configs/app.config";
 import { ConfirmConfirmModalContextProvider } from "@/context/confirm-modal-context";
-
+import { SessionProvider } from "next-auth/react";
+import { AppProgressBar } from "next-nprogress-bar";
 import { Suspense } from "react";
+
 import { QueryProvider } from "./query-provider";
 import ThemeProvider from "./theme-provider";
 
@@ -19,14 +18,16 @@ export default function Providers({
     <>
       <QueryProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ConfirmConfirmModalContextProvider>
-            <Suspense fallback={null}>{children}</Suspense>
-          </ConfirmConfirmModalContextProvider>
+          <SessionProvider>
+            <ConfirmConfirmModalContextProvider>
+              <Suspense fallback={null}>{children}</Suspense>
+            </ConfirmConfirmModalContextProvider>
+          </SessionProvider>
         </ThemeProvider>
       </QueryProvider>
 
       <AppProgressBar
-        height="4px"
+        height="2px"
         color={primaryColor}
         options={{ showSpinner: false }}
         shallowRouting={false}

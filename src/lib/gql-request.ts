@@ -1,6 +1,6 @@
-import { getSession } from "@/lib/auth";
 import { GraphQLClient } from "graphql-request";
 import { get as _get } from "lodash";
+import { getSession } from "next-auth/react";
 
 const endpoint = process.env.NEXT_PUBLIC_GRAPHQL_URL || "";
 type FetcherVariables = Record<string, unknown>;
@@ -12,7 +12,7 @@ export const gqlFetcher = <TData extends FetcherData, TVariables extends Fetcher
   _options?: RequestInit["headers"],
 ): ((type?: "client" | "server" | unknown) => Promise<TData>) => {
   return async (_type = "client") => {
-    const { session } = await getSession();
+    const session = await getSession();
     return await gqlRequest(query, variables || {}, session?.accessToken || "");
   };
 };

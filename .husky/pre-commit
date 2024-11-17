@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
-npm run format
 npm run lint 
+npm run format
 npm run typecheck
 git add -A
-npm run build

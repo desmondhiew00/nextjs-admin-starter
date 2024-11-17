@@ -36,25 +36,298 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   DateTime: { input: Date | string; output: Date | string };
-  Decimal: { input: string; output: string };
   JSON: { input: any; output: any };
+  Upload: { input: File | Blob; output: File | Blob };
+};
+
+export enum AccountStatus {
+  Active = "Active",
+  Deactivated = "Deactivated",
+  Suspended = "Suspended",
+}
+
+export type Activity = {
+  __typename?: "Activity";
+  _count: ActivityCount;
+  bookings?: Maybe<Array<Booking>>;
+  coverImage?: Maybe<Scalars["String"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  createdById: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  description: Scalars["String"]["output"];
+  id: Scalars["Int"]["output"];
+  image: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+  outlet: Outlet;
+  outletId: Scalars["Int"]["output"];
+  requirement?: Maybe<Scalars["String"]["output"]>;
+  slots?: Maybe<Array<ActivitySlot>>;
+  status: ActivityStatus;
+  updatedAt: Scalars["DateTime"]["output"];
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type ActivityCount = {
+  __typename?: "ActivityCount";
+  bookings: Scalars["Int"]["output"];
+  slots: Scalars["Int"]["output"];
+};
+
+export type ActivityFindManyResult = {
+  __typename?: "ActivityFindManyResult";
+  data: Array<Activity>;
+  total: Scalars["Int"]["output"];
+};
+
+export type ActivityListRelationFilter = {
+  every?: InputMaybe<ActivityWhereInput>;
+  none?: InputMaybe<ActivityWhereInput>;
+  some?: InputMaybe<ActivityWhereInput>;
+};
+
+export type ActivityOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum ActivityOrderByRelevanceFieldEnum {
+  CoverImage = "coverImage",
+  Description = "description",
+  Name = "name",
+  Requirement = "requirement",
+}
+
+export type ActivityOrderByRelevanceInput = {
+  fields: Array<ActivityOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type ActivityOrderByWithRelationInput = {
+  _relevance?: InputMaybe<ActivityOrderByRelevanceInput>;
+  bookings?: InputMaybe<BookingOrderByRelationAggregateInput>;
+  coverImage?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdById?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  outlet?: InputMaybe<OutletOrderByWithRelationInput>;
+  outletId?: InputMaybe<SortOrder>;
+  requirement?: InputMaybe<SortOrderInput>;
+  slots?: InputMaybe<ActivitySlotOrderByRelationAggregateInput>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedById?: InputMaybe<SortOrderInput>;
+};
+
+export type ActivityRelationFilter = {
+  is?: InputMaybe<ActivityWhereInput>;
+  isNot?: InputMaybe<ActivityWhereInput>;
+};
+
+export enum ActivityScalarFieldEnum {
+  CoverImage = "coverImage",
+  CreatedAt = "createdAt",
+  CreatedById = "createdById",
+  DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
+  Description = "description",
+  Id = "id",
+  Name = "name",
+  OutletId = "outletId",
+  Requirement = "requirement",
+  Status = "status",
+  UpdatedAt = "updatedAt",
+  UpdatedById = "updatedById",
+}
+
+export type ActivitySlot = {
+  __typename?: "ActivitySlot";
+  _count: ActivitySlotCount;
+  activity: Activity;
+  activityId: Scalars["Int"]["output"];
+  bokkings?: Maybe<Array<Booking>>;
+  createdAt: Scalars["DateTime"]["output"];
+  createdById: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  endTime: Scalars["DateTime"]["output"];
+  id: Scalars["Int"]["output"];
+  maxParticipants: Scalars["Int"]["output"];
+  startTime: Scalars["DateTime"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type ActivitySlotCount = {
+  __typename?: "ActivitySlotCount";
+  bokkings: Scalars["Int"]["output"];
+};
+
+export type ActivitySlotFindManyResult = {
+  __typename?: "ActivitySlotFindManyResult";
+  data: Array<ActivitySlot>;
+  total: Scalars["Int"]["output"];
+};
+
+export type ActivitySlotListRelationFilter = {
+  every?: InputMaybe<ActivitySlotWhereInput>;
+  none?: InputMaybe<ActivitySlotWhereInput>;
+  some?: InputMaybe<ActivitySlotWhereInput>;
+};
+
+export type ActivitySlotOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type ActivitySlotOrderByWithRelationInput = {
+  activity?: InputMaybe<ActivityOrderByWithRelationInput>;
+  activityId?: InputMaybe<SortOrder>;
+  bokkings?: InputMaybe<BookingOrderByRelationAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdById?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  endTime?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  maxParticipants?: InputMaybe<SortOrder>;
+  startTime?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedById?: InputMaybe<SortOrderInput>;
+};
+
+export type ActivitySlotRelationFilter = {
+  is?: InputMaybe<ActivitySlotWhereInput>;
+  isNot?: InputMaybe<ActivitySlotWhereInput>;
+};
+
+export enum ActivitySlotScalarFieldEnum {
+  ActivityId = "activityId",
+  CreatedAt = "createdAt",
+  CreatedById = "createdById",
+  DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
+  EndTime = "endTime",
+  Id = "id",
+  MaxParticipants = "maxParticipants",
+  StartTime = "startTime",
+  UpdatedAt = "updatedAt",
+  UpdatedById = "updatedById",
+}
+
+export type ActivitySlotWhereInput = {
+  AND?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  NOT?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  OR?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  activity?: InputMaybe<ActivityRelationFilter>;
+  activityId?: InputMaybe<IntFilter>;
+  bokkings?: InputMaybe<BookingListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  endTime?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  maxParticipants?: InputMaybe<IntFilter>;
+  startTime?: InputMaybe<DateTimeFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type ActivitySlotWhereUniqueInput = {
+  AND?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  NOT?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  OR?: InputMaybe<Array<ActivitySlotWhereInput>>;
+  activity?: InputMaybe<ActivityRelationFilter>;
+  activityId?: InputMaybe<IntFilter>;
+  bokkings?: InputMaybe<BookingListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  endTime?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  maxParticipants?: InputMaybe<IntFilter>;
+  startTime?: InputMaybe<DateTimeFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export enum ActivityStatus {
+  Available = "Available",
+  Unavailable = "Unavailable",
+}
+
+export type ActivityWhereInput = {
+  AND?: InputMaybe<Array<ActivityWhereInput>>;
+  NOT?: InputMaybe<Array<ActivityWhereInput>>;
+  OR?: InputMaybe<Array<ActivityWhereInput>>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  requirement?: InputMaybe<StringNullableFilter>;
+  slots?: InputMaybe<ActivitySlotListRelationFilter>;
+  status?: InputMaybe<EnumActivityStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type ActivityWhereUniqueInput = {
+  AND?: InputMaybe<Array<ActivityWhereInput>>;
+  NOT?: InputMaybe<Array<ActivityWhereInput>>;
+  OR?: InputMaybe<Array<ActivityWhereInput>>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  name?: InputMaybe<StringFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  requirement?: InputMaybe<StringNullableFilter>;
+  slots?: InputMaybe<ActivitySlotListRelationFilter>;
+  status?: InputMaybe<EnumActivityStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
 };
 
 export type Admin = {
   __typename?: "Admin";
+  _count: AdminCount;
   active: Scalars["Boolean"]["output"];
+  allOutlets: Scalars["Boolean"]["output"];
   createdAt: Scalars["DateTime"]["output"];
   createdById?: Maybe<Scalars["Int"]["output"]>;
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
   deletedById?: Maybe<Scalars["Int"]["output"]>;
   email: Scalars["String"]["output"];
+  fullName: Scalars["String"]["output"];
   id: Scalars["Int"]["output"];
-  lastLogin?: Maybe<Scalars["DateTime"]["output"]>;
-  name: Scalars["String"]["output"];
-  superAdmin: Scalars["Boolean"]["output"];
+  outlets?: Maybe<Array<Outlet>>;
+  role: Role;
   updatedAt: Scalars["DateTime"]["output"];
   updatedById?: Maybe<Scalars["Int"]["output"]>;
-  user: User;
+};
+
+export type AdminCount = {
+  __typename?: "AdminCount";
+  ApprovedGroup: Scalars["Int"]["output"];
+  UserReport: Scalars["Int"]["output"];
+  outlets: Scalars["Int"]["output"];
 };
 
 export type AdminFindManyResult = {
@@ -63,297 +336,297 @@ export type AdminFindManyResult = {
   total: Scalars["Int"]["output"];
 };
 
+export type AdminListRelationFilter = {
+  every?: InputMaybe<AdminWhereInput>;
+  none?: InputMaybe<AdminWhereInput>;
+  some?: InputMaybe<AdminWhereInput>;
+};
+
 export type AdminNullableRelationFilter = {
   is?: InputMaybe<AdminWhereInput>;
   isNot?: InputMaybe<AdminWhereInput>;
 };
 
+export type AdminOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum AdminOrderByRelevanceFieldEnum {
+  Email = "email",
+  FullName = "fullName",
+  Password = "password",
+  RefreshToken = "refreshToken",
+  ResetPasswordToken = "resetPasswordToken",
+}
+
+export type AdminOrderByRelevanceInput = {
+  fields: Array<AdminOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
 export type AdminOrderByWithRelationInput = {
+  ApprovedGroup?: InputMaybe<GroupOrderByRelationAggregateInput>;
+  UserReport?: InputMaybe<UserReportOrderByRelationAggregateInput>;
+  _relevance?: InputMaybe<AdminOrderByRelevanceInput>;
   active?: InputMaybe<SortOrder>;
+  allOutlets?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
   createdById?: InputMaybe<SortOrderInput>;
   deletedAt?: InputMaybe<SortOrderInput>;
   deletedById?: InputMaybe<SortOrderInput>;
   email?: InputMaybe<SortOrder>;
+  fullName?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  lastLogin?: InputMaybe<SortOrderInput>;
-  name?: InputMaybe<SortOrder>;
-  password?: InputMaybe<SortOrderInput>;
-  superAdmin?: InputMaybe<SortOrder>;
+  outlets?: InputMaybe<OutletOrderByRelationAggregateInput>;
+  password?: InputMaybe<SortOrder>;
+  refreshToken?: InputMaybe<SortOrderInput>;
+  refreshTokenExpiry?: InputMaybe<SortOrderInput>;
+  resetPasswordExpiry?: InputMaybe<SortOrderInput>;
+  resetPasswordToken?: InputMaybe<SortOrderInput>;
+  role?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   updatedById?: InputMaybe<SortOrderInput>;
-  user?: InputMaybe<UserOrderByWithRelationInput>;
 };
 
 export enum AdminScalarFieldEnum {
   Active = "active",
+  AllOutlets = "allOutlets",
   CreatedAt = "createdAt",
   CreatedById = "createdById",
   DeletedAt = "deletedAt",
   DeletedById = "deletedById",
   Email = "email",
+  FullName = "fullName",
   Id = "id",
-  LastLogin = "lastLogin",
-  Name = "name",
   Password = "password",
-  SuperAdmin = "superAdmin",
+  RefreshToken = "refreshToken",
+  RefreshTokenExpiry = "refreshTokenExpiry",
+  ResetPasswordExpiry = "resetPasswordExpiry",
+  ResetPasswordToken = "resetPasswordToken",
+  Role = "role",
   UpdatedAt = "updatedAt",
   UpdatedById = "updatedById",
 }
 
 export type AdminWhereInput = {
   AND?: InputMaybe<Array<AdminWhereInput>>;
+  ApprovedGroup?: InputMaybe<GroupListRelationFilter>;
   NOT?: InputMaybe<Array<AdminWhereInput>>;
   OR?: InputMaybe<Array<AdminWhereInput>>;
+  UserReport?: InputMaybe<UserReportListRelationFilter>;
   active?: InputMaybe<BoolFilter>;
+  allOutlets?: InputMaybe<BoolFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
   email?: InputMaybe<StringFilter>;
+  fullName?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
-  lastLogin?: InputMaybe<DateTimeNullableFilter>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringNullableFilter>;
-  superAdmin?: InputMaybe<BoolFilter>;
+  outlets?: InputMaybe<OutletListRelationFilter>;
+  password?: InputMaybe<StringFilter>;
+  refreshToken?: InputMaybe<StringNullableFilter>;
+  refreshTokenExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordToken?: InputMaybe<StringNullableFilter>;
+  role?: InputMaybe<EnumRoleFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
-  user?: InputMaybe<UserRelationFilter>;
 };
 
 export type AdminWhereUniqueInput = {
   AND?: InputMaybe<Array<AdminWhereInput>>;
+  ApprovedGroup?: InputMaybe<GroupListRelationFilter>;
   NOT?: InputMaybe<Array<AdminWhereInput>>;
   OR?: InputMaybe<Array<AdminWhereInput>>;
+  UserReport?: InputMaybe<UserReportListRelationFilter>;
   active?: InputMaybe<BoolFilter>;
+  allOutlets?: InputMaybe<BoolFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
   email?: InputMaybe<Scalars["String"]["input"]>;
+  fullName?: InputMaybe<StringFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  lastLogin?: InputMaybe<DateTimeNullableFilter>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringNullableFilter>;
-  superAdmin?: InputMaybe<BoolFilter>;
+  outlets?: InputMaybe<OutletListRelationFilter>;
+  password?: InputMaybe<StringFilter>;
+  refreshToken?: InputMaybe<Scalars["String"]["input"]>;
+  refreshTokenExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordToken?: InputMaybe<Scalars["String"]["input"]>;
+  role?: InputMaybe<EnumRoleFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
-  user?: InputMaybe<UserRelationFilter>;
 };
 
-export enum ApplicationStatus {
-  Applied = "APPLIED",
-  Hired = "HIRED",
-  Rejected = "REJECTED",
+export enum ApprovalStatus {
+  Approved = "Approved",
+  Pending = "Pending",
+  Rejected = "Rejected",
 }
 
-export enum AttendanceStatus {
-  Complete = "COMPLETE",
-  Incomplete = "INCOMPLETE",
-}
-
-export type AuthTokenListRelationFilter = {
-  every?: InputMaybe<AuthTokenWhereInput>;
-  none?: InputMaybe<AuthTokenWhereInput>;
-  some?: InputMaybe<AuthTokenWhereInput>;
-};
-
-export type AuthTokenOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export enum AuthTokenType {
-  ForgotPassword = "FORGOT_PASSWORD",
-  RefreshToken = "REFRESH_TOKEN",
-}
-
-export type AuthTokenWhereInput = {
-  AND?: InputMaybe<Array<AuthTokenWhereInput>>;
-  NOT?: InputMaybe<Array<AuthTokenWhereInput>>;
-  OR?: InputMaybe<Array<AuthTokenWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  revoked?: InputMaybe<BoolFilter>;
-  token?: InputMaybe<StringFilter>;
-  tokenExpiresAt?: InputMaybe<DateTimeFilter>;
-  type?: InputMaybe<EnumAuthTokenTypeFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type Bank = {
-  __typename?: "Bank";
-  _count: BankCount;
-  available: Scalars["Boolean"]["output"];
+export type Booking = {
+  __typename?: "Booking";
+  activity: Activity;
+  activityId: Scalars["Int"]["output"];
+  activitySlot: ActivitySlot;
+  activitySlotId: Scalars["Int"]["output"];
+  attendedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  cancelledAt?: Maybe<Scalars["DateTime"]["output"]>;
+  cancelledById?: Maybe<Scalars["Int"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
-  id: Scalars["Int"]["output"];
-  logo: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  sequence: Scalars["Int"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-};
-
-export type BankCount = {
-  __typename?: "BankCount";
-  Employee: Scalars["Int"]["output"];
-};
-
-export type BankFindManyResult = {
-  __typename?: "BankFindManyResult";
-  data: Array<Bank>;
-  total: Scalars["Int"]["output"];
-};
-
-export type BankNullableRelationFilter = {
-  is?: InputMaybe<BankWhereInput>;
-  isNot?: InputMaybe<BankWhereInput>;
-};
-
-export type BankOrderByWithRelationInput = {
-  Employee?: InputMaybe<EmployeeOrderByRelationAggregateInput>;
-  available?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  logo?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  sequence?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-};
-
-export enum BankScalarFieldEnum {
-  Available = "available",
-  CreatedAt = "createdAt",
-  Id = "id",
-  Logo = "logo",
-  Name = "name",
-  Sequence = "sequence",
-  UpdatedAt = "updatedAt",
-}
-
-export type BankWhereInput = {
-  AND?: InputMaybe<Array<BankWhereInput>>;
-  Employee?: InputMaybe<EmployeeListRelationFilter>;
-  NOT?: InputMaybe<Array<BankWhereInput>>;
-  OR?: InputMaybe<Array<BankWhereInput>>;
-  available?: InputMaybe<BoolFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  logo?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  sequence?: InputMaybe<IntFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type BankWhereUniqueInput = {
-  AND?: InputMaybe<Array<BankWhereInput>>;
-  Employee?: InputMaybe<EmployeeListRelationFilter>;
-  NOT?: InputMaybe<Array<BankWhereInput>>;
-  OR?: InputMaybe<Array<BankWhereInput>>;
-  available?: InputMaybe<BoolFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  logo?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  sequence?: InputMaybe<IntFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type Blacklist = {
-  __typename?: "Blacklist";
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  date: Scalars["DateTime"]["output"];
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  reason: Scalars["String"]["output"];
+  dueAt: Scalars["DateTime"]["output"];
+  id: Scalars["Int"]["output"];
+  notifiedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  outlet: Outlet;
+  outletId: Scalars["Int"]["output"];
+  persons: Scalars["Int"]["output"];
+  refNo: Scalars["String"]["output"];
+  status: BookingStatus;
   updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
+  verifiedById?: Maybe<Scalars["Int"]["output"]>;
 };
 
-export type BlacklistCompanyIdEmployeeIdCompoundUniqueInput = {
-  companyId: Scalars["Int"]["input"];
-  employeeId: Scalars["Int"]["input"];
-};
-
-export type BlacklistFindManyResult = {
-  __typename?: "BlacklistFindManyResult";
-  data: Array<Blacklist>;
+export type BookingFindManyResult = {
+  __typename?: "BookingFindManyResult";
+  data: Array<Booking>;
   total: Scalars["Int"]["output"];
 };
 
-export type BlacklistListRelationFilter = {
-  every?: InputMaybe<BlacklistWhereInput>;
-  none?: InputMaybe<BlacklistWhereInput>;
-  some?: InputMaybe<BlacklistWhereInput>;
+export type BookingListRelationFilter = {
+  every?: InputMaybe<BookingWhereInput>;
+  none?: InputMaybe<BookingWhereInput>;
+  some?: InputMaybe<BookingWhereInput>;
 };
 
-export type BlacklistOrderByRelationAggregateInput = {
+export type BookingOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type BlacklistOrderByWithRelationInput = {
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  reason?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-};
-
-export enum BlacklistScalarFieldEnum {
-  CompanyId = "companyId",
-  CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  EmployeeId = "employeeId",
-  Reason = "reason",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
+export enum BookingOrderByRelevanceFieldEnum {
+  RefNo = "refNo",
 }
 
-export type BlacklistWhereInput = {
-  AND?: InputMaybe<Array<BlacklistWhereInput>>;
-  NOT?: InputMaybe<Array<BlacklistWhereInput>>;
-  OR?: InputMaybe<Array<BlacklistWhereInput>>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  reason?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
+export type BookingOrderByRelevanceInput = {
+  fields: Array<BookingOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
 };
 
-export type BlacklistWhereUniqueInput = {
-  AND?: InputMaybe<Array<BlacklistWhereInput>>;
-  NOT?: InputMaybe<Array<BlacklistWhereInput>>;
-  OR?: InputMaybe<Array<BlacklistWhereInput>>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  companyId_employeeId?: InputMaybe<BlacklistCompanyIdEmployeeIdCompoundUniqueInput>;
+export type BookingOrderByWithRelationInput = {
+  _relevance?: InputMaybe<BookingOrderByRelevanceInput>;
+  activity?: InputMaybe<ActivityOrderByWithRelationInput>;
+  activityId?: InputMaybe<SortOrder>;
+  activitySlot?: InputMaybe<ActivitySlotOrderByWithRelationInput>;
+  activitySlotId?: InputMaybe<SortOrder>;
+  attendedAt?: InputMaybe<SortOrderInput>;
+  cancelledAt?: InputMaybe<SortOrderInput>;
+  cancelledById?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  date?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  dueAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  notifiedAt?: InputMaybe<SortOrderInput>;
+  outlet?: InputMaybe<OutletOrderByWithRelationInput>;
+  outletId?: InputMaybe<SortOrder>;
+  persons?: InputMaybe<SortOrder>;
+  refNo?: InputMaybe<SortOrder>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  verifiedById?: InputMaybe<SortOrderInput>;
+};
+
+export enum BookingScalarFieldEnum {
+  ActivityId = "activityId",
+  ActivitySlotId = "activitySlotId",
+  AttendedAt = "attendedAt",
+  CancelledAt = "cancelledAt",
+  CancelledById = "cancelledById",
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  Date = "date",
+  DeletedAt = "deletedAt",
+  DueAt = "dueAt",
+  Id = "id",
+  NotifiedAt = "notifiedAt",
+  OutletId = "outletId",
+  Persons = "persons",
+  RefNo = "refNo",
+  Status = "status",
+  UpdatedAt = "updatedAt",
+  VerifiedById = "verifiedById",
+}
+
+export enum BookingStatus {
+  Attended = "Attended",
+  Booked = "Booked",
+  Cancelled = "Cancelled",
+  Unattended = "Unattended",
+}
+
+export type BookingWhereInput = {
+  AND?: InputMaybe<Array<BookingWhereInput>>;
+  NOT?: InputMaybe<Array<BookingWhereInput>>;
+  OR?: InputMaybe<Array<BookingWhereInput>>;
+  activity?: InputMaybe<ActivityRelationFilter>;
+  activityId?: InputMaybe<IntFilter>;
+  activitySlot?: InputMaybe<ActivitySlotRelationFilter>;
+  activitySlotId?: InputMaybe<IntFilter>;
+  attendedAt?: InputMaybe<DateTimeNullableFilter>;
+  cancelledAt?: InputMaybe<DateTimeNullableFilter>;
+  cancelledById?: InputMaybe<IntNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  date?: InputMaybe<DateTimeFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  reason?: InputMaybe<StringFilter>;
+  dueAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  notifiedAt?: InputMaybe<DateTimeNullableFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  persons?: InputMaybe<IntFilter>;
+  refNo?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumBookingStatusFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
+  verifiedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type BookingWhereUniqueInput = {
+  AND?: InputMaybe<Array<BookingWhereInput>>;
+  NOT?: InputMaybe<Array<BookingWhereInput>>;
+  OR?: InputMaybe<Array<BookingWhereInput>>;
+  activity?: InputMaybe<ActivityRelationFilter>;
+  activityId?: InputMaybe<IntFilter>;
+  activitySlot?: InputMaybe<ActivitySlotRelationFilter>;
+  activitySlotId?: InputMaybe<IntFilter>;
+  attendedAt?: InputMaybe<DateTimeNullableFilter>;
+  cancelledAt?: InputMaybe<DateTimeNullableFilter>;
+  cancelledById?: InputMaybe<IntNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  date?: InputMaybe<DateTimeFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  dueAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  notifiedAt?: InputMaybe<DateTimeNullableFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  persons?: InputMaybe<IntFilter>;
+  refNo?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<EnumBookingStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  verifiedById?: InputMaybe<IntNullableFilter>;
 };
 
 export type BoolFilter = {
@@ -361,353 +634,819 @@ export type BoolFilter = {
   not?: InputMaybe<NestedBoolFilter>;
 };
 
-export type Company = {
-  __typename?: "Company";
-  _count: CompanyCount;
-  addresses?: Maybe<Array<CompanyAddress>>;
-  attendanceBufferMinutes: Scalars["Int"]["output"];
-  bio: Scalars["String"]["output"];
-  blacklist?: Maybe<Array<Blacklist>>;
-  comments?: Maybe<Array<EmployeeRating>>;
-  companySize: Scalars["String"]["output"];
+export type CheckIn = {
+  __typename?: "CheckIn";
+  admitDate?: Maybe<Scalars["DateTime"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  email: Scalars["String"]["output"];
-  headerImage: Scalars["String"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  date: Scalars["DateTime"]["output"];
   id: Scalars["Int"]["output"];
-  industryId?: Maybe<Scalars["Int"]["output"]>;
-  invoices?: Maybe<Array<Invoice>>;
-  jobPosting?: Maybe<Array<JobPosting>>;
-  jobs?: Maybe<Array<EmployeeJob>>;
-  logo: Scalars["String"]["output"];
-  name: Scalars["String"]["output"];
-  password: Scalars["String"]["output"];
-  platformFeeRate: Scalars["Decimal"]["output"];
-  sstRate: Scalars["Decimal"]["output"];
-  uid: Scalars["String"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-  warningLetters?: Maybe<Array<EmployeeWarningLetter>>;
+  outlet: Outlet;
+  outletId: Scalars["Int"]["output"];
+  ticketId?: Maybe<Scalars["String"]["output"]>;
 };
 
-export type CompanyAddress = {
-  __typename?: "CompanyAddress";
-  address: Scalars["String"]["output"];
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  id: Scalars["Int"]["output"];
-  latitude?: Maybe<Scalars["Decimal"]["output"]>;
-  longitude?: Maybe<Scalars["Decimal"]["output"]>;
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
+export type CheckInFindManyResult = {
+  __typename?: "CheckInFindManyResult";
+  data: Array<CheckIn>;
+  total: Scalars["Int"]["output"];
 };
 
-export type CompanyAddressListRelationFilter = {
-  every?: InputMaybe<CompanyAddressWhereInput>;
-  none?: InputMaybe<CompanyAddressWhereInput>;
-  some?: InputMaybe<CompanyAddressWhereInput>;
+export type CheckInListRelationFilter = {
+  every?: InputMaybe<CheckInWhereInput>;
+  none?: InputMaybe<CheckInWhereInput>;
+  some?: InputMaybe<CheckInWhereInput>;
 };
 
-export type CompanyAddressOrderByRelationAggregateInput = {
+export type CheckInOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type CompanyAddressWhereInput = {
-  AND?: InputMaybe<Array<CompanyAddressWhereInput>>;
-  NOT?: InputMaybe<Array<CompanyAddressWhereInput>>;
-  OR?: InputMaybe<Array<CompanyAddressWhereInput>>;
-  address?: InputMaybe<StringFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  id?: InputMaybe<IntFilter>;
-  latitude?: InputMaybe<DecimalNullableFilter>;
-  longitude?: InputMaybe<DecimalNullableFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
+export enum CheckInOrderByRelevanceFieldEnum {
+  TicketId = "ticketId",
+}
+
+export type CheckInOrderByRelevanceInput = {
+  fields: Array<CheckInOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
 };
 
-export type CompanyCount = {
-  __typename?: "CompanyCount";
-  addresses: Scalars["Int"]["output"];
-  blacklist: Scalars["Int"]["output"];
-  comments: Scalars["Int"]["output"];
-  invoices: Scalars["Int"]["output"];
-  jobPosting: Scalars["Int"]["output"];
-  jobs: Scalars["Int"]["output"];
-  warningLetters: Scalars["Int"]["output"];
-};
-
-export type CompanyFindManyResult = {
-  __typename?: "CompanyFindManyResult";
-  data: Array<Company>;
-  total: Scalars["Int"]["output"];
-};
-
-export type CompanyOrderByWithRelationInput = {
-  addresses?: InputMaybe<CompanyAddressOrderByRelationAggregateInput>;
-  attendanceBufferMinutes?: InputMaybe<SortOrder>;
-  bio?: InputMaybe<SortOrder>;
-  blacklist?: InputMaybe<BlacklistOrderByRelationAggregateInput>;
-  comments?: InputMaybe<EmployeeRatingOrderByRelationAggregateInput>;
-  companySize?: InputMaybe<SortOrder>;
+export type CheckInOrderByWithRelationInput = {
+  _relevance?: InputMaybe<CheckInOrderByRelevanceInput>;
+  admitDate?: InputMaybe<SortOrderInput>;
   createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  email?: InputMaybe<SortOrder>;
-  headerImage?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  date?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  industryId?: InputMaybe<SortOrderInput>;
-  invoices?: InputMaybe<InvoiceOrderByRelationAggregateInput>;
-  jobPosting?: InputMaybe<JobPostingOrderByRelationAggregateInput>;
-  jobs?: InputMaybe<EmployeeJobOrderByRelationAggregateInput>;
-  logo?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  password?: InputMaybe<SortOrder>;
-  platformFeeRate?: InputMaybe<SortOrder>;
-  sstRate?: InputMaybe<SortOrder>;
-  uid?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-  warningLetters?: InputMaybe<EmployeeWarningLetterOrderByRelationAggregateInput>;
+  outlet?: InputMaybe<OutletOrderByWithRelationInput>;
+  outletId?: InputMaybe<SortOrder>;
+  ticketId?: InputMaybe<SortOrderInput>;
 };
 
-export type CompanyRelationFilter = {
-  is?: InputMaybe<CompanyWhereInput>;
-  isNot?: InputMaybe<CompanyWhereInput>;
-};
-
-export enum CompanyScalarFieldEnum {
-  AttendanceBufferMinutes = "attendanceBufferMinutes",
-  Bio = "bio",
-  CompanySize = "companySize",
+export enum CheckInScalarFieldEnum {
+  AdmitDate = "admitDate",
   CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  Email = "email",
-  HeaderImage = "headerImage",
+  CustomerId = "customerId",
+  Date = "date",
   Id = "id",
-  IndustryId = "industryId",
-  Logo = "logo",
-  Name = "name",
-  Password = "password",
-  PlatformFeeRate = "platformFeeRate",
-  SstRate = "sstRate",
-  Uid = "uid",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
+  OutletId = "outletId",
+  TicketId = "ticketId",
 }
 
-export type CompanyUser = {
-  __typename?: "CompanyUser";
-  company_id: Scalars["Int"]["output"];
-  contactNumber: Scalars["String"]["output"];
-  countryCode?: Maybe<Scalars["String"]["output"]>;
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  department: Scalars["String"]["output"];
-  email: Scalars["String"]["output"];
-  id: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-  position: Scalars["String"]["output"];
-  role: CompanyUserRole;
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-  user: User;
-  whatsappLink: Scalars["String"]["output"];
-};
-
-export type CompanyUserFindManyResult = {
-  __typename?: "CompanyUserFindManyResult";
-  data: Array<CompanyUser>;
-  total: Scalars["Int"]["output"];
-};
-
-export type CompanyUserNullableRelationFilter = {
-  is?: InputMaybe<CompanyUserWhereInput>;
-  isNot?: InputMaybe<CompanyUserWhereInput>;
-};
-
-export type CompanyUserOrderByWithRelationInput = {
-  company_id?: InputMaybe<SortOrder>;
-  contactNumber?: InputMaybe<SortOrder>;
-  countryCode?: InputMaybe<SortOrderInput>;
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  department?: InputMaybe<SortOrder>;
-  email?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  password?: InputMaybe<SortOrder>;
-  position?: InputMaybe<SortOrder>;
-  role?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-  user?: InputMaybe<UserOrderByWithRelationInput>;
-  whatsappLink?: InputMaybe<SortOrder>;
-};
-
-export enum CompanyUserRole {
-  Admin = "ADMIN",
-  DepartmentManager = "DEPARTMENT_MANAGER",
-  Finance = "FINANCE",
-  Hr = "HR",
-  Supervisor = "SUPERVISOR",
-  SuperAdmin = "SUPER_ADMIN",
-  TeamLeader = "TEAM_LEADER",
-}
-
-export enum CompanyUserScalarFieldEnum {
-  CompanyId = "company_id",
-  ContactNumber = "contactNumber",
-  CountryCode = "countryCode",
-  CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  Department = "department",
-  Email = "email",
-  Id = "id",
-  Name = "name",
-  Password = "password",
-  Position = "position",
-  Role = "role",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
-  WhatsappLink = "whatsappLink",
-}
-
-export type CompanyUserWhereInput = {
-  AND?: InputMaybe<Array<CompanyUserWhereInput>>;
-  NOT?: InputMaybe<Array<CompanyUserWhereInput>>;
-  OR?: InputMaybe<Array<CompanyUserWhereInput>>;
-  company_id?: InputMaybe<IntFilter>;
-  contactNumber?: InputMaybe<StringFilter>;
-  countryCode?: InputMaybe<StringNullableFilter>;
+export type CheckInWhereInput = {
+  AND?: InputMaybe<Array<CheckInWhereInput>>;
+  NOT?: InputMaybe<Array<CheckInWhereInput>>;
+  OR?: InputMaybe<Array<CheckInWhereInput>>;
+  admitDate?: InputMaybe<DateTimeNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  department?: InputMaybe<StringFilter>;
-  email?: InputMaybe<StringFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  date?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  position?: InputMaybe<StringFilter>;
-  role?: InputMaybe<EnumCompanyUserRoleFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  whatsappLink?: InputMaybe<StringFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  ticketId?: InputMaybe<StringNullableFilter>;
 };
 
-export type CompanyUserWhereUniqueInput = {
-  AND?: InputMaybe<Array<CompanyUserWhereInput>>;
-  NOT?: InputMaybe<Array<CompanyUserWhereInput>>;
-  OR?: InputMaybe<Array<CompanyUserWhereInput>>;
-  company_id?: InputMaybe<IntFilter>;
-  contactNumber?: InputMaybe<StringFilter>;
-  countryCode?: InputMaybe<StringNullableFilter>;
+export type CheckInWhereUniqueInput = {
+  AND?: InputMaybe<Array<CheckInWhereInput>>;
+  NOT?: InputMaybe<Array<CheckInWhereInput>>;
+  OR?: InputMaybe<Array<CheckInWhereInput>>;
+  admitDate?: InputMaybe<DateTimeNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  department?: InputMaybe<StringFilter>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  date?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  position?: InputMaybe<StringFilter>;
-  role?: InputMaybe<EnumCompanyUserRoleFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  whatsappLink?: InputMaybe<StringFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  ticketId?: InputMaybe<StringNullableFilter>;
 };
 
-export type CompanyWhereInput = {
-  AND?: InputMaybe<Array<CompanyWhereInput>>;
-  NOT?: InputMaybe<Array<CompanyWhereInput>>;
-  OR?: InputMaybe<Array<CompanyWhereInput>>;
-  addresses?: InputMaybe<CompanyAddressListRelationFilter>;
-  attendanceBufferMinutes?: InputMaybe<IntFilter>;
-  bio?: InputMaybe<StringFilter>;
-  blacklist?: InputMaybe<BlacklistListRelationFilter>;
-  comments?: InputMaybe<EmployeeRatingListRelationFilter>;
-  companySize?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  email?: InputMaybe<StringFilter>;
-  headerImage?: InputMaybe<StringFilter>;
-  id?: InputMaybe<IntFilter>;
-  industryId?: InputMaybe<IntNullableFilter>;
-  invoices?: InputMaybe<InvoiceListRelationFilter>;
-  jobPosting?: InputMaybe<JobPostingListRelationFilter>;
-  jobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  logo?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  platformFeeRate?: InputMaybe<DecimalFilter>;
-  sstRate?: InputMaybe<DecimalFilter>;
-  uid?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  warningLetters?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
+export type CreateActivityInput = {
+  coverImage?: InputMaybe<Scalars["Upload"]["input"]>;
+  description: Scalars["String"]["input"];
+  name: Scalars["String"]["input"];
+  outletId: Scalars["Float"]["input"];
+  requirement?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<ActivityStatus>;
 };
 
-export type CompanyWhereUniqueInput = {
-  AND?: InputMaybe<Array<CompanyWhereInput>>;
-  NOT?: InputMaybe<Array<CompanyWhereInput>>;
-  OR?: InputMaybe<Array<CompanyWhereInput>>;
-  addresses?: InputMaybe<CompanyAddressListRelationFilter>;
-  attendanceBufferMinutes?: InputMaybe<IntFilter>;
-  bio?: InputMaybe<StringFilter>;
-  blacklist?: InputMaybe<BlacklistListRelationFilter>;
-  comments?: InputMaybe<EmployeeRatingListRelationFilter>;
-  companySize?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  headerImage?: InputMaybe<StringFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  industryId?: InputMaybe<IntNullableFilter>;
-  invoices?: InputMaybe<InvoiceListRelationFilter>;
-  jobPosting?: InputMaybe<JobPostingListRelationFilter>;
-  jobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  logo?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  platformFeeRate?: InputMaybe<DecimalFilter>;
-  sstRate?: InputMaybe<DecimalFilter>;
-  uid?: InputMaybe<Scalars["String"]["input"]>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  warningLetters?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
+export type CreateActivitySlotInput = {
+  activityId: Scalars["Float"]["input"];
+  endTime: Scalars["String"]["input"];
+  maxParticipants: Scalars["Float"]["input"];
+  startTime: Scalars["String"]["input"];
 };
 
 export type CreateAdminInput = {
+  allOutlets?: InputMaybe<Scalars["Boolean"]["input"]>;
   email: Scalars["String"]["input"];
-  name: Scalars["String"]["input"];
+  fullName: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
+  role: Role;
+};
+
+export type CreateNewsfeedInput = {
+  content: Scalars["String"]["input"];
+  coverImage?: InputMaybe<Scalars["Upload"]["input"]>;
+  deeplink?: InputMaybe<Scalars["String"]["input"]>;
+  thumbnail?: InputMaybe<Scalars["Upload"]["input"]>;
+  title: Scalars["String"]["input"];
+};
+
+export type CreateOutletInput = {
+  active?: InputMaybe<Scalars["Boolean"]["input"]>;
+  address?: InputMaybe<Scalars["String"]["input"]>;
+  branchCode?: InputMaybe<Scalars["String"]["input"]>;
+  branchFnbCode?: InputMaybe<Scalars["String"]["input"]>;
+  checkInRadius?: InputMaybe<Scalars["Float"]["input"]>;
+  coverImage?: InputMaybe<Scalars["String"]["input"]>;
+  endTime: Scalars["String"]["input"];
+  latitude?: InputMaybe<Scalars["Float"]["input"]>;
+  longitude?: InputMaybe<Scalars["Float"]["input"]>;
+  name: Scalars["String"]["input"];
+  startTime: Scalars["String"]["input"];
+};
+
+export type CreateRewardInput = {
+  active?: InputMaybe<Scalars["Boolean"]["input"]>;
+  description: Scalars["String"]["input"];
+  redemptionPoint: Scalars["Float"]["input"];
+  termsAndConditions?: InputMaybe<Scalars["String"]["input"]>;
+  thumbnail: Scalars["String"]["input"];
+  title: Scalars["String"]["input"];
+  validityDays: Scalars["Float"]["input"];
+};
+
+export type Customer = {
+  __typename?: "Customer";
+  _count: CustomerCount;
+  bookings?: Maybe<Array<Booking>>;
+  checkins?: Maybe<Array<CheckIn>>;
+  createdAt: Scalars["DateTime"]["output"];
+  currentTier?: Maybe<Tier>;
+  currentTierId?: Maybe<Scalars["Int"]["output"]>;
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  dob?: Maybe<Scalars["DateTime"]["output"]>;
+  email?: Maybe<Scalars["String"]["output"]>;
+  exp: Scalars["Int"]["output"];
+  experiences?: Maybe<Array<CustomerExperience>>;
+  fullName: Scalars["String"]["output"];
+  groupEventAttendees?: Maybe<Array<GroupEventAttendee>>;
+  groups?: Maybe<Array<GroupUser>>;
+  id: Scalars["Int"]["output"];
+  managedGroups?: Maybe<Array<Group>>;
+  nextTier?: Maybe<Tier>;
+  nextTierId?: Maybe<Scalars["Int"]["output"]>;
+  notifications?: Maybe<Array<CustomerNotification>>;
+  phoneCode: Scalars["String"]["output"];
+  phoneNo: Scalars["String"]["output"];
+  points: Scalars["Int"]["output"];
+  post?: Maybe<Array<Post>>;
+  postComments?: Maybe<Array<PostComment>>;
+  postLike?: Maybe<Array<PostLike>>;
+  profilePicture?: Maybe<Scalars["String"]["output"]>;
+  rewards?: Maybe<Array<CustomerReward>>;
+  status: AccountStatus;
+  unreadCount: Scalars["Int"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type CustomerCount = {
+  __typename?: "CustomerCount";
+  bookings: Scalars["Int"]["output"];
+  checkins: Scalars["Int"]["output"];
+  createdGroupEvents: Scalars["Int"]["output"];
+  experiences: Scalars["Int"]["output"];
+  groupEventAttendees: Scalars["Int"]["output"];
+  groups: Scalars["Int"]["output"];
+  managedGroups: Scalars["Int"]["output"];
+  notifications: Scalars["Int"]["output"];
+  post: Scalars["Int"]["output"];
+  postComments: Scalars["Int"]["output"];
+  postLike: Scalars["Int"]["output"];
+  rewards: Scalars["Int"]["output"];
+};
+
+export type CustomerExperience = {
+  __typename?: "CustomerExperience";
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  description?: Maybe<Scalars["String"]["output"]>;
+  experience: Scalars["Int"]["output"];
+  expiredAt?: Maybe<Scalars["DateTime"]["output"]>;
+  id: Scalars["Int"]["output"];
+  meta?: Maybe<Scalars["JSON"]["output"]>;
+  type: ExperienceType;
+};
+
+export type CustomerExperienceFindManyResult = {
+  __typename?: "CustomerExperienceFindManyResult";
+  data: Array<CustomerExperience>;
+  total: Scalars["Int"]["output"];
+};
+
+export type CustomerExperienceListRelationFilter = {
+  every?: InputMaybe<CustomerExperienceWhereInput>;
+  none?: InputMaybe<CustomerExperienceWhereInput>;
+  some?: InputMaybe<CustomerExperienceWhereInput>;
+};
+
+export type CustomerExperienceOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerExperienceOrderByRelevanceFieldEnum {
+  Description = "description",
+}
+
+export type CustomerExperienceOrderByRelevanceInput = {
+  fields: Array<CustomerExperienceOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type CustomerExperienceOrderByWithRelationInput = {
+  _relevance?: InputMaybe<CustomerExperienceOrderByRelevanceInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  description?: InputMaybe<SortOrderInput>;
+  experience?: InputMaybe<SortOrder>;
+  expiredAt?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  meta?: InputMaybe<SortOrderInput>;
+  type?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerExperienceScalarFieldEnum {
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  Description = "description",
+  Experience = "experience",
+  ExpiredAt = "expiredAt",
+  Id = "id",
+  Meta = "meta",
+  Type = "type",
+}
+
+export type CustomerExperienceWhereInput = {
+  AND?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  OR?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringNullableFilter>;
+  experience?: InputMaybe<IntFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  meta?: InputMaybe<JsonNullableFilter>;
+  type?: InputMaybe<EnumExperienceTypeFilter>;
+};
+
+export type CustomerExperienceWhereUniqueInput = {
+  AND?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  OR?: InputMaybe<Array<CustomerExperienceWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringNullableFilter>;
+  experience?: InputMaybe<IntFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  meta?: InputMaybe<JsonNullableFilter>;
+  type?: InputMaybe<EnumExperienceTypeFilter>;
+};
+
+export type CustomerFindManyResult = {
+  __typename?: "CustomerFindManyResult";
+  data: Array<Customer>;
+  total: Scalars["Int"]["output"];
+};
+
+export type CustomerListRelationFilter = {
+  every?: InputMaybe<CustomerWhereInput>;
+  none?: InputMaybe<CustomerWhereInput>;
+  some?: InputMaybe<CustomerWhereInput>;
+};
+
+export type CustomerNotification = {
+  __typename?: "CustomerNotification";
+  bookingId?: Maybe<Scalars["Int"]["output"]>;
+  commentId?: Maybe<Scalars["Int"]["output"]>;
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  customerRewardId?: Maybe<Scalars["Int"]["output"]>;
+  deeplink?: Maybe<Scalars["String"]["output"]>;
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  expId?: Maybe<Scalars["Int"]["output"]>;
+  groupId?: Maybe<Scalars["Int"]["output"]>;
+  icon?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  metadata?: Maybe<Scalars["JSON"]["output"]>;
+  newsfeedId?: Maybe<Scalars["Int"]["output"]>;
+  pointId?: Maybe<Scalars["Int"]["output"]>;
+  postId?: Maybe<Scalars["Int"]["output"]>;
+  readAt?: Maybe<Scalars["DateTime"]["output"]>;
+  thumbnail?: Maybe<Scalars["String"]["output"]>;
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type CustomerNotificationListRelationFilter = {
+  every?: InputMaybe<CustomerNotificationWhereInput>;
+  none?: InputMaybe<CustomerNotificationWhereInput>;
+  some?: InputMaybe<CustomerNotificationWhereInput>;
+};
+
+export type CustomerNotificationOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type CustomerNotificationWhereInput = {
+  AND?: InputMaybe<Array<CustomerNotificationWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerNotificationWhereInput>>;
+  OR?: InputMaybe<Array<CustomerNotificationWhereInput>>;
+  bookingId?: InputMaybe<IntNullableFilter>;
+  commentId?: InputMaybe<IntNullableFilter>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  customerRewardId?: InputMaybe<IntNullableFilter>;
+  deeplink?: InputMaybe<StringNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  expId?: InputMaybe<IntNullableFilter>;
+  groupId?: InputMaybe<IntNullableFilter>;
+  icon?: InputMaybe<StringNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  metadata?: InputMaybe<JsonNullableFilter>;
+  newsfeedId?: InputMaybe<IntNullableFilter>;
+  pointId?: InputMaybe<IntNullableFilter>;
+  postId?: InputMaybe<IntNullableFilter>;
+  readAt?: InputMaybe<DateTimeNullableFilter>;
+  thumbnail?: InputMaybe<StringNullableFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type CustomerNullableRelationFilter = {
+  is?: InputMaybe<CustomerWhereInput>;
+  isNot?: InputMaybe<CustomerWhereInput>;
+};
+
+export type CustomerOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerOrderByRelevanceFieldEnum {
+  Email = "email",
+  FcmToken = "fcmToken",
+  FullName = "fullName",
+  Password = "password",
+  PhoneCode = "phoneCode",
+  PhoneNo = "phoneNo",
+  ProfilePicture = "profilePicture",
+  RefreshToken = "refreshToken",
+  ResetPasswordToken = "resetPasswordToken",
+}
+
+export type CustomerOrderByRelevanceInput = {
+  fields: Array<CustomerOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type CustomerOrderByWithRelationInput = {
+  _relevance?: InputMaybe<CustomerOrderByRelevanceInput>;
+  bookings?: InputMaybe<BookingOrderByRelationAggregateInput>;
+  checkins?: InputMaybe<CheckInOrderByRelationAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdGroupEvents?: InputMaybe<GroupEventOrderByRelationAggregateInput>;
+  currentTier?: InputMaybe<TierOrderByWithRelationInput>;
+  currentTierId?: InputMaybe<SortOrderInput>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  dob?: InputMaybe<SortOrderInput>;
+  email?: InputMaybe<SortOrderInput>;
+  exp?: InputMaybe<SortOrder>;
+  experiences?: InputMaybe<CustomerExperienceOrderByRelationAggregateInput>;
+  fcmToken?: InputMaybe<SortOrderInput>;
+  fullName?: InputMaybe<SortOrder>;
+  groupEventAttendees?: InputMaybe<GroupEventAttendeeOrderByRelationAggregateInput>;
+  groups?: InputMaybe<GroupUserOrderByRelationAggregateInput>;
+  id?: InputMaybe<SortOrder>;
+  managedGroups?: InputMaybe<GroupOrderByRelationAggregateInput>;
+  nextTier?: InputMaybe<TierOrderByWithRelationInput>;
+  nextTierId?: InputMaybe<SortOrderInput>;
+  notifications?: InputMaybe<CustomerNotificationOrderByRelationAggregateInput>;
+  password?: InputMaybe<SortOrderInput>;
+  phoneCode?: InputMaybe<SortOrder>;
+  phoneNo?: InputMaybe<SortOrder>;
+  points?: InputMaybe<SortOrder>;
+  post?: InputMaybe<PostOrderByRelationAggregateInput>;
+  postComments?: InputMaybe<PostCommentOrderByRelationAggregateInput>;
+  postLike?: InputMaybe<PostLikeOrderByRelationAggregateInput>;
+  profilePicture?: InputMaybe<SortOrderInput>;
+  refreshToken?: InputMaybe<SortOrderInput>;
+  refreshTokenExpiry?: InputMaybe<SortOrderInput>;
+  resetPasswordExpiry?: InputMaybe<SortOrderInput>;
+  resetPasswordToken?: InputMaybe<SortOrderInput>;
+  rewards?: InputMaybe<CustomerRewardOrderByRelationAggregateInput>;
+  status?: InputMaybe<SortOrder>;
+  unreadCount?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export type CustomerPoint = {
+  __typename?: "CustomerPoint";
+  createdAt: Scalars["DateTime"]["output"];
+  customerId: Scalars["Int"]["output"];
+  customerReward?: Maybe<CustomerReward>;
+  customerRewardId?: Maybe<Scalars["Int"]["output"]>;
+  description?: Maybe<Scalars["String"]["output"]>;
+  expiredAt?: Maybe<Scalars["DateTime"]["output"]>;
+  expiredYear?: Maybe<Scalars["Int"]["output"]>;
+  id: Scalars["Int"]["output"];
+  meta?: Maybe<Scalars["JSON"]["output"]>;
+  point: Scalars["Int"]["output"];
+  receiptAmount?: Maybe<Scalars["Int"]["output"]>;
+  receiptDate?: Maybe<Scalars["DateTime"]["output"]>;
+  receiptId?: Maybe<Scalars["String"]["output"]>;
+  type: PointType;
+};
+
+export type CustomerPointFindManyResult = {
+  __typename?: "CustomerPointFindManyResult";
+  data: Array<CustomerPoint>;
+  total: Scalars["Int"]["output"];
+};
+
+export type CustomerPointListRelationFilter = {
+  every?: InputMaybe<CustomerPointWhereInput>;
+  none?: InputMaybe<CustomerPointWhereInput>;
+  some?: InputMaybe<CustomerPointWhereInput>;
+};
+
+export type CustomerPointOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerPointOrderByRelevanceFieldEnum {
+  Description = "description",
+  ReceiptId = "receiptId",
+}
+
+export type CustomerPointOrderByRelevanceInput = {
+  fields: Array<CustomerPointOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type CustomerPointOrderByWithRelationInput = {
+  _relevance?: InputMaybe<CustomerPointOrderByRelevanceInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  customerId?: InputMaybe<SortOrder>;
+  customerReward?: InputMaybe<CustomerRewardOrderByWithRelationInput>;
+  customerRewardId?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrderInput>;
+  expiredAt?: InputMaybe<SortOrderInput>;
+  expiredYear?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  meta?: InputMaybe<SortOrderInput>;
+  point?: InputMaybe<SortOrder>;
+  receiptAmount?: InputMaybe<SortOrderInput>;
+  receiptDate?: InputMaybe<SortOrderInput>;
+  receiptId?: InputMaybe<SortOrderInput>;
+  type?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerPointScalarFieldEnum {
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  CustomerRewardId = "customerRewardId",
+  Description = "description",
+  ExpiredAt = "expiredAt",
+  ExpiredYear = "expiredYear",
+  Id = "id",
+  Meta = "meta",
+  Point = "point",
+  ReceiptAmount = "receiptAmount",
+  ReceiptDate = "receiptDate",
+  ReceiptId = "receiptId",
+  Type = "type",
+}
+
+export type CustomerPointWhereInput = {
+  AND?: InputMaybe<Array<CustomerPointWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerPointWhereInput>>;
+  OR?: InputMaybe<Array<CustomerPointWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  customerReward?: InputMaybe<CustomerRewardNullableRelationFilter>;
+  customerRewardId?: InputMaybe<IntNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  expiredYear?: InputMaybe<IntNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  meta?: InputMaybe<JsonNullableFilter>;
+  point?: InputMaybe<IntFilter>;
+  receiptAmount?: InputMaybe<IntNullableFilter>;
+  receiptDate?: InputMaybe<DateTimeNullableFilter>;
+  receiptId?: InputMaybe<StringNullableFilter>;
+  type?: InputMaybe<EnumPointTypeFilter>;
+};
+
+export type CustomerPointWhereUniqueInput = {
+  AND?: InputMaybe<Array<CustomerPointWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerPointWhereInput>>;
+  OR?: InputMaybe<Array<CustomerPointWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  customerReward?: InputMaybe<CustomerRewardNullableRelationFilter>;
+  customerRewardId?: InputMaybe<IntNullableFilter>;
+  description?: InputMaybe<StringNullableFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  expiredYear?: InputMaybe<IntNullableFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  meta?: InputMaybe<JsonNullableFilter>;
+  point?: InputMaybe<IntFilter>;
+  receiptAmount?: InputMaybe<IntNullableFilter>;
+  receiptDate?: InputMaybe<DateTimeNullableFilter>;
+  receiptId?: InputMaybe<StringNullableFilter>;
+  type?: InputMaybe<EnumPointTypeFilter>;
+};
+
+export type CustomerRelationFilter = {
+  is?: InputMaybe<CustomerWhereInput>;
+  isNot?: InputMaybe<CustomerWhereInput>;
+};
+
+export type CustomerReward = {
+  __typename?: "CustomerReward";
+  _count: CustomerRewardCount;
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  description: Scalars["String"]["output"];
+  expiredAt?: Maybe<Scalars["DateTime"]["output"]>;
+  id: Scalars["Int"]["output"];
+  redemptionPoint: Scalars["Int"]["output"];
+  remark?: Maybe<Scalars["String"]["output"]>;
+  reward: Reward;
+  rewardId: Scalars["Int"]["output"];
+  termsAndConditions: Scalars["String"]["output"];
+  thumbnail: Scalars["String"]["output"];
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+  usedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  validityDays: Scalars["Int"]["output"];
+};
+
+export type CustomerRewardCount = {
+  __typename?: "CustomerRewardCount";
+  CustomerPoint: Scalars["Int"]["output"];
+};
+
+export type CustomerRewardFindManyResult = {
+  __typename?: "CustomerRewardFindManyResult";
+  data: Array<CustomerReward>;
+  total: Scalars["Int"]["output"];
+};
+
+export type CustomerRewardListRelationFilter = {
+  every?: InputMaybe<CustomerRewardWhereInput>;
+  none?: InputMaybe<CustomerRewardWhereInput>;
+  some?: InputMaybe<CustomerRewardWhereInput>;
+};
+
+export type CustomerRewardNullableRelationFilter = {
+  is?: InputMaybe<CustomerRewardWhereInput>;
+  isNot?: InputMaybe<CustomerRewardWhereInput>;
+};
+
+export type CustomerRewardOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerRewardOrderByRelevanceFieldEnum {
+  Description = "description",
+  Remark = "remark",
+  TermsAndConditions = "termsAndConditions",
+  Thumbnail = "thumbnail",
+  Title = "title",
+}
+
+export type CustomerRewardOrderByRelevanceInput = {
+  fields: Array<CustomerRewardOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type CustomerRewardOrderByWithRelationInput = {
+  CustomerPoint?: InputMaybe<CustomerPointOrderByRelationAggregateInput>;
+  _relevance?: InputMaybe<CustomerRewardOrderByRelevanceInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrder>;
+  expiredAt?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  redemptionPoint?: InputMaybe<SortOrder>;
+  remark?: InputMaybe<SortOrderInput>;
+  reward?: InputMaybe<RewardOrderByWithRelationInput>;
+  rewardId?: InputMaybe<SortOrder>;
+  termsAndConditions?: InputMaybe<SortOrder>;
+  thumbnail?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  usedAt?: InputMaybe<SortOrderInput>;
+  validityDays?: InputMaybe<SortOrder>;
+};
+
+export enum CustomerRewardScalarFieldEnum {
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  DeletedAt = "deletedAt",
+  Description = "description",
+  ExpiredAt = "expiredAt",
+  Id = "id",
+  RedemptionPoint = "redemptionPoint",
+  Remark = "remark",
+  RewardId = "rewardId",
+  TermsAndConditions = "termsAndConditions",
+  Thumbnail = "thumbnail",
+  Title = "title",
+  UpdatedAt = "updatedAt",
+  UsedAt = "usedAt",
+  ValidityDays = "validityDays",
+}
+
+export type CustomerRewardWhereInput = {
+  AND?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  CustomerPoint?: InputMaybe<CustomerPointListRelationFilter>;
+  NOT?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  OR?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  redemptionPoint?: InputMaybe<IntFilter>;
+  remark?: InputMaybe<StringNullableFilter>;
+  reward?: InputMaybe<RewardRelationFilter>;
+  rewardId?: InputMaybe<IntFilter>;
+  termsAndConditions?: InputMaybe<StringFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  usedAt?: InputMaybe<DateTimeNullableFilter>;
+  validityDays?: InputMaybe<IntFilter>;
+};
+
+export type CustomerRewardWhereUniqueInput = {
+  AND?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  CustomerPoint?: InputMaybe<CustomerPointListRelationFilter>;
+  NOT?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  OR?: InputMaybe<Array<CustomerRewardWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  expiredAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  redemptionPoint?: InputMaybe<IntFilter>;
+  remark?: InputMaybe<StringNullableFilter>;
+  reward?: InputMaybe<RewardRelationFilter>;
+  rewardId?: InputMaybe<IntFilter>;
+  termsAndConditions?: InputMaybe<StringFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  usedAt?: InputMaybe<DateTimeNullableFilter>;
+  validityDays?: InputMaybe<IntFilter>;
+};
+
+export enum CustomerScalarFieldEnum {
+  CreatedAt = "createdAt",
+  CurrentTierId = "currentTierId",
+  DeletedAt = "deletedAt",
+  Dob = "dob",
+  Email = "email",
+  Exp = "exp",
+  FcmToken = "fcmToken",
+  FullName = "fullName",
+  Id = "id",
+  NextTierId = "nextTierId",
+  Password = "password",
+  PhoneCode = "phoneCode",
+  PhoneNo = "phoneNo",
+  Points = "points",
+  ProfilePicture = "profilePicture",
+  RefreshToken = "refreshToken",
+  RefreshTokenExpiry = "refreshTokenExpiry",
+  ResetPasswordExpiry = "resetPasswordExpiry",
+  ResetPasswordToken = "resetPasswordToken",
+  Status = "status",
+  UnreadCount = "unreadCount",
+  UpdatedAt = "updatedAt",
+}
+
+export type CustomerWhereInput = {
+  AND?: InputMaybe<Array<CustomerWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerWhereInput>>;
+  OR?: InputMaybe<Array<CustomerWhereInput>>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  checkins?: InputMaybe<CheckInListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdGroupEvents?: InputMaybe<GroupEventListRelationFilter>;
+  currentTier?: InputMaybe<TierNullableRelationFilter>;
+  currentTierId?: InputMaybe<IntNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  dob?: InputMaybe<DateTimeNullableFilter>;
+  email?: InputMaybe<StringNullableFilter>;
+  exp?: InputMaybe<IntFilter>;
+  experiences?: InputMaybe<CustomerExperienceListRelationFilter>;
+  fcmToken?: InputMaybe<StringNullableFilter>;
+  fullName?: InputMaybe<StringFilter>;
+  groupEventAttendees?: InputMaybe<GroupEventAttendeeListRelationFilter>;
+  groups?: InputMaybe<GroupUserListRelationFilter>;
+  id?: InputMaybe<IntFilter>;
+  managedGroups?: InputMaybe<GroupListRelationFilter>;
+  nextTier?: InputMaybe<TierNullableRelationFilter>;
+  nextTierId?: InputMaybe<IntNullableFilter>;
+  notifications?: InputMaybe<CustomerNotificationListRelationFilter>;
+  password?: InputMaybe<StringNullableFilter>;
+  phoneCode?: InputMaybe<StringFilter>;
+  phoneNo?: InputMaybe<StringFilter>;
+  points?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostListRelationFilter>;
+  postComments?: InputMaybe<PostCommentListRelationFilter>;
+  postLike?: InputMaybe<PostLikeListRelationFilter>;
+  profilePicture?: InputMaybe<StringNullableFilter>;
+  refreshToken?: InputMaybe<StringNullableFilter>;
+  refreshTokenExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordToken?: InputMaybe<StringNullableFilter>;
+  rewards?: InputMaybe<CustomerRewardListRelationFilter>;
+  status?: InputMaybe<EnumAccountStatusFilter>;
+  unreadCount?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type CustomerWhereUniqueInput = {
+  AND?: InputMaybe<Array<CustomerWhereInput>>;
+  NOT?: InputMaybe<Array<CustomerWhereInput>>;
+  OR?: InputMaybe<Array<CustomerWhereInput>>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  checkins?: InputMaybe<CheckInListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdGroupEvents?: InputMaybe<GroupEventListRelationFilter>;
+  currentTier?: InputMaybe<TierNullableRelationFilter>;
+  currentTierId?: InputMaybe<IntNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  dob?: InputMaybe<DateTimeNullableFilter>;
+  email?: InputMaybe<StringNullableFilter>;
+  exp?: InputMaybe<IntFilter>;
+  experiences?: InputMaybe<CustomerExperienceListRelationFilter>;
+  fcmToken?: InputMaybe<StringNullableFilter>;
+  fullName?: InputMaybe<StringFilter>;
+  groupEventAttendees?: InputMaybe<GroupEventAttendeeListRelationFilter>;
+  groups?: InputMaybe<GroupUserListRelationFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  managedGroups?: InputMaybe<GroupListRelationFilter>;
+  nextTier?: InputMaybe<TierNullableRelationFilter>;
+  nextTierId?: InputMaybe<IntNullableFilter>;
+  notifications?: InputMaybe<CustomerNotificationListRelationFilter>;
+  password?: InputMaybe<StringNullableFilter>;
+  phoneCode?: InputMaybe<StringFilter>;
+  phoneNo?: InputMaybe<StringFilter>;
+  points?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostListRelationFilter>;
+  postComments?: InputMaybe<PostCommentListRelationFilter>;
+  postLike?: InputMaybe<PostLikeListRelationFilter>;
+  profilePicture?: InputMaybe<StringNullableFilter>;
+  refreshToken?: InputMaybe<StringNullableFilter>;
+  refreshTokenExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordExpiry?: InputMaybe<DateTimeNullableFilter>;
+  resetPasswordToken?: InputMaybe<StringNullableFilter>;
+  rewards?: InputMaybe<CustomerRewardListRelationFilter>;
+  status?: InputMaybe<EnumAccountStatusFilter>;
+  unreadCount?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type DateTimeFilter = {
@@ -732,1142 +1471,646 @@ export type DateTimeNullableFilter = {
   notIn?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
 };
 
-export type DecimalFilter = {
-  equals?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  in?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
-  lt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  lte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  not?: InputMaybe<NestedDecimalFilter>;
-  notIn?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
+export type EnumAccountStatusFilter = {
+  equals?: InputMaybe<AccountStatus>;
+  in?: InputMaybe<Array<AccountStatus>>;
+  not?: InputMaybe<NestedEnumAccountStatusFilter>;
+  notIn?: InputMaybe<Array<AccountStatus>>;
 };
 
-export type DecimalNullableFilter = {
-  equals?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  in?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
-  lt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  lte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  not?: InputMaybe<NestedDecimalNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
+export type EnumActivityStatusFilter = {
+  equals?: InputMaybe<ActivityStatus>;
+  in?: InputMaybe<Array<ActivityStatus>>;
+  not?: InputMaybe<NestedEnumActivityStatusFilter>;
+  notIn?: InputMaybe<Array<ActivityStatus>>;
 };
 
-export type Employee = {
-  __typename?: "Employee";
-  _count: EmployeeCount;
-  address?: Maybe<Scalars["String"]["output"]>;
-  alAvailable: Scalars["Boolean"]["output"];
-  applications?: Maybe<Array<JobApplication>>;
-  attendances?: Maybe<Array<EmployeeAttendance>>;
-  averageRating: Scalars["Decimal"]["output"];
-  bank?: Maybe<Bank>;
-  bankAccountNo?: Maybe<Scalars["String"]["output"]>;
-  bankId?: Maybe<Scalars["Int"]["output"]>;
-  bankName?: Maybe<Scalars["String"]["output"]>;
-  contactNumber: Scalars["String"]["output"];
-  countryCode?: Maybe<Scalars["String"]["output"]>;
-  createdAt: Scalars["DateTime"]["output"];
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  disburseMethod?: Maybe<Scalars["String"]["output"]>;
-  dob?: Maybe<Scalars["String"]["output"]>;
-  email: Scalars["String"]["output"];
-  emergencyContact1?: Maybe<Scalars["String"]["output"]>;
-  emergencyContact2?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["Int"]["output"];
-  jobs?: Maybe<Array<EmployeeJob>>;
-  mcAvailable: Scalars["Boolean"]["output"];
-  name: Scalars["String"]["output"];
-  nricBackPhoto?: Maybe<Scalars["String"]["output"]>;
-  nricFrontPhoto?: Maybe<Scalars["String"]["output"]>;
-  nricNumber: Scalars["String"]["output"];
-  payments?: Maybe<Array<EmployeePayment>>;
-  profilePicture?: Maybe<Scalars["String"]["output"]>;
-  ratings?: Maybe<Array<EmployeeRating>>;
-  resume?: Maybe<Scalars["String"]["output"]>;
-  tng?: Maybe<Scalars["String"]["output"]>;
-  updatedAt: Scalars["DateTime"]["output"];
-  user: User;
-  warningLetter?: Maybe<Array<EmployeeWarningLetter>>;
+export type EnumApprovalStatusFilter = {
+  equals?: InputMaybe<ApprovalStatus>;
+  in?: InputMaybe<Array<ApprovalStatus>>;
+  not?: InputMaybe<NestedEnumApprovalStatusFilter>;
+  notIn?: InputMaybe<Array<ApprovalStatus>>;
 };
 
-export type EmployeeAttendance = {
-  __typename?: "EmployeeAttendance";
-  checkIn?: Maybe<Scalars["DateTime"]["output"]>;
-  checkOut?: Maybe<Scalars["DateTime"]["output"]>;
-  createdAt: Scalars["DateTime"]["output"];
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  id: Scalars["Int"]["output"];
-  job: EmployeeJob;
-  jobId: Scalars["Int"]["output"];
-  publicHoliday: Scalars["Boolean"]["output"];
-  status: AttendanceStatus;
-  updatedAt: Scalars["DateTime"]["output"];
-  workHours: Scalars["Int"]["output"];
-  workMinutes: Scalars["Int"]["output"];
+export type EnumBookingStatusFilter = {
+  equals?: InputMaybe<BookingStatus>;
+  in?: InputMaybe<Array<BookingStatus>>;
+  not?: InputMaybe<NestedEnumBookingStatusFilter>;
+  notIn?: InputMaybe<Array<BookingStatus>>;
 };
 
-export type EmployeeAttendanceFindManyResult = {
-  __typename?: "EmployeeAttendanceFindManyResult";
-  data: Array<EmployeeAttendance>;
-  total: Scalars["Int"]["output"];
+export type EnumExperienceTypeFilter = {
+  equals?: InputMaybe<ExperienceType>;
+  in?: InputMaybe<Array<ExperienceType>>;
+  not?: InputMaybe<NestedEnumExperienceTypeFilter>;
+  notIn?: InputMaybe<Array<ExperienceType>>;
 };
 
-export type EmployeeAttendanceListRelationFilter = {
-  every?: InputMaybe<EmployeeAttendanceWhereInput>;
-  none?: InputMaybe<EmployeeAttendanceWhereInput>;
-  some?: InputMaybe<EmployeeAttendanceWhereInput>;
+export type EnumGroupUserStatusFilter = {
+  equals?: InputMaybe<GroupUserStatus>;
+  in?: InputMaybe<Array<GroupUserStatus>>;
+  not?: InputMaybe<NestedEnumGroupUserStatusFilter>;
+  notIn?: InputMaybe<Array<GroupUserStatus>>;
 };
 
-export type EmployeeAttendanceOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
+export type EnumMedaiTypeFilter = {
+  equals?: InputMaybe<MedaiType>;
+  in?: InputMaybe<Array<MedaiType>>;
+  not?: InputMaybe<NestedEnumMedaiTypeFilter>;
+  notIn?: InputMaybe<Array<MedaiType>>;
 };
 
-export type EmployeeAttendanceOrderByWithRelationInput = {
-  checkIn?: InputMaybe<SortOrderInput>;
-  checkOut?: InputMaybe<SortOrderInput>;
-  createdAt?: InputMaybe<SortOrder>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  job?: InputMaybe<EmployeeJobOrderByWithRelationInput>;
-  jobId?: InputMaybe<SortOrder>;
-  publicHoliday?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  workHours?: InputMaybe<SortOrder>;
-  workMinutes?: InputMaybe<SortOrder>;
+export type EnumPointTypeFilter = {
+  equals?: InputMaybe<PointType>;
+  in?: InputMaybe<Array<PointType>>;
+  not?: InputMaybe<NestedEnumPointTypeFilter>;
+  notIn?: InputMaybe<Array<PointType>>;
 };
 
-export enum EmployeeAttendanceScalarFieldEnum {
-  CheckIn = "checkIn",
-  CheckOut = "checkOut",
-  CreatedAt = "createdAt",
-  EmployeeId = "employeeId",
-  Id = "id",
-  JobId = "jobId",
-  PublicHoliday = "publicHoliday",
-  Status = "status",
-  UpdatedAt = "updatedAt",
-  WorkHours = "workHours",
-  WorkMinutes = "workMinutes",
+export type EnumRoleFilter = {
+  equals?: InputMaybe<Role>;
+  in?: InputMaybe<Array<Role>>;
+  not?: InputMaybe<NestedEnumRoleFilter>;
+  notIn?: InputMaybe<Array<Role>>;
+};
+
+export type EnumSettingKeyFilter = {
+  equals?: InputMaybe<SettingKey>;
+  in?: InputMaybe<Array<SettingKey>>;
+  not?: InputMaybe<NestedEnumSettingKeyFilter>;
+  notIn?: InputMaybe<Array<SettingKey>>;
+};
+
+export type EnumUserReportStatusFilter = {
+  equals?: InputMaybe<UserReportStatus>;
+  in?: InputMaybe<Array<UserReportStatus>>;
+  not?: InputMaybe<NestedEnumUserReportStatusFilter>;
+  notIn?: InputMaybe<Array<UserReportStatus>>;
+};
+
+export enum ExperienceType {
+  AttendBookedActivity = "ATTEND_BOOKED_ACTIVITY",
+  AttendGroupEvent = "ATTEND_GROUP_EVENT",
+  CheckIn = "CHECK_IN",
 }
 
-export type EmployeeAttendanceWhereInput = {
-  AND?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  checkIn?: InputMaybe<DateTimeNullableFilter>;
-  checkOut?: InputMaybe<DateTimeNullableFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  id?: InputMaybe<IntFilter>;
-  job?: InputMaybe<EmployeeJobRelationFilter>;
-  jobId?: InputMaybe<IntFilter>;
-  publicHoliday?: InputMaybe<BoolFilter>;
-  status?: InputMaybe<EnumAttendanceStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  workHours?: InputMaybe<IntFilter>;
-  workMinutes?: InputMaybe<IntFilter>;
+export type FloatNullableFilter = {
+  equals?: InputMaybe<Scalars["Float"]["input"]>;
+  gt?: InputMaybe<Scalars["Float"]["input"]>;
+  gte?: InputMaybe<Scalars["Float"]["input"]>;
+  in?: InputMaybe<Array<Scalars["Float"]["input"]>>;
+  lt?: InputMaybe<Scalars["Float"]["input"]>;
+  lte?: InputMaybe<Scalars["Float"]["input"]>;
+  not?: InputMaybe<NestedFloatNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars["Float"]["input"]>>;
 };
 
-export type EmployeeAttendanceWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeAttendanceWhereInput>>;
-  checkIn?: InputMaybe<DateTimeNullableFilter>;
-  checkOut?: InputMaybe<DateTimeNullableFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  job?: InputMaybe<EmployeeJobRelationFilter>;
-  jobId?: InputMaybe<IntFilter>;
-  publicHoliday?: InputMaybe<BoolFilter>;
-  status?: InputMaybe<EnumAttendanceStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  workHours?: InputMaybe<IntFilter>;
-  workMinutes?: InputMaybe<IntFilter>;
-};
-
-export type EmployeeCount = {
-  __typename?: "EmployeeCount";
-  applications: Scalars["Int"]["output"];
-  attendances: Scalars["Int"]["output"];
-  blacklist: Scalars["Int"]["output"];
-  jobs: Scalars["Int"]["output"];
-  payments: Scalars["Int"]["output"];
-  ratings: Scalars["Int"]["output"];
-  warningLetter: Scalars["Int"]["output"];
-};
-
-export type EmployeeFindManyResult = {
-  __typename?: "EmployeeFindManyResult";
-  data: Array<Employee>;
-  total: Scalars["Int"]["output"];
-};
-
-export type EmployeeJob = {
-  __typename?: "EmployeeJob";
-  _count: EmployeeJobCount;
-  attendances?: Maybe<Array<EmployeeAttendance>>;
-  company: Company;
-  companyId: Scalars["Int"]["output"];
+export type Group = {
+  __typename?: "Group";
+  _count: GroupCount;
+  admin?: Maybe<Customer>;
+  adminId?: Maybe<Scalars["Int"]["output"]>;
+  approvedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  coverImage?: Maybe<Scalars["String"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
-  dailyRate: Scalars["Decimal"]["output"];
+  createdById?: Maybe<Scalars["Int"]["output"]>;
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  endDate: Scalars["DateTime"]["output"];
-  endTime: Scalars["String"]["output"];
-  epfDeduction: Scalars["Boolean"]["output"];
-  equipments: Scalars["JSON"]["output"];
-  hourlyRate: Scalars["Decimal"]["output"];
-  hoursPerDay: Scalars["Int"]["output"];
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  description: Scalars["String"]["output"];
+  groupEvents?: Maybe<Array<GroupEvent>>;
   id: Scalars["Int"]["output"];
-  locationAddress: Scalars["String"]["output"];
-  locationCity: Scalars["String"]["output"];
-  locationPostcode: Scalars["String"]["output"];
-  locationState: Scalars["String"]["output"];
-  locationUrl: Scalars["String"]["output"];
-  numShifts: Scalars["Int"]["output"];
-  payments?: Maybe<Array<EmployeePayment>>;
-  payoutType: PayoutType;
-  postingId: Scalars["Int"]["output"];
-  postingJob: JobPosting;
-  ratings?: Maybe<Array<EmployeeRating>>;
-  salary: Scalars["Decimal"]["output"];
-  skills: Scalars["JSON"]["output"];
-  startDate: Scalars["DateTime"]["output"];
-  startTime: Scalars["String"]["output"];
-  status: JobStatus;
+  lastActivityAt?: Maybe<Scalars["DateTime"]["output"]>;
+  memberCount: Scalars["Int"]["output"];
+  members?: Maybe<Array<GroupUser>>;
+  minAge?: Maybe<Scalars["Int"]["output"]>;
+  name: Scalars["String"]["output"];
+  posts?: Maybe<Array<Post>>;
+  postsCount: Scalars["Int"]["output"];
+  rejectedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  rejectedReason?: Maybe<Scalars["String"]["output"]>;
+  reviewedBy?: Maybe<Admin>;
+  reviewedById?: Maybe<Scalars["Int"]["output"]>;
+  status: ApprovalStatus;
+  submittedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  tagLine?: Maybe<Scalars["String"]["output"]>;
+  updatedAt: Scalars["DateTime"]["output"];
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type GroupCount = {
+  __typename?: "GroupCount";
+  groupEvents: Scalars["Int"]["output"];
+  members: Scalars["Int"]["output"];
+  posts: Scalars["Int"]["output"];
+};
+
+export type GroupEvent = {
+  __typename?: "GroupEvent";
+  _count: GroupEventCount;
+  attendees?: Maybe<Array<GroupEventAttendee>>;
+  attendeesCount: Scalars["Int"]["output"];
+  coverImage?: Maybe<Scalars["String"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  createdById?: Maybe<Scalars["Int"]["output"]>;
+  creator: Customer;
+  customerId: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  description: Scalars["String"]["output"];
+  eventDate: Scalars["DateTime"]["output"];
+  group: Group;
+  groupId: Scalars["Int"]["output"];
+  id: Scalars["Int"]["output"];
+  minAge?: Maybe<Scalars["Int"]["output"]>;
+  outlet: Outlet;
+  outletId: Scalars["Int"]["output"];
+  post: Post;
+  postId: Scalars["Int"]["output"];
+  startTime: Scalars["DateTime"]["output"];
+  status: ApprovalStatus;
   title: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
-  warningLetter?: Maybe<Array<EmployeeWarningLetter>>;
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
 };
 
-export type EmployeeJobCount = {
-  __typename?: "EmployeeJobCount";
-  attendances: Scalars["Int"]["output"];
-  payments: Scalars["Int"]["output"];
-  ratings: Scalars["Int"]["output"];
-  warningLetter: Scalars["Int"]["output"];
+export type GroupEventAttendee = {
+  __typename?: "GroupEventAttendee";
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  groupEvent: GroupEvent;
+  groupEventId: Scalars["Int"]["output"];
 };
 
-export type EmployeeJobFindManyResult = {
-  __typename?: "EmployeeJobFindManyResult";
-  data: Array<EmployeeJob>;
+export type GroupEventAttendeeFindManyResult = {
+  __typename?: "GroupEventAttendeeFindManyResult";
+  data: Array<GroupEventAttendee>;
   total: Scalars["Int"]["output"];
 };
 
-export type EmployeeJobListRelationFilter = {
-  every?: InputMaybe<EmployeeJobWhereInput>;
-  none?: InputMaybe<EmployeeJobWhereInput>;
-  some?: InputMaybe<EmployeeJobWhereInput>;
+export type GroupEventAttendeeGroupEventIdCustomerIdCompoundUniqueInput = {
+  customerId: Scalars["Int"]["input"];
+  groupEventId: Scalars["Int"]["input"];
 };
 
-export type EmployeeJobNullableRelationFilter = {
-  is?: InputMaybe<EmployeeJobWhereInput>;
-  isNot?: InputMaybe<EmployeeJobWhereInput>;
+export type GroupEventAttendeeListRelationFilter = {
+  every?: InputMaybe<GroupEventAttendeeWhereInput>;
+  none?: InputMaybe<GroupEventAttendeeWhereInput>;
+  some?: InputMaybe<GroupEventAttendeeWhereInput>;
 };
 
-export type EmployeeJobOrderByRelationAggregateInput = {
+export type GroupEventAttendeeOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type EmployeeJobOrderByWithRelationInput = {
-  attendances?: InputMaybe<EmployeeAttendanceOrderByRelationAggregateInput>;
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
+export type GroupEventAttendeeOrderByWithRelationInput = {
   createdAt?: InputMaybe<SortOrder>;
-  dailyRate?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  groupEvent?: InputMaybe<GroupEventOrderByWithRelationInput>;
+  groupEventId?: InputMaybe<SortOrder>;
+};
+
+export enum GroupEventAttendeeScalarFieldEnum {
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  GroupEventId = "groupEventId",
+}
+
+export type GroupEventAttendeeWhereInput = {
+  AND?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  NOT?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  OR?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  groupEvent?: InputMaybe<GroupEventRelationFilter>;
+  groupEventId?: InputMaybe<IntFilter>;
+};
+
+export type GroupEventAttendeeWhereUniqueInput = {
+  AND?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  NOT?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  OR?: InputMaybe<Array<GroupEventAttendeeWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  groupEvent?: InputMaybe<GroupEventRelationFilter>;
+  groupEventId?: InputMaybe<IntFilter>;
+  groupEventId_customerId?: InputMaybe<GroupEventAttendeeGroupEventIdCustomerIdCompoundUniqueInput>;
+};
+
+export type GroupEventCount = {
+  __typename?: "GroupEventCount";
+  attendees: Scalars["Int"]["output"];
+};
+
+export type GroupEventFindManyResult = {
+  __typename?: "GroupEventFindManyResult";
+  data: Array<GroupEvent>;
+  total: Scalars["Int"]["output"];
+};
+
+export type GroupEventListRelationFilter = {
+  every?: InputMaybe<GroupEventWhereInput>;
+  none?: InputMaybe<GroupEventWhereInput>;
+  some?: InputMaybe<GroupEventWhereInput>;
+};
+
+export type GroupEventNullableRelationFilter = {
+  is?: InputMaybe<GroupEventWhereInput>;
+  isNot?: InputMaybe<GroupEventWhereInput>;
+};
+
+export type GroupEventOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum GroupEventOrderByRelevanceFieldEnum {
+  CoverImage = "coverImage",
+  Description = "description",
+  Title = "title",
+}
+
+export type GroupEventOrderByRelevanceInput = {
+  fields: Array<GroupEventOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type GroupEventOrderByWithRelationInput = {
+  _relevance?: InputMaybe<GroupEventOrderByRelevanceInput>;
+  attendees?: InputMaybe<GroupEventAttendeeOrderByRelationAggregateInput>;
+  attendeesCount?: InputMaybe<SortOrder>;
+  coverImage?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdById?: InputMaybe<SortOrderInput>;
+  creator?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
   deletedAt?: InputMaybe<SortOrderInput>;
-  description?: InputMaybe<SortOrderInput>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  endDate?: InputMaybe<SortOrder>;
-  endTime?: InputMaybe<SortOrder>;
-  epfDeduction?: InputMaybe<SortOrder>;
-  equipments?: InputMaybe<SortOrder>;
-  hourlyRate?: InputMaybe<SortOrder>;
-  hoursPerDay?: InputMaybe<SortOrder>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrder>;
+  eventDate?: InputMaybe<SortOrder>;
+  group?: InputMaybe<GroupOrderByWithRelationInput>;
+  groupId?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  locationAddress?: InputMaybe<SortOrder>;
-  locationCity?: InputMaybe<SortOrder>;
-  locationPostcode?: InputMaybe<SortOrder>;
-  locationState?: InputMaybe<SortOrder>;
-  locationUrl?: InputMaybe<SortOrder>;
-  numShifts?: InputMaybe<SortOrder>;
-  payments?: InputMaybe<EmployeePaymentOrderByRelationAggregateInput>;
-  payoutType?: InputMaybe<SortOrder>;
-  postingId?: InputMaybe<SortOrder>;
-  postingJob?: InputMaybe<JobPostingOrderByWithRelationInput>;
-  ratings?: InputMaybe<EmployeeRatingOrderByRelationAggregateInput>;
-  salary?: InputMaybe<SortOrder>;
-  skills?: InputMaybe<SortOrder>;
-  startDate?: InputMaybe<SortOrder>;
+  minAge?: InputMaybe<SortOrderInput>;
+  outlet?: InputMaybe<OutletOrderByWithRelationInput>;
+  outletId?: InputMaybe<SortOrder>;
+  post?: InputMaybe<PostOrderByWithRelationInput>;
+  postId?: InputMaybe<SortOrder>;
   startTime?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
   title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterOrderByRelationAggregateInput>;
+  updatedById?: InputMaybe<SortOrderInput>;
 };
 
-export type EmployeeJobRelationFilter = {
-  is?: InputMaybe<EmployeeJobWhereInput>;
-  isNot?: InputMaybe<EmployeeJobWhereInput>;
+export type GroupEventRelationFilter = {
+  is?: InputMaybe<GroupEventWhereInput>;
+  isNot?: InputMaybe<GroupEventWhereInput>;
 };
 
-export enum EmployeeJobScalarFieldEnum {
-  CompanyId = "companyId",
+export enum GroupEventScalarFieldEnum {
+  AttendeesCount = "attendeesCount",
+  CoverImage = "coverImage",
   CreatedAt = "createdAt",
-  DailyRate = "dailyRate",
+  CreatedById = "createdById",
+  CustomerId = "customerId",
   DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
   Description = "description",
-  EmployeeId = "employeeId",
-  EndDate = "endDate",
-  EndTime = "endTime",
-  EpfDeduction = "epfDeduction",
-  Equipments = "equipments",
-  HourlyRate = "hourlyRate",
-  HoursPerDay = "hoursPerDay",
+  EventDate = "eventDate",
+  GroupId = "groupId",
   Id = "id",
-  LocationAddress = "locationAddress",
-  LocationCity = "locationCity",
-  LocationPostcode = "locationPostcode",
-  LocationState = "locationState",
-  LocationUrl = "locationUrl",
-  NumShifts = "numShifts",
-  PayoutType = "payoutType",
-  PostingId = "postingId",
-  Salary = "salary",
-  Skills = "skills",
-  StartDate = "startDate",
+  MinAge = "minAge",
+  OutletId = "outletId",
+  PostId = "postId",
   StartTime = "startTime",
   Status = "status",
   Title = "title",
   UpdatedAt = "updatedAt",
-}
-
-export type EmployeeJobWhereInput = {
-  AND?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  attendances?: InputMaybe<EmployeeAttendanceListRelationFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  endDate?: InputMaybe<DateTimeFilter>;
-  endTime?: InputMaybe<StringFilter>;
-  epfDeduction?: InputMaybe<BoolFilter>;
-  equipments?: InputMaybe<JsonFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
-  hoursPerDay?: InputMaybe<IntFilter>;
-  id?: InputMaybe<IntFilter>;
-  locationAddress?: InputMaybe<StringFilter>;
-  locationCity?: InputMaybe<StringFilter>;
-  locationPostcode?: InputMaybe<StringFilter>;
-  locationState?: InputMaybe<StringFilter>;
-  locationUrl?: InputMaybe<StringFilter>;
-  numShifts?: InputMaybe<IntFilter>;
-  payments?: InputMaybe<EmployeePaymentListRelationFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  postingId?: InputMaybe<IntFilter>;
-  postingJob?: InputMaybe<JobPostingRelationFilter>;
-  ratings?: InputMaybe<EmployeeRatingListRelationFilter>;
-  salary?: InputMaybe<DecimalFilter>;
-  skills?: InputMaybe<JsonFilter>;
-  startDate?: InputMaybe<DateTimeFilter>;
-  startTime?: InputMaybe<StringFilter>;
-  status?: InputMaybe<EnumJobStatusFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
-};
-
-export type EmployeeJobWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeJobWhereInput>>;
-  attendances?: InputMaybe<EmployeeAttendanceListRelationFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  endDate?: InputMaybe<DateTimeFilter>;
-  endTime?: InputMaybe<StringFilter>;
-  epfDeduction?: InputMaybe<BoolFilter>;
-  equipments?: InputMaybe<JsonFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
-  hoursPerDay?: InputMaybe<IntFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  locationAddress?: InputMaybe<StringFilter>;
-  locationCity?: InputMaybe<StringFilter>;
-  locationPostcode?: InputMaybe<StringFilter>;
-  locationState?: InputMaybe<StringFilter>;
-  locationUrl?: InputMaybe<StringFilter>;
-  numShifts?: InputMaybe<IntFilter>;
-  payments?: InputMaybe<EmployeePaymentListRelationFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  postingId?: InputMaybe<IntFilter>;
-  postingJob?: InputMaybe<JobPostingRelationFilter>;
-  ratings?: InputMaybe<EmployeeRatingListRelationFilter>;
-  salary?: InputMaybe<DecimalFilter>;
-  skills?: InputMaybe<JsonFilter>;
-  startDate?: InputMaybe<DateTimeFilter>;
-  startTime?: InputMaybe<StringFilter>;
-  status?: InputMaybe<EnumJobStatusFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
-};
-
-export type EmployeeListRelationFilter = {
-  every?: InputMaybe<EmployeeWhereInput>;
-  none?: InputMaybe<EmployeeWhereInput>;
-  some?: InputMaybe<EmployeeWhereInput>;
-};
-
-export type EmployeeNullableRelationFilter = {
-  is?: InputMaybe<EmployeeWhereInput>;
-  isNot?: InputMaybe<EmployeeWhereInput>;
-};
-
-export type EmployeeOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type EmployeeOrderByWithRelationInput = {
-  address?: InputMaybe<SortOrderInput>;
-  alAvailable?: InputMaybe<SortOrder>;
-  applications?: InputMaybe<JobApplicationOrderByRelationAggregateInput>;
-  attendances?: InputMaybe<EmployeeAttendanceOrderByRelationAggregateInput>;
-  averageRating?: InputMaybe<SortOrder>;
-  bank?: InputMaybe<BankOrderByWithRelationInput>;
-  bankAccountNo?: InputMaybe<SortOrderInput>;
-  bankId?: InputMaybe<SortOrderInput>;
-  bankName?: InputMaybe<SortOrderInput>;
-  blacklist?: InputMaybe<BlacklistOrderByRelationAggregateInput>;
-  contactNumber?: InputMaybe<SortOrder>;
-  countryCode?: InputMaybe<SortOrderInput>;
-  createdAt?: InputMaybe<SortOrder>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  disburseMethod?: InputMaybe<SortOrderInput>;
-  dob?: InputMaybe<SortOrderInput>;
-  email?: InputMaybe<SortOrder>;
-  emergencyContact1?: InputMaybe<SortOrderInput>;
-  emergencyContact2?: InputMaybe<SortOrderInput>;
-  id?: InputMaybe<SortOrder>;
-  jobs?: InputMaybe<EmployeeJobOrderByRelationAggregateInput>;
-  mcAvailable?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  nricBackPhoto?: InputMaybe<SortOrderInput>;
-  nricFrontPhoto?: InputMaybe<SortOrderInput>;
-  nricNumber?: InputMaybe<SortOrder>;
-  password?: InputMaybe<SortOrder>;
-  payments?: InputMaybe<EmployeePaymentOrderByRelationAggregateInput>;
-  profilePicture?: InputMaybe<SortOrderInput>;
-  ratings?: InputMaybe<EmployeeRatingOrderByRelationAggregateInput>;
-  resume?: InputMaybe<SortOrderInput>;
-  tng?: InputMaybe<SortOrderInput>;
-  updatedAt?: InputMaybe<SortOrder>;
-  user?: InputMaybe<UserOrderByWithRelationInput>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterOrderByRelationAggregateInput>;
-};
-
-export type EmployeePayment = {
-  __typename?: "EmployeePayment";
-  amount: Scalars["Decimal"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  epfAmount: Scalars["Decimal"]["output"];
-  id: Scalars["Int"]["output"];
-  job: EmployeeJob;
-  jobId: Scalars["Int"]["output"];
-  payoutDate?: Maybe<Scalars["DateTime"]["output"]>;
-  socsoAmount: Scalars["Decimal"]["output"];
-  status: PaymentStatus;
-  updatedAt: Scalars["DateTime"]["output"];
-};
-
-export type EmployeePaymentFindManyResult = {
-  __typename?: "EmployeePaymentFindManyResult";
-  data: Array<EmployeePayment>;
-  total: Scalars["Int"]["output"];
-};
-
-export type EmployeePaymentListRelationFilter = {
-  every?: InputMaybe<EmployeePaymentWhereInput>;
-  none?: InputMaybe<EmployeePaymentWhereInput>;
-  some?: InputMaybe<EmployeePaymentWhereInput>;
-};
-
-export type EmployeePaymentOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type EmployeePaymentOrderByWithRelationInput = {
-  amount?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  epfAmount?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  job?: InputMaybe<EmployeeJobOrderByWithRelationInput>;
-  jobId?: InputMaybe<SortOrder>;
-  payoutDate?: InputMaybe<SortOrderInput>;
-  socsoAmount?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-};
-
-export enum EmployeePaymentScalarFieldEnum {
-  Amount = "amount",
-  CreatedAt = "createdAt",
-  EmployeeId = "employeeId",
-  EpfAmount = "epfAmount",
-  Id = "id",
-  JobId = "jobId",
-  PayoutDate = "payoutDate",
-  SocsoAmount = "socsoAmount",
-  Status = "status",
-  UpdatedAt = "updatedAt",
-}
-
-export type EmployeePaymentWhereInput = {
-  AND?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  OR?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  epfAmount?: InputMaybe<DecimalFilter>;
-  id?: InputMaybe<IntFilter>;
-  job?: InputMaybe<EmployeeJobRelationFilter>;
-  jobId?: InputMaybe<IntFilter>;
-  payoutDate?: InputMaybe<DateTimeNullableFilter>;
-  socsoAmount?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumPaymentStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type EmployeePaymentWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  OR?: InputMaybe<Array<EmployeePaymentWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  epfAmount?: InputMaybe<DecimalFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  job?: InputMaybe<EmployeeJobRelationFilter>;
-  jobId?: InputMaybe<IntFilter>;
-  payoutDate?: InputMaybe<DateTimeNullableFilter>;
-  socsoAmount?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumPaymentStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type EmployeeRating = {
-  __typename?: "EmployeeRating";
-  comment?: Maybe<Scalars["String"]["output"]>;
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  id: Scalars["Int"]["output"];
-  job?: Maybe<EmployeeJob>;
-  jobId?: Maybe<Scalars["Int"]["output"]>;
-  rating: Scalars["Decimal"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-};
-
-export type EmployeeRatingFindManyResult = {
-  __typename?: "EmployeeRatingFindManyResult";
-  data: Array<EmployeeRating>;
-  total: Scalars["Int"]["output"];
-};
-
-export type EmployeeRatingListRelationFilter = {
-  every?: InputMaybe<EmployeeRatingWhereInput>;
-  none?: InputMaybe<EmployeeRatingWhereInput>;
-  some?: InputMaybe<EmployeeRatingWhereInput>;
-};
-
-export type EmployeeRatingOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type EmployeeRatingOrderByWithRelationInput = {
-  comment?: InputMaybe<SortOrderInput>;
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  job?: InputMaybe<EmployeeJobOrderByWithRelationInput>;
-  jobId?: InputMaybe<SortOrderInput>;
-  rating?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-};
-
-export enum EmployeeRatingScalarFieldEnum {
-  Comment = "comment",
-  CompanyId = "companyId",
-  CreatedAt = "createdAt",
-  DeletedAt = "deletedAt",
-  EmployeeId = "employeeId",
-  Id = "id",
-  JobId = "jobId",
-  Rating = "rating",
-  UpdatedAt = "updatedAt",
-}
-
-export type EmployeeRatingWhereInput = {
-  AND?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  comment?: InputMaybe<StringNullableFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  id?: InputMaybe<IntFilter>;
-  job?: InputMaybe<EmployeeJobNullableRelationFilter>;
-  jobId?: InputMaybe<IntNullableFilter>;
-  rating?: InputMaybe<DecimalFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type EmployeeRatingWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeRatingWhereInput>>;
-  comment?: InputMaybe<StringNullableFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  job?: InputMaybe<EmployeeJobNullableRelationFilter>;
-  jobId?: InputMaybe<IntNullableFilter>;
-  rating?: InputMaybe<DecimalFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type EmployeeRelationFilter = {
-  is?: InputMaybe<EmployeeWhereInput>;
-  isNot?: InputMaybe<EmployeeWhereInput>;
-};
-
-export enum EmployeeScalarFieldEnum {
-  Address = "address",
-  AlAvailable = "alAvailable",
-  AverageRating = "averageRating",
-  BankAccountNo = "bankAccountNo",
-  BankId = "bankId",
-  BankName = "bankName",
-  ContactNumber = "contactNumber",
-  CountryCode = "countryCode",
-  CreatedAt = "createdAt",
-  DeletedAt = "deletedAt",
-  DisburseMethod = "disburseMethod",
-  Dob = "dob",
-  Email = "email",
-  EmergencyContact1 = "emergencyContact1",
-  EmergencyContact2 = "emergencyContact2",
-  Id = "id",
-  McAvailable = "mcAvailable",
-  Name = "name",
-  NricBackPhoto = "nricBackPhoto",
-  NricFrontPhoto = "nricFrontPhoto",
-  NricNumber = "nricNumber",
-  Password = "password",
-  ProfilePicture = "profilePicture",
-  Resume = "resume",
-  Tng = "tng",
-  UpdatedAt = "updatedAt",
-}
-
-export type EmployeeWarningLetter = {
-  __typename?: "EmployeeWarningLetter";
-  acknowledgedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  content: Scalars["String"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  id: Scalars["Int"]["output"];
-  job?: Maybe<EmployeeJob>;
-  jobId?: Maybe<Scalars["Int"]["output"]>;
-  status: LetterStatus;
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-};
-
-export type EmployeeWarningLetterFindManyResult = {
-  __typename?: "EmployeeWarningLetterFindManyResult";
-  data: Array<EmployeeWarningLetter>;
-  total: Scalars["Int"]["output"];
-};
-
-export type EmployeeWarningLetterListRelationFilter = {
-  every?: InputMaybe<EmployeeWarningLetterWhereInput>;
-  none?: InputMaybe<EmployeeWarningLetterWhereInput>;
-  some?: InputMaybe<EmployeeWarningLetterWhereInput>;
-};
-
-export type EmployeeWarningLetterOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type EmployeeWarningLetterOrderByWithRelationInput = {
-  acknowledgedAt?: InputMaybe<SortOrderInput>;
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
-  content?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  employeeId?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  job?: InputMaybe<EmployeeJobOrderByWithRelationInput>;
-  jobId?: InputMaybe<SortOrderInput>;
-  status?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-};
-
-export enum EmployeeWarningLetterScalarFieldEnum {
-  AcknowledgedAt = "acknowledgedAt",
-  CompanyId = "companyId",
-  Content = "content",
-  CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  EmployeeId = "employeeId",
-  Id = "id",
-  JobId = "jobId",
-  Status = "status",
-  UpdatedAt = "updatedAt",
   UpdatedById = "updatedById",
 }
 
-export type EmployeeWarningLetterWhereInput = {
-  AND?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  acknowledgedAt?: InputMaybe<DateTimeNullableFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  content?: InputMaybe<StringFilter>;
+export type GroupEventWhereInput = {
+  AND?: InputMaybe<Array<GroupEventWhereInput>>;
+  NOT?: InputMaybe<Array<GroupEventWhereInput>>;
+  OR?: InputMaybe<Array<GroupEventWhereInput>>;
+  attendees?: InputMaybe<GroupEventAttendeeListRelationFilter>;
+  attendeesCount?: InputMaybe<IntFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
+  creator?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringFilter>;
+  eventDate?: InputMaybe<DateTimeFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
   id?: InputMaybe<IntFilter>;
-  job?: InputMaybe<EmployeeJobNullableRelationFilter>;
-  jobId?: InputMaybe<IntNullableFilter>;
-  status?: InputMaybe<EnumLetterStatusFilter>;
+  minAge?: InputMaybe<IntNullableFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<IntFilter>;
+  startTime?: InputMaybe<DateTimeFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
 };
 
-export type EmployeeWarningLetterWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeWarningLetterWhereInput>>;
-  acknowledgedAt?: InputMaybe<DateTimeNullableFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  content?: InputMaybe<StringFilter>;
+export type GroupEventWhereUniqueInput = {
+  AND?: InputMaybe<Array<GroupEventWhereInput>>;
+  NOT?: InputMaybe<Array<GroupEventWhereInput>>;
+  OR?: InputMaybe<Array<GroupEventWhereInput>>;
+  attendees?: InputMaybe<GroupEventAttendeeListRelationFilter>;
+  attendeesCount?: InputMaybe<IntFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
+  creator?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringFilter>;
+  eventDate?: InputMaybe<DateTimeFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  job?: InputMaybe<EmployeeJobNullableRelationFilter>;
-  jobId?: InputMaybe<IntNullableFilter>;
-  status?: InputMaybe<EnumLetterStatusFilter>;
+  minAge?: InputMaybe<IntNullableFilter>;
+  outlet?: InputMaybe<OutletRelationFilter>;
+  outletId?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<Scalars["Int"]["input"]>;
+  startTime?: InputMaybe<DateTimeFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
 };
 
-export type EmployeeWhereInput = {
-  AND?: InputMaybe<Array<EmployeeWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeWhereInput>>;
-  address?: InputMaybe<StringNullableFilter>;
-  alAvailable?: InputMaybe<BoolFilter>;
-  applications?: InputMaybe<JobApplicationListRelationFilter>;
-  attendances?: InputMaybe<EmployeeAttendanceListRelationFilter>;
-  averageRating?: InputMaybe<DecimalFilter>;
-  bank?: InputMaybe<BankNullableRelationFilter>;
-  bankAccountNo?: InputMaybe<StringNullableFilter>;
-  bankId?: InputMaybe<IntNullableFilter>;
-  bankName?: InputMaybe<StringNullableFilter>;
-  blacklist?: InputMaybe<BlacklistListRelationFilter>;
-  contactNumber?: InputMaybe<StringFilter>;
-  countryCode?: InputMaybe<StringNullableFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  disburseMethod?: InputMaybe<StringNullableFilter>;
-  dob?: InputMaybe<StringNullableFilter>;
-  email?: InputMaybe<StringFilter>;
-  emergencyContact1?: InputMaybe<StringNullableFilter>;
-  emergencyContact2?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<IntFilter>;
-  jobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  mcAvailable?: InputMaybe<BoolFilter>;
-  name?: InputMaybe<StringFilter>;
-  nricBackPhoto?: InputMaybe<StringNullableFilter>;
-  nricFrontPhoto?: InputMaybe<StringNullableFilter>;
-  nricNumber?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  payments?: InputMaybe<EmployeePaymentListRelationFilter>;
-  profilePicture?: InputMaybe<StringNullableFilter>;
-  ratings?: InputMaybe<EmployeeRatingListRelationFilter>;
-  resume?: InputMaybe<StringNullableFilter>;
-  tng?: InputMaybe<StringNullableFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
-};
-
-export type EmployeeWhereUniqueInput = {
-  AND?: InputMaybe<Array<EmployeeWhereInput>>;
-  NOT?: InputMaybe<Array<EmployeeWhereInput>>;
-  OR?: InputMaybe<Array<EmployeeWhereInput>>;
-  address?: InputMaybe<StringNullableFilter>;
-  alAvailable?: InputMaybe<BoolFilter>;
-  applications?: InputMaybe<JobApplicationListRelationFilter>;
-  attendances?: InputMaybe<EmployeeAttendanceListRelationFilter>;
-  averageRating?: InputMaybe<DecimalFilter>;
-  bank?: InputMaybe<BankNullableRelationFilter>;
-  bankAccountNo?: InputMaybe<StringNullableFilter>;
-  bankId?: InputMaybe<IntNullableFilter>;
-  bankName?: InputMaybe<StringNullableFilter>;
-  blacklist?: InputMaybe<BlacklistListRelationFilter>;
-  contactNumber?: InputMaybe<StringFilter>;
-  countryCode?: InputMaybe<StringNullableFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  disburseMethod?: InputMaybe<StringNullableFilter>;
-  dob?: InputMaybe<StringNullableFilter>;
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  emergencyContact1?: InputMaybe<StringNullableFilter>;
-  emergencyContact2?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  jobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  mcAvailable?: InputMaybe<BoolFilter>;
-  name?: InputMaybe<StringFilter>;
-  nricBackPhoto?: InputMaybe<StringNullableFilter>;
-  nricFrontPhoto?: InputMaybe<StringNullableFilter>;
-  nricNumber?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<StringFilter>;
-  payments?: InputMaybe<EmployeePaymentListRelationFilter>;
-  profilePicture?: InputMaybe<StringNullableFilter>;
-  ratings?: InputMaybe<EmployeeRatingListRelationFilter>;
-  resume?: InputMaybe<StringNullableFilter>;
-  tng?: InputMaybe<StringNullableFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  warningLetter?: InputMaybe<EmployeeWarningLetterListRelationFilter>;
-};
-
-export type EnumApplicationStatusFilter = {
-  equals?: InputMaybe<ApplicationStatus>;
-  in?: InputMaybe<Array<ApplicationStatus>>;
-  not?: InputMaybe<NestedEnumApplicationStatusFilter>;
-  notIn?: InputMaybe<Array<ApplicationStatus>>;
-};
-
-export type EnumAttendanceStatusFilter = {
-  equals?: InputMaybe<AttendanceStatus>;
-  in?: InputMaybe<Array<AttendanceStatus>>;
-  not?: InputMaybe<NestedEnumAttendanceStatusFilter>;
-  notIn?: InputMaybe<Array<AttendanceStatus>>;
-};
-
-export type EnumAuthTokenTypeFilter = {
-  equals?: InputMaybe<AuthTokenType>;
-  in?: InputMaybe<Array<AuthTokenType>>;
-  not?: InputMaybe<NestedEnumAuthTokenTypeFilter>;
-  notIn?: InputMaybe<Array<AuthTokenType>>;
-};
-
-export type EnumCompanyUserRoleFilter = {
-  equals?: InputMaybe<CompanyUserRole>;
-  in?: InputMaybe<Array<CompanyUserRole>>;
-  not?: InputMaybe<NestedEnumCompanyUserRoleFilter>;
-  notIn?: InputMaybe<Array<CompanyUserRole>>;
-};
-
-export type EnumGenderNullableFilter = {
-  equals?: InputMaybe<Gender>;
-  in?: InputMaybe<Array<Gender>>;
-  not?: InputMaybe<NestedEnumGenderNullableFilter>;
-  notIn?: InputMaybe<Array<Gender>>;
-};
-
-export type EnumInvoiceStatusFilter = {
-  equals?: InputMaybe<InvoiceStatus>;
-  in?: InputMaybe<Array<InvoiceStatus>>;
-  not?: InputMaybe<NestedEnumInvoiceStatusFilter>;
-  notIn?: InputMaybe<Array<InvoiceStatus>>;
-};
-
-export type EnumJobPostingStatusFilter = {
-  equals?: InputMaybe<JobPostingStatus>;
-  in?: InputMaybe<Array<JobPostingStatus>>;
-  not?: InputMaybe<NestedEnumJobPostingStatusFilter>;
-  notIn?: InputMaybe<Array<JobPostingStatus>>;
-};
-
-export type EnumJobStatusFilter = {
-  equals?: InputMaybe<JobStatus>;
-  in?: InputMaybe<Array<JobStatus>>;
-  not?: InputMaybe<NestedEnumJobStatusFilter>;
-  notIn?: InputMaybe<Array<JobStatus>>;
-};
-
-export type EnumLetterStatusFilter = {
-  equals?: InputMaybe<LetterStatus>;
-  in?: InputMaybe<Array<LetterStatus>>;
-  not?: InputMaybe<NestedEnumLetterStatusFilter>;
-  notIn?: InputMaybe<Array<LetterStatus>>;
-};
-
-export type EnumPaymentStatusFilter = {
-  equals?: InputMaybe<PaymentStatus>;
-  in?: InputMaybe<Array<PaymentStatus>>;
-  not?: InputMaybe<NestedEnumPaymentStatusFilter>;
-  notIn?: InputMaybe<Array<PaymentStatus>>;
-};
-
-export type EnumPayoutTypeFilter = {
-  equals?: InputMaybe<PayoutType>;
-  in?: InputMaybe<Array<PayoutType>>;
-  not?: InputMaybe<NestedEnumPayoutTypeFilter>;
-  notIn?: InputMaybe<Array<PayoutType>>;
-};
-
-export type EnumPayrollStatusFilter = {
-  equals?: InputMaybe<PayrollStatus>;
-  in?: InputMaybe<Array<PayrollStatus>>;
-  not?: InputMaybe<NestedEnumPayrollStatusFilter>;
-  notIn?: InputMaybe<Array<PayrollStatus>>;
-};
-
-export type EnumUserTypeFilter = {
-  equals?: InputMaybe<UserType>;
-  in?: InputMaybe<Array<UserType>>;
-  not?: InputMaybe<NestedEnumUserTypeFilter>;
-  notIn?: InputMaybe<Array<UserType>>;
-};
-
-export type Equipment = {
-  __typename?: "Equipment";
-  _count: EquipmentCount;
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["Int"]["output"];
-  jobPostings?: Maybe<Array<JobPosting>>;
-  name: Scalars["String"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-};
-
-export type EquipmentCount = {
-  __typename?: "EquipmentCount";
-  jobPostings: Scalars["Int"]["output"];
-};
-
-export type EquipmentFindManyResult = {
-  __typename?: "EquipmentFindManyResult";
-  data: Array<Equipment>;
+export type GroupFindManyResult = {
+  __typename?: "GroupFindManyResult";
+  data: Array<Group>;
   total: Scalars["Int"]["output"];
 };
 
-export type EquipmentListRelationFilter = {
-  every?: InputMaybe<EquipmentWhereInput>;
-  none?: InputMaybe<EquipmentWhereInput>;
-  some?: InputMaybe<EquipmentWhereInput>;
+export type GroupListRelationFilter = {
+  every?: InputMaybe<GroupWhereInput>;
+  none?: InputMaybe<GroupWhereInput>;
+  some?: InputMaybe<GroupWhereInput>;
 };
 
-export type EquipmentOrderByRelationAggregateInput = {
+export type GroupOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type EquipmentOrderByWithRelationInput = {
+export enum GroupOrderByRelevanceFieldEnum {
+  CoverImage = "coverImage",
+  Description = "description",
+  Name = "name",
+  RejectedReason = "rejectedReason",
+  TagLine = "tagLine",
+}
+
+export type GroupOrderByRelevanceInput = {
+  fields: Array<GroupOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type GroupOrderByWithRelationInput = {
+  _relevance?: InputMaybe<GroupOrderByRelevanceInput>;
+  admin?: InputMaybe<CustomerOrderByWithRelationInput>;
+  adminId?: InputMaybe<SortOrderInput>;
+  approvedAt?: InputMaybe<SortOrderInput>;
+  coverImage?: InputMaybe<SortOrderInput>;
   createdAt?: InputMaybe<SortOrder>;
   createdById?: InputMaybe<SortOrderInput>;
   deletedAt?: InputMaybe<SortOrderInput>;
   deletedById?: InputMaybe<SortOrderInput>;
-  description?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrder>;
+  groupEvents?: InputMaybe<GroupEventOrderByRelationAggregateInput>;
   id?: InputMaybe<SortOrder>;
-  jobPostings?: InputMaybe<JobPostingOrderByRelationAggregateInput>;
+  lastActivityAt?: InputMaybe<SortOrderInput>;
+  memberCount?: InputMaybe<SortOrder>;
+  members?: InputMaybe<GroupUserOrderByRelationAggregateInput>;
+  minAge?: InputMaybe<SortOrderInput>;
   name?: InputMaybe<SortOrder>;
+  posts?: InputMaybe<PostOrderByRelationAggregateInput>;
+  postsCount?: InputMaybe<SortOrder>;
+  rejectedAt?: InputMaybe<SortOrderInput>;
+  rejectedReason?: InputMaybe<SortOrderInput>;
+  reviewedBy?: InputMaybe<AdminOrderByWithRelationInput>;
+  reviewedById?: InputMaybe<SortOrderInput>;
+  status?: InputMaybe<SortOrder>;
+  submittedAt?: InputMaybe<SortOrderInput>;
+  tagLine?: InputMaybe<SortOrderInput>;
   updatedAt?: InputMaybe<SortOrder>;
   updatedById?: InputMaybe<SortOrderInput>;
 };
 
-export enum EquipmentScalarFieldEnum {
+export type GroupRelationFilter = {
+  is?: InputMaybe<GroupWhereInput>;
+  isNot?: InputMaybe<GroupWhereInput>;
+};
+
+export enum GroupScalarFieldEnum {
+  AdminId = "adminId",
+  ApprovedAt = "approvedAt",
+  CoverImage = "coverImage",
   CreatedAt = "createdAt",
   CreatedById = "createdById",
   DeletedAt = "deletedAt",
   DeletedById = "deletedById",
   Description = "description",
   Id = "id",
+  LastActivityAt = "lastActivityAt",
+  MemberCount = "memberCount",
+  MinAge = "minAge",
   Name = "name",
+  PostsCount = "postsCount",
+  RejectedAt = "rejectedAt",
+  RejectedReason = "rejectedReason",
+  ReviewedById = "reviewedById",
+  Status = "status",
+  SubmittedAt = "submittedAt",
+  TagLine = "tagLine",
   UpdatedAt = "updatedAt",
   UpdatedById = "updatedById",
 }
 
-export type EquipmentWhereInput = {
-  AND?: InputMaybe<Array<EquipmentWhereInput>>;
-  NOT?: InputMaybe<Array<EquipmentWhereInput>>;
-  OR?: InputMaybe<Array<EquipmentWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<IntFilter>;
-  jobPostings?: InputMaybe<JobPostingListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-};
-
-export type EquipmentWhereUniqueInput = {
-  AND?: InputMaybe<Array<EquipmentWhereInput>>;
-  NOT?: InputMaybe<Array<EquipmentWhereInput>>;
-  OR?: InputMaybe<Array<EquipmentWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  jobPostings?: InputMaybe<JobPostingListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-};
-
-export enum Gender {
-  Female = "FEMALE",
-  Male = "MALE",
-}
-
-export type Industry = {
-  __typename?: "Industry";
+export type GroupUser = {
+  __typename?: "GroupUser";
   createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
+  group: Group;
+  groupId: Scalars["Int"]["output"];
+  joinedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  kickedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  rejectedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  reviewedById?: Maybe<Scalars["Int"]["output"]>;
+  status: GroupUserStatus;
 };
 
-export type IndustryFindManyResult = {
-  __typename?: "IndustryFindManyResult";
-  data: Array<Industry>;
+export type GroupUserFindManyResult = {
+  __typename?: "GroupUserFindManyResult";
+  data: Array<GroupUser>;
   total: Scalars["Int"]["output"];
 };
 
-export type IndustryOrderByWithRelationInput = {
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  description?: InputMaybe<SortOrderInput>;
-  id?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
+export type GroupUserGroupIdCustomerIdCompoundUniqueInput = {
+  customerId: Scalars["Int"]["input"];
+  groupId: Scalars["Int"]["input"];
 };
 
-export enum IndustryScalarFieldEnum {
+export type GroupUserListRelationFilter = {
+  every?: InputMaybe<GroupUserWhereInput>;
+  none?: InputMaybe<GroupUserWhereInput>;
+  some?: InputMaybe<GroupUserWhereInput>;
+};
+
+export type GroupUserOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type GroupUserOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  group?: InputMaybe<GroupOrderByWithRelationInput>;
+  groupId?: InputMaybe<SortOrder>;
+  joinedAt?: InputMaybe<SortOrderInput>;
+  kickedAt?: InputMaybe<SortOrderInput>;
+  rejectedAt?: InputMaybe<SortOrderInput>;
+  reviewedById?: InputMaybe<SortOrderInput>;
+  status?: InputMaybe<SortOrder>;
+};
+
+export enum GroupUserScalarFieldEnum {
   CreatedAt = "createdAt",
-  CreatedById = "createdById",
+  CustomerId = "customerId",
   DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  Description = "description",
-  Id = "id",
-  Name = "name",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
+  GroupId = "groupId",
+  JoinedAt = "joinedAt",
+  KickedAt = "kickedAt",
+  RejectedAt = "rejectedAt",
+  ReviewedById = "reviewedById",
+  Status = "status",
 }
 
-export type IndustryWhereInput = {
-  AND?: InputMaybe<Array<IndustryWhereInput>>;
-  NOT?: InputMaybe<Array<IndustryWhereInput>>;
-  OR?: InputMaybe<Array<IndustryWhereInput>>;
+export enum GroupUserStatus {
+  Approved = "Approved",
+  Invited = "Invited",
+  Kicked = "Kicked",
+  Pending = "Pending",
+  Rejected = "Rejected",
+}
+
+export type GroupUserWhereInput = {
+  AND?: InputMaybe<Array<GroupUserWhereInput>>;
+  NOT?: InputMaybe<Array<GroupUserWhereInput>>;
+  OR?: InputMaybe<Array<GroupUserWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
+  joinedAt?: InputMaybe<DateTimeNullableFilter>;
+  kickedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumGroupUserStatusFilter>;
+};
+
+export type GroupUserWhereUniqueInput = {
+  AND?: InputMaybe<Array<GroupUserWhereInput>>;
+  NOT?: InputMaybe<Array<GroupUserWhereInput>>;
+  OR?: InputMaybe<Array<GroupUserWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
+  groupId_customerId?: InputMaybe<GroupUserGroupIdCustomerIdCompoundUniqueInput>;
+  joinedAt?: InputMaybe<DateTimeNullableFilter>;
+  kickedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumGroupUserStatusFilter>;
+};
+
+export type GroupWhereInput = {
+  AND?: InputMaybe<Array<GroupWhereInput>>;
+  NOT?: InputMaybe<Array<GroupWhereInput>>;
+  OR?: InputMaybe<Array<GroupWhereInput>>;
+  admin?: InputMaybe<CustomerNullableRelationFilter>;
+  adminId?: InputMaybe<IntNullableFilter>;
+  approvedAt?: InputMaybe<DateTimeNullableFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  groupEvents?: InputMaybe<GroupEventListRelationFilter>;
   id?: InputMaybe<IntFilter>;
+  lastActivityAt?: InputMaybe<DateTimeNullableFilter>;
+  memberCount?: InputMaybe<IntFilter>;
+  members?: InputMaybe<GroupUserListRelationFilter>;
+  minAge?: InputMaybe<IntNullableFilter>;
   name?: InputMaybe<StringFilter>;
+  posts?: InputMaybe<PostListRelationFilter>;
+  postsCount?: InputMaybe<IntFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedReason?: InputMaybe<StringNullableFilter>;
+  reviewedBy?: InputMaybe<AdminNullableRelationFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  submittedAt?: InputMaybe<DateTimeNullableFilter>;
+  tagLine?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
 };
 
-export type IndustryWhereUniqueInput = {
-  AND?: InputMaybe<Array<IndustryWhereInput>>;
-  NOT?: InputMaybe<Array<IndustryWhereInput>>;
-  OR?: InputMaybe<Array<IndustryWhereInput>>;
+export type GroupWhereUniqueInput = {
+  AND?: InputMaybe<Array<GroupWhereInput>>;
+  NOT?: InputMaybe<Array<GroupWhereInput>>;
+  OR?: InputMaybe<Array<GroupWhereInput>>;
+  admin?: InputMaybe<CustomerNullableRelationFilter>;
+  adminId?: InputMaybe<IntNullableFilter>;
+  approvedAt?: InputMaybe<DateTimeNullableFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdById?: InputMaybe<IntNullableFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringFilter>;
+  groupEvents?: InputMaybe<GroupEventListRelationFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
+  lastActivityAt?: InputMaybe<DateTimeNullableFilter>;
+  memberCount?: InputMaybe<IntFilter>;
+  members?: InputMaybe<GroupUserListRelationFilter>;
+  minAge?: InputMaybe<IntNullableFilter>;
   name?: InputMaybe<StringFilter>;
+  posts?: InputMaybe<PostListRelationFilter>;
+  postsCount?: InputMaybe<IntFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedReason?: InputMaybe<StringNullableFilter>;
+  reviewedBy?: InputMaybe<AdminNullableRelationFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  submittedAt?: InputMaybe<DateTimeNullableFilter>;
+  tagLine?: InputMaybe<StringNullableFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
 };
@@ -1894,613 +2137,7 @@ export type IntNullableFilter = {
   notIn?: InputMaybe<Array<Scalars["Int"]["input"]>>;
 };
 
-export type Invoice = {
-  __typename?: "Invoice";
-  _count: InvoiceCount;
-  amount: Scalars["Decimal"]["output"];
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  dueDate: Scalars["DateTime"]["output"];
-  id: Scalars["Int"]["output"];
-  items?: Maybe<Array<InvoiceItem>>;
-  paidAt?: Maybe<Scalars["DateTime"]["output"]>;
-  platformFee: Scalars["Decimal"]["output"];
-  platformRate: Scalars["Decimal"]["output"];
-  sstAmount: Scalars["Decimal"]["output"];
-  sstRate: Scalars["Decimal"]["output"];
-  status: InvoiceStatus;
-  totalAmount: Scalars["Decimal"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-};
-
-export type InvoiceCount = {
-  __typename?: "InvoiceCount";
-  items: Scalars["Int"]["output"];
-};
-
-export type InvoiceFindManyResult = {
-  __typename?: "InvoiceFindManyResult";
-  data: Array<Invoice>;
-  total: Scalars["Int"]["output"];
-};
-
-export type InvoiceItem = {
-  __typename?: "InvoiceItem";
-  amount: Scalars["Decimal"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  description?: Maybe<Scalars["String"]["output"]>;
-  id: Scalars["Int"]["output"];
-  invoice: Invoice;
-  invoiceId: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-  payroll: Payroll;
-  payrollId: Scalars["Int"]["output"];
-  quantity: Scalars["Int"]["output"];
-};
-
-export type InvoiceItemFindManyResult = {
-  __typename?: "InvoiceItemFindManyResult";
-  data: Array<InvoiceItem>;
-  total: Scalars["Int"]["output"];
-};
-
-export type InvoiceItemListRelationFilter = {
-  every?: InputMaybe<InvoiceItemWhereInput>;
-  none?: InputMaybe<InvoiceItemWhereInput>;
-  some?: InputMaybe<InvoiceItemWhereInput>;
-};
-
-export type InvoiceItemOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type InvoiceItemOrderByWithRelationInput = {
-  amount?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  description?: InputMaybe<SortOrderInput>;
-  id?: InputMaybe<SortOrder>;
-  invoice?: InputMaybe<InvoiceOrderByWithRelationInput>;
-  invoiceId?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  payroll?: InputMaybe<PayrollOrderByWithRelationInput>;
-  payrollId?: InputMaybe<SortOrder>;
-  quantity?: InputMaybe<SortOrder>;
-};
-
-export enum InvoiceItemScalarFieldEnum {
-  Amount = "amount",
-  CreatedAt = "createdAt",
-  Description = "description",
-  Id = "id",
-  InvoiceId = "invoiceId",
-  Name = "name",
-  PayrollId = "payrollId",
-  Quantity = "quantity",
-}
-
-export type InvoiceItemWhereInput = {
-  AND?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  NOT?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  OR?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<IntFilter>;
-  invoice?: InputMaybe<InvoiceRelationFilter>;
-  invoiceId?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  payroll?: InputMaybe<PayrollRelationFilter>;
-  payrollId?: InputMaybe<IntFilter>;
-  quantity?: InputMaybe<IntFilter>;
-};
-
-export type InvoiceItemWhereUniqueInput = {
-  AND?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  NOT?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  OR?: InputMaybe<Array<InvoiceItemWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  invoice?: InputMaybe<InvoiceRelationFilter>;
-  invoiceId?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  payroll?: InputMaybe<PayrollRelationFilter>;
-  payrollId?: InputMaybe<IntFilter>;
-  quantity?: InputMaybe<IntFilter>;
-};
-
-export type InvoiceListRelationFilter = {
-  every?: InputMaybe<InvoiceWhereInput>;
-  none?: InputMaybe<InvoiceWhereInput>;
-  some?: InputMaybe<InvoiceWhereInput>;
-};
-
-export type InvoiceOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type InvoiceOrderByWithRelationInput = {
-  amount?: InputMaybe<SortOrder>;
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  dueDate?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  items?: InputMaybe<InvoiceItemOrderByRelationAggregateInput>;
-  paidAt?: InputMaybe<SortOrderInput>;
-  platformFee?: InputMaybe<SortOrder>;
-  platformRate?: InputMaybe<SortOrder>;
-  sstAmount?: InputMaybe<SortOrder>;
-  sstRate?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  totalAmount?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-};
-
-export type InvoiceRelationFilter = {
-  is?: InputMaybe<InvoiceWhereInput>;
-  isNot?: InputMaybe<InvoiceWhereInput>;
-};
-
-export enum InvoiceScalarFieldEnum {
-  Amount = "amount",
-  CompanyId = "companyId",
-  CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  DueDate = "dueDate",
-  Id = "id",
-  PaidAt = "paidAt",
-  PlatformFee = "platformFee",
-  PlatformRate = "platformRate",
-  SstAmount = "sstAmount",
-  SstRate = "sstRate",
-  Status = "status",
-  TotalAmount = "totalAmount",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
-}
-
-export enum InvoiceStatus {
-  Cancelled = "CANCELLED",
-  Paid = "PAID",
-  Pending = "PENDING",
-}
-
-export type InvoiceWhereInput = {
-  AND?: InputMaybe<Array<InvoiceWhereInput>>;
-  NOT?: InputMaybe<Array<InvoiceWhereInput>>;
-  OR?: InputMaybe<Array<InvoiceWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  dueDate?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  items?: InputMaybe<InvoiceItemListRelationFilter>;
-  paidAt?: InputMaybe<DateTimeNullableFilter>;
-  platformFee?: InputMaybe<DecimalFilter>;
-  platformRate?: InputMaybe<DecimalFilter>;
-  sstAmount?: InputMaybe<DecimalFilter>;
-  sstRate?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumInvoiceStatusFilter>;
-  totalAmount?: InputMaybe<DecimalFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-};
-
-export type InvoiceWhereUniqueInput = {
-  AND?: InputMaybe<Array<InvoiceWhereInput>>;
-  NOT?: InputMaybe<Array<InvoiceWhereInput>>;
-  OR?: InputMaybe<Array<InvoiceWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  dueDate?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  items?: InputMaybe<InvoiceItemListRelationFilter>;
-  paidAt?: InputMaybe<DateTimeNullableFilter>;
-  platformFee?: InputMaybe<DecimalFilter>;
-  platformRate?: InputMaybe<DecimalFilter>;
-  sstAmount?: InputMaybe<DecimalFilter>;
-  sstRate?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumInvoiceStatusFilter>;
-  totalAmount?: InputMaybe<DecimalFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-};
-
-export type JobApplication = {
-  __typename?: "JobApplication";
-  createdAt: Scalars["DateTime"]["output"];
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  employee: Employee;
-  employeeId: Scalars["Int"]["output"];
-  id: Scalars["Int"]["output"];
-  jobPosting: JobPosting;
-  postingId: Scalars["Int"]["output"];
-  referralCode?: Maybe<Scalars["String"]["output"]>;
-  status: ApplicationStatus;
-  updatedAt: Scalars["DateTime"]["output"];
-};
-
-export type JobApplicationListRelationFilter = {
-  every?: InputMaybe<JobApplicationWhereInput>;
-  none?: InputMaybe<JobApplicationWhereInput>;
-  some?: InputMaybe<JobApplicationWhereInput>;
-};
-
-export type JobApplicationOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type JobApplicationWhereInput = {
-  AND?: InputMaybe<Array<JobApplicationWhereInput>>;
-  NOT?: InputMaybe<Array<JobApplicationWhereInput>>;
-  OR?: InputMaybe<Array<JobApplicationWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  employee?: InputMaybe<EmployeeRelationFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  id?: InputMaybe<IntFilter>;
-  jobPosting?: InputMaybe<JobPostingRelationFilter>;
-  postingId?: InputMaybe<IntFilter>;
-  referralCode?: InputMaybe<StringNullableFilter>;
-  status?: InputMaybe<EnumApplicationStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type JobPosting = {
-  __typename?: "JobPosting";
-  _count: JobPostingCount;
-  applications?: Maybe<Array<JobApplication>>;
-  company: Company;
-  companyId: Scalars["Int"]["output"];
-  confirmedJobs?: Maybe<Array<EmployeeJob>>;
-  createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  dailyRate: Scalars["Decimal"]["output"];
-  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  deletedById?: Maybe<Scalars["Int"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
-  educationLevel: Scalars["JSON"]["output"];
-  endDate: Scalars["DateTime"]["output"];
-  endTime: Scalars["String"]["output"];
-  epfDeduction: Scalars["Boolean"]["output"];
-  equipments?: Maybe<Array<Equipment>>;
-  experienceLevel: Scalars["JSON"]["output"];
-  gender?: Maybe<Gender>;
-  headcountRequired: Scalars["Int"]["output"];
-  hourlyRate: Scalars["Decimal"]["output"];
-  hoursPerDay: Scalars["Int"]["output"];
-  id: Scalars["Int"]["output"];
-  locationAddress: Scalars["String"]["output"];
-  locationCity: Scalars["String"]["output"];
-  locationPostcode: Scalars["String"]["output"];
-  locationState: Scalars["String"]["output"];
-  locationUrl: Scalars["String"]["output"];
-  maxAge: Scalars["Int"]["output"];
-  minAge: Scalars["Int"]["output"];
-  numShifts: Scalars["Int"]["output"];
-  payoutType: PayoutType;
-  photos?: Maybe<Array<JobPostingPhoto>>;
-  refNo: Scalars["String"]["output"];
-  salary: Scalars["Decimal"]["output"];
-  skills?: Maybe<Array<Skillset>>;
-  startDate: Scalars["DateTime"]["output"];
-  startTime: Scalars["String"]["output"];
-  status: JobPostingStatus;
-  title: Scalars["String"]["output"];
-  updatedAt: Scalars["DateTime"]["output"];
-  updatedById?: Maybe<Scalars["Int"]["output"]>;
-  whatsappLink: Scalars["String"]["output"];
-};
-
-export type JobPostingCount = {
-  __typename?: "JobPostingCount";
-  applications: Scalars["Int"]["output"];
-  confirmedJobs: Scalars["Int"]["output"];
-  equipments: Scalars["Int"]["output"];
-  photos: Scalars["Int"]["output"];
-  skills: Scalars["Int"]["output"];
-};
-
-export type JobPostingFindManyResult = {
-  __typename?: "JobPostingFindManyResult";
-  data: Array<JobPosting>;
-  total: Scalars["Int"]["output"];
-};
-
-export type JobPostingListRelationFilter = {
-  every?: InputMaybe<JobPostingWhereInput>;
-  none?: InputMaybe<JobPostingWhereInput>;
-  some?: InputMaybe<JobPostingWhereInput>;
-};
-
-export type JobPostingOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type JobPostingOrderByWithRelationInput = {
-  applications?: InputMaybe<JobApplicationOrderByRelationAggregateInput>;
-  company?: InputMaybe<CompanyOrderByWithRelationInput>;
-  companyId?: InputMaybe<SortOrder>;
-  confirmedJobs?: InputMaybe<EmployeeJobOrderByRelationAggregateInput>;
-  createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  dailyRate?: InputMaybe<SortOrder>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  deletedById?: InputMaybe<SortOrderInput>;
-  description?: InputMaybe<SortOrderInput>;
-  educationLevel?: InputMaybe<SortOrder>;
-  endDate?: InputMaybe<SortOrder>;
-  endTime?: InputMaybe<SortOrder>;
-  epfDeduction?: InputMaybe<SortOrder>;
-  equipments?: InputMaybe<EquipmentOrderByRelationAggregateInput>;
-  experienceLevel?: InputMaybe<SortOrder>;
-  gender?: InputMaybe<SortOrderInput>;
-  headcountRequired?: InputMaybe<SortOrder>;
-  hourlyRate?: InputMaybe<SortOrder>;
-  hoursPerDay?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  locationAddress?: InputMaybe<SortOrder>;
-  locationCity?: InputMaybe<SortOrder>;
-  locationPostcode?: InputMaybe<SortOrder>;
-  locationState?: InputMaybe<SortOrder>;
-  locationUrl?: InputMaybe<SortOrder>;
-  maxAge?: InputMaybe<SortOrder>;
-  minAge?: InputMaybe<SortOrder>;
-  numShifts?: InputMaybe<SortOrder>;
-  payoutType?: InputMaybe<SortOrder>;
-  photos?: InputMaybe<JobPostingPhotoOrderByRelationAggregateInput>;
-  refNo?: InputMaybe<SortOrder>;
-  salary?: InputMaybe<SortOrder>;
-  skills?: InputMaybe<SkillsetOrderByRelationAggregateInput>;
-  startDate?: InputMaybe<SortOrder>;
-  startTime?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  title?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  updatedById?: InputMaybe<SortOrderInput>;
-  whatsappLink?: InputMaybe<SortOrder>;
-};
-
-export type JobPostingPhoto = {
-  __typename?: "JobPostingPhoto";
-  createdAt: Scalars["DateTime"]["output"];
-  id: Scalars["Int"]["output"];
-  jobPosting: JobPosting;
-  jobPostingId: Scalars["Int"]["output"];
-  sequence: Scalars["Int"]["output"];
-  url: Scalars["String"]["output"];
-};
-
-export type JobPostingPhotoFindManyResult = {
-  __typename?: "JobPostingPhotoFindManyResult";
-  data: Array<JobPostingPhoto>;
-  total: Scalars["Int"]["output"];
-};
-
-export type JobPostingPhotoListRelationFilter = {
-  every?: InputMaybe<JobPostingPhotoWhereInput>;
-  none?: InputMaybe<JobPostingPhotoWhereInput>;
-  some?: InputMaybe<JobPostingPhotoWhereInput>;
-};
-
-export type JobPostingPhotoOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type JobPostingPhotoOrderByWithRelationInput = {
-  createdAt?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  jobPosting?: InputMaybe<JobPostingOrderByWithRelationInput>;
-  jobPostingId?: InputMaybe<SortOrder>;
-  sequence?: InputMaybe<SortOrder>;
-  url?: InputMaybe<SortOrder>;
-};
-
-export enum JobPostingPhotoScalarFieldEnum {
-  CreatedAt = "createdAt",
-  Id = "id",
-  JobPostingId = "jobPostingId",
-  Sequence = "sequence",
-  Url = "url",
-}
-
-export type JobPostingPhotoWhereInput = {
-  AND?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  NOT?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  OR?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  jobPosting?: InputMaybe<JobPostingRelationFilter>;
-  jobPostingId?: InputMaybe<IntFilter>;
-  sequence?: InputMaybe<IntFilter>;
-  url?: InputMaybe<StringFilter>;
-};
-
-export type JobPostingPhotoWhereUniqueInput = {
-  AND?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  NOT?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  OR?: InputMaybe<Array<JobPostingPhotoWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  jobPosting?: InputMaybe<JobPostingRelationFilter>;
-  jobPostingId?: InputMaybe<IntFilter>;
-  sequence?: InputMaybe<IntFilter>;
-  url?: InputMaybe<StringFilter>;
-};
-
-export type JobPostingRelationFilter = {
-  is?: InputMaybe<JobPostingWhereInput>;
-  isNot?: InputMaybe<JobPostingWhereInput>;
-};
-
-export enum JobPostingScalarFieldEnum {
-  CompanyId = "companyId",
-  CreatedAt = "createdAt",
-  CreatedById = "createdById",
-  DailyRate = "dailyRate",
-  DeletedAt = "deletedAt",
-  DeletedById = "deletedById",
-  Description = "description",
-  EducationLevel = "educationLevel",
-  EndDate = "endDate",
-  EndTime = "endTime",
-  EpfDeduction = "epfDeduction",
-  ExperienceLevel = "experienceLevel",
-  Gender = "gender",
-  HeadcountRequired = "headcountRequired",
-  HourlyRate = "hourlyRate",
-  HoursPerDay = "hoursPerDay",
-  Id = "id",
-  LocationAddress = "locationAddress",
-  LocationCity = "locationCity",
-  LocationPostcode = "locationPostcode",
-  LocationState = "locationState",
-  LocationUrl = "locationUrl",
-  MaxAge = "maxAge",
-  MinAge = "minAge",
-  NumShifts = "numShifts",
-  PayoutType = "payoutType",
-  RefNo = "refNo",
-  Salary = "salary",
-  StartDate = "startDate",
-  StartTime = "startTime",
-  Status = "status",
-  Title = "title",
-  UpdatedAt = "updatedAt",
-  UpdatedById = "updatedById",
-  WhatsappLink = "whatsappLink",
-}
-
-export enum JobPostingStatus {
-  Active = "ACTIVE",
-  Cancelled = "CANCELLED",
-  Ended = "ENDED",
-  Paused = "PAUSED",
-}
-
-export type JobPostingWhereInput = {
-  AND?: InputMaybe<Array<JobPostingWhereInput>>;
-  NOT?: InputMaybe<Array<JobPostingWhereInput>>;
-  OR?: InputMaybe<Array<JobPostingWhereInput>>;
-  applications?: InputMaybe<JobApplicationListRelationFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  confirmedJobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  educationLevel?: InputMaybe<JsonFilter>;
-  endDate?: InputMaybe<DateTimeFilter>;
-  endTime?: InputMaybe<StringFilter>;
-  epfDeduction?: InputMaybe<BoolFilter>;
-  equipments?: InputMaybe<EquipmentListRelationFilter>;
-  experienceLevel?: InputMaybe<JsonFilter>;
-  gender?: InputMaybe<EnumGenderNullableFilter>;
-  headcountRequired?: InputMaybe<IntFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
-  hoursPerDay?: InputMaybe<IntFilter>;
-  id?: InputMaybe<IntFilter>;
-  locationAddress?: InputMaybe<StringFilter>;
-  locationCity?: InputMaybe<StringFilter>;
-  locationPostcode?: InputMaybe<StringFilter>;
-  locationState?: InputMaybe<StringFilter>;
-  locationUrl?: InputMaybe<StringFilter>;
-  maxAge?: InputMaybe<IntFilter>;
-  minAge?: InputMaybe<IntFilter>;
-  numShifts?: InputMaybe<IntFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  photos?: InputMaybe<JobPostingPhotoListRelationFilter>;
-  refNo?: InputMaybe<StringFilter>;
-  salary?: InputMaybe<DecimalFilter>;
-  skills?: InputMaybe<SkillsetListRelationFilter>;
-  startDate?: InputMaybe<DateTimeFilter>;
-  startTime?: InputMaybe<StringFilter>;
-  status?: InputMaybe<EnumJobPostingStatusFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  whatsappLink?: InputMaybe<StringFilter>;
-};
-
-export type JobPostingWhereUniqueInput = {
-  AND?: InputMaybe<Array<JobPostingWhereInput>>;
-  NOT?: InputMaybe<Array<JobPostingWhereInput>>;
-  OR?: InputMaybe<Array<JobPostingWhereInput>>;
-  applications?: InputMaybe<JobApplicationListRelationFilter>;
-  company?: InputMaybe<CompanyRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  confirmedJobs?: InputMaybe<EmployeeJobListRelationFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
-  educationLevel?: InputMaybe<JsonFilter>;
-  endDate?: InputMaybe<DateTimeFilter>;
-  endTime?: InputMaybe<StringFilter>;
-  epfDeduction?: InputMaybe<BoolFilter>;
-  equipments?: InputMaybe<EquipmentListRelationFilter>;
-  experienceLevel?: InputMaybe<JsonFilter>;
-  gender?: InputMaybe<EnumGenderNullableFilter>;
-  headcountRequired?: InputMaybe<IntFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
-  hoursPerDay?: InputMaybe<IntFilter>;
-  id?: InputMaybe<Scalars["Int"]["input"]>;
-  locationAddress?: InputMaybe<StringFilter>;
-  locationCity?: InputMaybe<StringFilter>;
-  locationPostcode?: InputMaybe<StringFilter>;
-  locationState?: InputMaybe<StringFilter>;
-  locationUrl?: InputMaybe<StringFilter>;
-  maxAge?: InputMaybe<IntFilter>;
-  minAge?: InputMaybe<IntFilter>;
-  numShifts?: InputMaybe<IntFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  photos?: InputMaybe<JobPostingPhotoListRelationFilter>;
-  refNo?: InputMaybe<Scalars["String"]["input"]>;
-  salary?: InputMaybe<DecimalFilter>;
-  skills?: InputMaybe<SkillsetListRelationFilter>;
-  startDate?: InputMaybe<DateTimeFilter>;
-  startTime?: InputMaybe<StringFilter>;
-  status?: InputMaybe<EnumJobPostingStatusFilter>;
-  title?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedById?: InputMaybe<IntNullableFilter>;
-  whatsappLink?: InputMaybe<StringFilter>;
-};
-
-export enum JobStatus {
-  Active = "ACTIVE",
-  Completed = "COMPLETED",
-  Terminated = "TERMINATED",
-}
-
-export type JsonFilter = {
+export type JsonNullableFilter = {
   array_contains?: InputMaybe<Scalars["JSON"]["input"]>;
   array_ends_with?: InputMaybe<Scalars["JSON"]["input"]>;
   array_starts_with?: InputMaybe<Scalars["JSON"]["input"]>;
@@ -2516,30 +2153,202 @@ export type JsonFilter = {
   string_starts_with?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export enum LetterStatus {
-  Active = "ACTIVE",
-  Closed = "CLOSED",
-  Deleted = "DELETED",
+export enum MedaiType {
+  Image = "Image",
+  Video = "Video",
 }
 
 export type Mutation = {
   __typename?: "Mutation";
+  approveGroup: Group;
+  cancelBooking: Booking;
+  changePassword: Scalars["Boolean"]["output"];
+  confirmBookingAttendance: Booking;
+  createActivity: Activity;
+  createActivitySlot: ActivitySlot;
   createAdmin: Admin;
-  deleteAdmin: Scalars["String"]["output"];
+  createNewsfeed: Newsfeed;
+  createOutlet: Outlet;
+  createReward: Reward;
+  deleteActivity: Scalars["Boolean"]["output"];
+  deleteActivitySlot: Scalars["Boolean"]["output"];
+  deleteAdmin: Scalars["Boolean"]["output"];
+  deleteGroup: Scalars["Boolean"]["output"];
+  deleteGroupEvent: Scalars["Boolean"]["output"];
+  deleteNewsfeed: Scalars["Boolean"]["output"];
+  deleteOutlet: Scalars["Boolean"]["output"];
+  deleteReward: Scalars["Boolean"]["output"];
+  publishNewsfeed: Newsfeed;
+  reviewGroup: Group;
+  reviewUserReport: UserReport;
+  updateAccountInfo: Admin;
+  updateActivity: Activity;
+  updateActivitySlot: ActivitySlot;
   updateAdmin: Admin;
+  updateCustomer: Customer;
+  updateGroup: Group;
+  updateGroupEvent: GroupEvent;
+  updateNewsfeed: Newsfeed;
+  updateOutlet: Outlet;
+  updateOutlets: Admin;
+  updateReward: Reward;
+  updateSetting: Setting;
+  updateTier: Tier;
+};
+
+export type MutationApproveGroupArgs = {
+  approved: Scalars["Boolean"]["input"];
+  id: Scalars["Float"]["input"];
+  rejectedReason?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type MutationCancelBookingArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationChangePasswordArgs = {
+  newPassword: Scalars["String"]["input"];
+  oldPassword: Scalars["String"]["input"];
+};
+
+export type MutationConfirmBookingAttendanceArgs = {
+  bookingNo: Scalars["String"]["input"];
+};
+
+export type MutationCreateActivityArgs = {
+  input: CreateActivityInput;
+};
+
+export type MutationCreateActivitySlotArgs = {
+  input: CreateActivitySlotInput;
 };
 
 export type MutationCreateAdminArgs = {
   input: CreateAdminInput;
 };
 
+export type MutationCreateNewsfeedArgs = {
+  input: CreateNewsfeedInput;
+};
+
+export type MutationCreateOutletArgs = {
+  input: CreateOutletInput;
+};
+
+export type MutationCreateRewardArgs = {
+  input: CreateRewardInput;
+};
+
+export type MutationDeleteActivityArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteActivitySlotArgs = {
+  id: Scalars["Float"]["input"];
+};
+
 export type MutationDeleteAdminArgs = {
   id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteGroupArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteGroupEventArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteNewsfeedArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteOutletArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationDeleteRewardArgs = {
+  id: Scalars["Float"]["input"];
+};
+
+export type MutationPublishNewsfeedArgs = {
+  id: Scalars["Float"]["input"];
+  publish: Scalars["Boolean"]["input"];
+};
+
+export type MutationReviewGroupArgs = {
+  approved: Scalars["Boolean"]["input"];
+  id: Scalars["Float"]["input"];
+  rejectedReason?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type MutationReviewUserReportArgs = {
+  id: Scalars["Float"]["input"];
+  input: ReviewUserReportInput;
+};
+
+export type MutationUpdateAccountInfoArgs = {
+  input: UpdateAccountInfoInput;
+};
+
+export type MutationUpdateActivityArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateActivityInput;
+};
+
+export type MutationUpdateActivitySlotArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateActivitySlotInput;
 };
 
 export type MutationUpdateAdminArgs = {
   id: Scalars["Float"]["input"];
   input: UpdateAdminInput;
+};
+
+export type MutationUpdateCustomerArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateCustomerInput;
+};
+
+export type MutationUpdateGroupArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateGroupInput;
+};
+
+export type MutationUpdateGroupEventArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateGroupEventInput;
+};
+
+export type MutationUpdateNewsfeedArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateNewsfeedInput;
+};
+
+export type MutationUpdateOutletArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateOutletInput;
+};
+
+export type MutationUpdateOutletsArgs = {
+  id: Scalars["Float"]["input"];
+  outletIds: Array<Scalars["Int"]["input"]>;
+};
+
+export type MutationUpdateRewardArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateRewardInput;
+};
+
+export type MutationUpdateSettingArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateSettingInput;
+};
+
+export type MutationUpdateTierArgs = {
+  id: Scalars["Float"]["input"];
+  input: UpdateTierInput;
 };
 
 export type NestedBoolFilter = {
@@ -2569,117 +2378,92 @@ export type NestedDateTimeNullableFilter = {
   notIn?: InputMaybe<Array<Scalars["DateTime"]["input"]>>;
 };
 
-export type NestedDecimalFilter = {
-  equals?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  in?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
-  lt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  lte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  not?: InputMaybe<NestedDecimalFilter>;
-  notIn?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
+export type NestedEnumAccountStatusFilter = {
+  equals?: InputMaybe<AccountStatus>;
+  in?: InputMaybe<Array<AccountStatus>>;
+  not?: InputMaybe<NestedEnumAccountStatusFilter>;
+  notIn?: InputMaybe<Array<AccountStatus>>;
 };
 
-export type NestedDecimalNullableFilter = {
-  equals?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  gte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  in?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
-  lt?: InputMaybe<Scalars["Decimal"]["input"]>;
-  lte?: InputMaybe<Scalars["Decimal"]["input"]>;
-  not?: InputMaybe<NestedDecimalNullableFilter>;
-  notIn?: InputMaybe<Array<Scalars["Decimal"]["input"]>>;
+export type NestedEnumActivityStatusFilter = {
+  equals?: InputMaybe<ActivityStatus>;
+  in?: InputMaybe<Array<ActivityStatus>>;
+  not?: InputMaybe<NestedEnumActivityStatusFilter>;
+  notIn?: InputMaybe<Array<ActivityStatus>>;
 };
 
-export type NestedEnumApplicationStatusFilter = {
-  equals?: InputMaybe<ApplicationStatus>;
-  in?: InputMaybe<Array<ApplicationStatus>>;
-  not?: InputMaybe<NestedEnumApplicationStatusFilter>;
-  notIn?: InputMaybe<Array<ApplicationStatus>>;
+export type NestedEnumApprovalStatusFilter = {
+  equals?: InputMaybe<ApprovalStatus>;
+  in?: InputMaybe<Array<ApprovalStatus>>;
+  not?: InputMaybe<NestedEnumApprovalStatusFilter>;
+  notIn?: InputMaybe<Array<ApprovalStatus>>;
 };
 
-export type NestedEnumAttendanceStatusFilter = {
-  equals?: InputMaybe<AttendanceStatus>;
-  in?: InputMaybe<Array<AttendanceStatus>>;
-  not?: InputMaybe<NestedEnumAttendanceStatusFilter>;
-  notIn?: InputMaybe<Array<AttendanceStatus>>;
+export type NestedEnumBookingStatusFilter = {
+  equals?: InputMaybe<BookingStatus>;
+  in?: InputMaybe<Array<BookingStatus>>;
+  not?: InputMaybe<NestedEnumBookingStatusFilter>;
+  notIn?: InputMaybe<Array<BookingStatus>>;
 };
 
-export type NestedEnumAuthTokenTypeFilter = {
-  equals?: InputMaybe<AuthTokenType>;
-  in?: InputMaybe<Array<AuthTokenType>>;
-  not?: InputMaybe<NestedEnumAuthTokenTypeFilter>;
-  notIn?: InputMaybe<Array<AuthTokenType>>;
+export type NestedEnumExperienceTypeFilter = {
+  equals?: InputMaybe<ExperienceType>;
+  in?: InputMaybe<Array<ExperienceType>>;
+  not?: InputMaybe<NestedEnumExperienceTypeFilter>;
+  notIn?: InputMaybe<Array<ExperienceType>>;
 };
 
-export type NestedEnumCompanyUserRoleFilter = {
-  equals?: InputMaybe<CompanyUserRole>;
-  in?: InputMaybe<Array<CompanyUserRole>>;
-  not?: InputMaybe<NestedEnumCompanyUserRoleFilter>;
-  notIn?: InputMaybe<Array<CompanyUserRole>>;
+export type NestedEnumGroupUserStatusFilter = {
+  equals?: InputMaybe<GroupUserStatus>;
+  in?: InputMaybe<Array<GroupUserStatus>>;
+  not?: InputMaybe<NestedEnumGroupUserStatusFilter>;
+  notIn?: InputMaybe<Array<GroupUserStatus>>;
 };
 
-export type NestedEnumGenderNullableFilter = {
-  equals?: InputMaybe<Gender>;
-  in?: InputMaybe<Array<Gender>>;
-  not?: InputMaybe<NestedEnumGenderNullableFilter>;
-  notIn?: InputMaybe<Array<Gender>>;
+export type NestedEnumMedaiTypeFilter = {
+  equals?: InputMaybe<MedaiType>;
+  in?: InputMaybe<Array<MedaiType>>;
+  not?: InputMaybe<NestedEnumMedaiTypeFilter>;
+  notIn?: InputMaybe<Array<MedaiType>>;
 };
 
-export type NestedEnumInvoiceStatusFilter = {
-  equals?: InputMaybe<InvoiceStatus>;
-  in?: InputMaybe<Array<InvoiceStatus>>;
-  not?: InputMaybe<NestedEnumInvoiceStatusFilter>;
-  notIn?: InputMaybe<Array<InvoiceStatus>>;
+export type NestedEnumPointTypeFilter = {
+  equals?: InputMaybe<PointType>;
+  in?: InputMaybe<Array<PointType>>;
+  not?: InputMaybe<NestedEnumPointTypeFilter>;
+  notIn?: InputMaybe<Array<PointType>>;
 };
 
-export type NestedEnumJobPostingStatusFilter = {
-  equals?: InputMaybe<JobPostingStatus>;
-  in?: InputMaybe<Array<JobPostingStatus>>;
-  not?: InputMaybe<NestedEnumJobPostingStatusFilter>;
-  notIn?: InputMaybe<Array<JobPostingStatus>>;
+export type NestedEnumRoleFilter = {
+  equals?: InputMaybe<Role>;
+  in?: InputMaybe<Array<Role>>;
+  not?: InputMaybe<NestedEnumRoleFilter>;
+  notIn?: InputMaybe<Array<Role>>;
 };
 
-export type NestedEnumJobStatusFilter = {
-  equals?: InputMaybe<JobStatus>;
-  in?: InputMaybe<Array<JobStatus>>;
-  not?: InputMaybe<NestedEnumJobStatusFilter>;
-  notIn?: InputMaybe<Array<JobStatus>>;
+export type NestedEnumSettingKeyFilter = {
+  equals?: InputMaybe<SettingKey>;
+  in?: InputMaybe<Array<SettingKey>>;
+  not?: InputMaybe<NestedEnumSettingKeyFilter>;
+  notIn?: InputMaybe<Array<SettingKey>>;
 };
 
-export type NestedEnumLetterStatusFilter = {
-  equals?: InputMaybe<LetterStatus>;
-  in?: InputMaybe<Array<LetterStatus>>;
-  not?: InputMaybe<NestedEnumLetterStatusFilter>;
-  notIn?: InputMaybe<Array<LetterStatus>>;
+export type NestedEnumUserReportStatusFilter = {
+  equals?: InputMaybe<UserReportStatus>;
+  in?: InputMaybe<Array<UserReportStatus>>;
+  not?: InputMaybe<NestedEnumUserReportStatusFilter>;
+  notIn?: InputMaybe<Array<UserReportStatus>>;
 };
 
-export type NestedEnumPaymentStatusFilter = {
-  equals?: InputMaybe<PaymentStatus>;
-  in?: InputMaybe<Array<PaymentStatus>>;
-  not?: InputMaybe<NestedEnumPaymentStatusFilter>;
-  notIn?: InputMaybe<Array<PaymentStatus>>;
-};
-
-export type NestedEnumPayoutTypeFilter = {
-  equals?: InputMaybe<PayoutType>;
-  in?: InputMaybe<Array<PayoutType>>;
-  not?: InputMaybe<NestedEnumPayoutTypeFilter>;
-  notIn?: InputMaybe<Array<PayoutType>>;
-};
-
-export type NestedEnumPayrollStatusFilter = {
-  equals?: InputMaybe<PayrollStatus>;
-  in?: InputMaybe<Array<PayrollStatus>>;
-  not?: InputMaybe<NestedEnumPayrollStatusFilter>;
-  notIn?: InputMaybe<Array<PayrollStatus>>;
-};
-
-export type NestedEnumUserTypeFilter = {
-  equals?: InputMaybe<UserType>;
-  in?: InputMaybe<Array<UserType>>;
-  not?: InputMaybe<NestedEnumUserTypeFilter>;
-  notIn?: InputMaybe<Array<UserType>>;
+export type NestedFloatNullableFilter = {
+  equals?: InputMaybe<Scalars["Float"]["input"]>;
+  gt?: InputMaybe<Scalars["Float"]["input"]>;
+  gte?: InputMaybe<Scalars["Float"]["input"]>;
+  in?: InputMaybe<Array<Scalars["Float"]["input"]>>;
+  lt?: InputMaybe<Scalars["Float"]["input"]>;
+  lte?: InputMaybe<Scalars["Float"]["input"]>;
+  not?: InputMaybe<NestedFloatNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars["Float"]["input"]>>;
 };
 
 export type NestedIntFilter = {
@@ -2715,6 +2499,7 @@ export type NestedStringFilter = {
   lte?: InputMaybe<Scalars["String"]["input"]>;
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
   startsWith?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -2729,7 +2514,116 @@ export type NestedStringNullableFilter = {
   lte?: InputMaybe<Scalars["String"]["input"]>;
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
   startsWith?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type Newsfeed = {
+  __typename?: "Newsfeed";
+  content: Scalars["String"]["output"];
+  coverImage?: Maybe<Scalars["String"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  createdById: Scalars["Int"]["output"];
+  deeplink?: Maybe<Scalars["String"]["output"]>;
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  id: Scalars["Int"]["output"];
+  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  thumbnail?: Maybe<Scalars["String"]["output"]>;
+  title: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type NewsfeedFindManyResult = {
+  __typename?: "NewsfeedFindManyResult";
+  data: Array<Newsfeed>;
+  total: Scalars["Int"]["output"];
+};
+
+export enum NewsfeedOrderByRelevanceFieldEnum {
+  Content = "content",
+  CoverImage = "coverImage",
+  Deeplink = "deeplink",
+  Thumbnail = "thumbnail",
+  Title = "title",
+}
+
+export type NewsfeedOrderByRelevanceInput = {
+  fields: Array<NewsfeedOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type NewsfeedOrderByWithRelationInput = {
+  _relevance?: InputMaybe<NewsfeedOrderByRelevanceInput>;
+  content?: InputMaybe<SortOrder>;
+  coverImage?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdById?: InputMaybe<SortOrder>;
+  deeplink?: InputMaybe<SortOrderInput>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  publishedAt?: InputMaybe<SortOrderInput>;
+  thumbnail?: InputMaybe<SortOrderInput>;
+  title?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedById?: InputMaybe<SortOrderInput>;
+};
+
+export enum NewsfeedScalarFieldEnum {
+  Content = "content",
+  CoverImage = "coverImage",
+  CreatedAt = "createdAt",
+  CreatedById = "createdById",
+  Deeplink = "deeplink",
+  DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
+  Id = "id",
+  PublishedAt = "publishedAt",
+  Thumbnail = "thumbnail",
+  Title = "title",
+  UpdatedAt = "updatedAt",
+  UpdatedById = "updatedById",
+}
+
+export type NewsfeedWhereInput = {
+  AND?: InputMaybe<Array<NewsfeedWhereInput>>;
+  NOT?: InputMaybe<Array<NewsfeedWhereInput>>;
+  OR?: InputMaybe<Array<NewsfeedWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deeplink?: InputMaybe<StringNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  publishedAt?: InputMaybe<DateTimeNullableFilter>;
+  thumbnail?: InputMaybe<StringNullableFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type NewsfeedWhereUniqueInput = {
+  AND?: InputMaybe<Array<NewsfeedWhereInput>>;
+  NOT?: InputMaybe<Array<NewsfeedWhereInput>>;
+  OR?: InputMaybe<Array<NewsfeedWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntFilter>;
+  deeplink?: InputMaybe<StringNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  publishedAt?: InputMaybe<DateTimeNullableFilter>;
+  thumbnail?: InputMaybe<StringNullableFilter>;
+  title?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
 };
 
 export enum NullsOrder {
@@ -2737,333 +2631,618 @@ export enum NullsOrder {
   Last = "last",
 }
 
-export enum PaymentStatus {
-  Approved = "APPROVED",
-  Paid = "PAID",
-  Pending = "PENDING",
-}
-
-export enum PayoutType {
-  Daily = "DAILY",
-  Monthly = "MONTHLY",
-}
-
-export type Payroll = {
-  __typename?: "Payroll";
-  _count: PayrollCount;
-  additionals?: Maybe<Array<PayrollAdditional>>;
-  companyId: Scalars["Int"]["output"];
-  cp38: Scalars["Decimal"]["output"];
+export type Outlet = {
+  __typename?: "Outlet";
+  _count: OutletCount;
+  active: Scalars["Boolean"]["output"];
+  activities?: Maybe<Array<Activity>>;
+  address?: Maybe<Scalars["String"]["output"]>;
+  admins?: Maybe<Array<Admin>>;
+  bookings?: Maybe<Array<Booking>>;
+  branchCode?: Maybe<Scalars["String"]["output"]>;
+  branchFnbCode?: Maybe<Scalars["String"]["output"]>;
+  checkInRadius: Scalars["Int"]["output"];
+  checkins?: Maybe<Array<CheckIn>>;
+  coverImage?: Maybe<Scalars["String"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
-  dailyRate: Scalars["Decimal"]["output"];
-  deductions?: Maybe<Array<PayrollDeduction>>;
+  createdById: Scalars["Int"]["output"];
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
   deletedById?: Maybe<Scalars["Int"]["output"]>;
-  eis: Scalars["Decimal"]["output"];
-  employeeId: Scalars["Int"]["output"];
-  epf: Scalars["Decimal"]["output"];
-  grossPay: Scalars["Decimal"]["output"];
-  hourlyRate: Scalars["Decimal"]["output"];
+  endTime: Scalars["DateTime"]["output"];
+  endTimeStr: Scalars["String"]["output"];
+  groupEvents?: Maybe<Array<GroupEvent>>;
   id: Scalars["Int"]["output"];
-  incomeTax: Scalars["Decimal"]["output"];
-  invoiceItem?: Maybe<Array<InvoiceItem>>;
-  netPay: Scalars["Decimal"]["output"];
-  overtimeRate: Scalars["Decimal"]["output"];
-  paidAt?: Maybe<Scalars["DateTime"]["output"]>;
-  payoutDate?: Maybe<Scalars["DateTime"]["output"]>;
-  payoutType: PayoutType;
-  socso: Scalars["Decimal"]["output"];
-  status: PayrollStatus;
-  totalAdditional: Scalars["Decimal"]["output"];
-  totalDeduction: Scalars["Decimal"]["output"];
+  latitude?: Maybe<Scalars["Float"]["output"]>;
+  longitude?: Maybe<Scalars["Float"]["output"]>;
+  name: Scalars["String"]["output"];
+  startTime: Scalars["DateTime"]["output"];
+  startTimeStr: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
   updatedById?: Maybe<Scalars["Int"]["output"]>;
-  workDays: Scalars["Int"]["output"];
-  workHours: Scalars["Int"]["output"];
-  workMinutes: Scalars["Int"]["output"];
-  zakat: Scalars["Decimal"]["output"];
 };
 
-export type PayrollAdditional = {
-  __typename?: "PayrollAdditional";
-  amount: Scalars["Decimal"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  description: Scalars["String"]["output"];
-  id: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-  payroll: Payroll;
-  payrollId: Scalars["Int"]["output"];
+export type OutletCount = {
+  __typename?: "OutletCount";
+  activities: Scalars["Int"]["output"];
+  admins: Scalars["Int"]["output"];
+  bookings: Scalars["Int"]["output"];
+  checkins: Scalars["Int"]["output"];
+  groupEvents: Scalars["Int"]["output"];
 };
 
-export type PayrollAdditionalListRelationFilter = {
-  every?: InputMaybe<PayrollAdditionalWhereInput>;
-  none?: InputMaybe<PayrollAdditionalWhereInput>;
-  some?: InputMaybe<PayrollAdditionalWhereInput>;
-};
-
-export type PayrollAdditionalOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type PayrollAdditionalWhereInput = {
-  AND?: InputMaybe<Array<PayrollAdditionalWhereInput>>;
-  NOT?: InputMaybe<Array<PayrollAdditionalWhereInput>>;
-  OR?: InputMaybe<Array<PayrollAdditionalWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringFilter>;
-  id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  payroll?: InputMaybe<PayrollRelationFilter>;
-  payrollId?: InputMaybe<IntFilter>;
-};
-
-export type PayrollCount = {
-  __typename?: "PayrollCount";
-  additionals: Scalars["Int"]["output"];
-  deductions: Scalars["Int"]["output"];
-  invoiceItem: Scalars["Int"]["output"];
-};
-
-export type PayrollDeduction = {
-  __typename?: "PayrollDeduction";
-  amount: Scalars["Decimal"]["output"];
-  createdAt: Scalars["DateTime"]["output"];
-  description: Scalars["String"]["output"];
-  id: Scalars["Int"]["output"];
-  name: Scalars["String"]["output"];
-  payroll: Payroll;
-  payrollId: Scalars["Int"]["output"];
-};
-
-export type PayrollDeductionListRelationFilter = {
-  every?: InputMaybe<PayrollDeductionWhereInput>;
-  none?: InputMaybe<PayrollDeductionWhereInput>;
-  some?: InputMaybe<PayrollDeductionWhereInput>;
-};
-
-export type PayrollDeductionOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type PayrollDeductionWhereInput = {
-  AND?: InputMaybe<Array<PayrollDeductionWhereInput>>;
-  NOT?: InputMaybe<Array<PayrollDeductionWhereInput>>;
-  OR?: InputMaybe<Array<PayrollDeductionWhereInput>>;
-  amount?: InputMaybe<DecimalFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  description?: InputMaybe<StringFilter>;
-  id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  payroll?: InputMaybe<PayrollRelationFilter>;
-  payrollId?: InputMaybe<IntFilter>;
-};
-
-export type PayrollFindManyResult = {
-  __typename?: "PayrollFindManyResult";
-  data: Array<Payroll>;
+export type OutletFindManyResult = {
+  __typename?: "OutletFindManyResult";
+  data: Array<Outlet>;
   total: Scalars["Int"]["output"];
 };
 
-export type PayrollOrderByWithRelationInput = {
-  additionals?: InputMaybe<PayrollAdditionalOrderByRelationAggregateInput>;
-  companyId?: InputMaybe<SortOrder>;
-  cp38?: InputMaybe<SortOrder>;
+export type OutletListRelationFilter = {
+  every?: InputMaybe<OutletWhereInput>;
+  none?: InputMaybe<OutletWhereInput>;
+  some?: InputMaybe<OutletWhereInput>;
+};
+
+export type OutletOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum OutletOrderByRelevanceFieldEnum {
+  Address = "address",
+  BranchCode = "branchCode",
+  BranchFnbCode = "branchFnbCode",
+  CoverImage = "coverImage",
+  Name = "name",
+}
+
+export type OutletOrderByRelevanceInput = {
+  fields: Array<OutletOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type OutletOrderByWithRelationInput = {
+  _relevance?: InputMaybe<OutletOrderByRelevanceInput>;
+  active?: InputMaybe<SortOrder>;
+  activities?: InputMaybe<ActivityOrderByRelationAggregateInput>;
+  address?: InputMaybe<SortOrderInput>;
+  admins?: InputMaybe<AdminOrderByRelationAggregateInput>;
+  bookings?: InputMaybe<BookingOrderByRelationAggregateInput>;
+  branchCode?: InputMaybe<SortOrderInput>;
+  branchFnbCode?: InputMaybe<SortOrderInput>;
+  checkInRadius?: InputMaybe<SortOrder>;
+  checkins?: InputMaybe<CheckInOrderByRelationAggregateInput>;
+  coverImage?: InputMaybe<SortOrderInput>;
   createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
-  dailyRate?: InputMaybe<SortOrder>;
-  deductions?: InputMaybe<PayrollDeductionOrderByRelationAggregateInput>;
+  createdById?: InputMaybe<SortOrder>;
   deletedAt?: InputMaybe<SortOrderInput>;
   deletedById?: InputMaybe<SortOrderInput>;
-  eis?: InputMaybe<SortOrder>;
-  employeeId?: InputMaybe<SortOrder>;
-  epf?: InputMaybe<SortOrder>;
-  grossPay?: InputMaybe<SortOrder>;
-  hourlyRate?: InputMaybe<SortOrder>;
+  endTime?: InputMaybe<SortOrder>;
+  groupEvents?: InputMaybe<GroupEventOrderByRelationAggregateInput>;
   id?: InputMaybe<SortOrder>;
-  incomeTax?: InputMaybe<SortOrder>;
-  invoiceItem?: InputMaybe<InvoiceItemOrderByRelationAggregateInput>;
-  netPay?: InputMaybe<SortOrder>;
-  overtimeRate?: InputMaybe<SortOrder>;
-  paidAt?: InputMaybe<SortOrderInput>;
-  payoutDate?: InputMaybe<SortOrderInput>;
-  payoutType?: InputMaybe<SortOrder>;
-  socso?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  totalAdditional?: InputMaybe<SortOrder>;
-  totalDeduction?: InputMaybe<SortOrder>;
+  latitude?: InputMaybe<SortOrderInput>;
+  longitude?: InputMaybe<SortOrderInput>;
+  name?: InputMaybe<SortOrder>;
+  startTime?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   updatedById?: InputMaybe<SortOrderInput>;
-  workDays?: InputMaybe<SortOrder>;
-  workHours?: InputMaybe<SortOrder>;
-  workMinutes?: InputMaybe<SortOrder>;
-  zakat?: InputMaybe<SortOrder>;
 };
 
-export type PayrollRelationFilter = {
-  is?: InputMaybe<PayrollWhereInput>;
-  isNot?: InputMaybe<PayrollWhereInput>;
+export type OutletRelationFilter = {
+  is?: InputMaybe<OutletWhereInput>;
+  isNot?: InputMaybe<OutletWhereInput>;
 };
 
-export enum PayrollScalarFieldEnum {
-  CompanyId = "companyId",
-  Cp38 = "cp38",
+export enum OutletScalarFieldEnum {
+  Active = "active",
+  Address = "address",
+  BranchCode = "branchCode",
+  BranchFnbCode = "branchFnbCode",
+  CheckInRadius = "checkInRadius",
+  CoverImage = "coverImage",
   CreatedAt = "createdAt",
   CreatedById = "createdById",
-  DailyRate = "dailyRate",
   DeletedAt = "deletedAt",
   DeletedById = "deletedById",
-  Eis = "eis",
-  EmployeeId = "employeeId",
-  Epf = "epf",
-  GrossPay = "grossPay",
-  HourlyRate = "hourlyRate",
+  EndTime = "endTime",
   Id = "id",
-  IncomeTax = "incomeTax",
-  NetPay = "netPay",
-  OvertimeRate = "overtimeRate",
-  PaidAt = "paidAt",
-  PayoutDate = "payoutDate",
-  PayoutType = "payoutType",
-  Socso = "socso",
-  Status = "status",
-  TotalAdditional = "totalAdditional",
-  TotalDeduction = "totalDeduction",
+  Latitude = "latitude",
+  Longitude = "longitude",
+  Name = "name",
+  StartTime = "startTime",
   UpdatedAt = "updatedAt",
   UpdatedById = "updatedById",
-  WorkDays = "workDays",
-  WorkHours = "workHours",
-  WorkMinutes = "workMinutes",
-  Zakat = "zakat",
 }
 
-export enum PayrollStatus {
-  Confirmed = "CONFIRMED",
-  Paid = "PAID",
-  Pending = "PENDING",
-}
-
-export type PayrollWhereInput = {
-  AND?: InputMaybe<Array<PayrollWhereInput>>;
-  NOT?: InputMaybe<Array<PayrollWhereInput>>;
-  OR?: InputMaybe<Array<PayrollWhereInput>>;
-  additionals?: InputMaybe<PayrollAdditionalListRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  cp38?: InputMaybe<DecimalFilter>;
+export type OutletWhereInput = {
+  AND?: InputMaybe<Array<OutletWhereInput>>;
+  NOT?: InputMaybe<Array<OutletWhereInput>>;
+  OR?: InputMaybe<Array<OutletWhereInput>>;
+  active?: InputMaybe<BoolFilter>;
+  activities?: InputMaybe<ActivityListRelationFilter>;
+  address?: InputMaybe<StringNullableFilter>;
+  admins?: InputMaybe<AdminListRelationFilter>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  branchCode?: InputMaybe<StringNullableFilter>;
+  branchFnbCode?: InputMaybe<StringNullableFilter>;
+  checkInRadius?: InputMaybe<IntFilter>;
+  checkins?: InputMaybe<CheckInListRelationFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deductions?: InputMaybe<PayrollDeductionListRelationFilter>;
+  createdById?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  eis?: InputMaybe<DecimalFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  epf?: InputMaybe<DecimalFilter>;
-  grossPay?: InputMaybe<DecimalFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
+  endTime?: InputMaybe<DateTimeFilter>;
+  groupEvents?: InputMaybe<GroupEventListRelationFilter>;
   id?: InputMaybe<IntFilter>;
-  incomeTax?: InputMaybe<DecimalFilter>;
-  invoiceItem?: InputMaybe<InvoiceItemListRelationFilter>;
-  netPay?: InputMaybe<DecimalFilter>;
-  overtimeRate?: InputMaybe<DecimalFilter>;
-  paidAt?: InputMaybe<DateTimeNullableFilter>;
-  payoutDate?: InputMaybe<DateTimeNullableFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  socso?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumPayrollStatusFilter>;
-  totalAdditional?: InputMaybe<DecimalFilter>;
-  totalDeduction?: InputMaybe<DecimalFilter>;
+  latitude?: InputMaybe<FloatNullableFilter>;
+  longitude?: InputMaybe<FloatNullableFilter>;
+  name?: InputMaybe<StringFilter>;
+  startTime?: InputMaybe<DateTimeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
-  workDays?: InputMaybe<IntFilter>;
-  workHours?: InputMaybe<IntFilter>;
-  workMinutes?: InputMaybe<IntFilter>;
-  zakat?: InputMaybe<DecimalFilter>;
 };
 
-export type PayrollWhereUniqueInput = {
-  AND?: InputMaybe<Array<PayrollWhereInput>>;
-  NOT?: InputMaybe<Array<PayrollWhereInput>>;
-  OR?: InputMaybe<Array<PayrollWhereInput>>;
-  additionals?: InputMaybe<PayrollAdditionalListRelationFilter>;
-  companyId?: InputMaybe<IntFilter>;
-  cp38?: InputMaybe<DecimalFilter>;
+export type OutletWhereUniqueInput = {
+  AND?: InputMaybe<Array<OutletWhereInput>>;
+  NOT?: InputMaybe<Array<OutletWhereInput>>;
+  OR?: InputMaybe<Array<OutletWhereInput>>;
+  active?: InputMaybe<BoolFilter>;
+  activities?: InputMaybe<ActivityListRelationFilter>;
+  address?: InputMaybe<StringNullableFilter>;
+  admins?: InputMaybe<AdminListRelationFilter>;
+  bookings?: InputMaybe<BookingListRelationFilter>;
+  branchCode?: InputMaybe<StringNullableFilter>;
+  branchFnbCode?: InputMaybe<StringNullableFilter>;
+  checkInRadius?: InputMaybe<IntFilter>;
+  checkins?: InputMaybe<CheckInListRelationFilter>;
+  coverImage?: InputMaybe<StringNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
-  dailyRate?: InputMaybe<DecimalFilter>;
-  deductions?: InputMaybe<PayrollDeductionListRelationFilter>;
+  createdById?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  eis?: InputMaybe<DecimalFilter>;
-  employeeId?: InputMaybe<IntFilter>;
-  epf?: InputMaybe<DecimalFilter>;
-  grossPay?: InputMaybe<DecimalFilter>;
-  hourlyRate?: InputMaybe<DecimalFilter>;
+  endTime?: InputMaybe<DateTimeFilter>;
+  groupEvents?: InputMaybe<GroupEventListRelationFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  incomeTax?: InputMaybe<DecimalFilter>;
-  invoiceItem?: InputMaybe<InvoiceItemListRelationFilter>;
-  netPay?: InputMaybe<DecimalFilter>;
-  overtimeRate?: InputMaybe<DecimalFilter>;
-  paidAt?: InputMaybe<DateTimeNullableFilter>;
-  payoutDate?: InputMaybe<DateTimeNullableFilter>;
-  payoutType?: InputMaybe<EnumPayoutTypeFilter>;
-  socso?: InputMaybe<DecimalFilter>;
-  status?: InputMaybe<EnumPayrollStatusFilter>;
-  totalAdditional?: InputMaybe<DecimalFilter>;
-  totalDeduction?: InputMaybe<DecimalFilter>;
+  latitude?: InputMaybe<FloatNullableFilter>;
+  longitude?: InputMaybe<FloatNullableFilter>;
+  name?: InputMaybe<StringFilter>;
+  startTime?: InputMaybe<DateTimeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
-  workDays?: InputMaybe<IntFilter>;
-  workHours?: InputMaybe<IntFilter>;
-  workMinutes?: InputMaybe<IntFilter>;
-  zakat?: InputMaybe<DecimalFilter>;
+};
+
+export enum PointType {
+  AttendGroupEvent = "ATTEND_GROUP_EVENT",
+  CheckIn = "CHECK_IN",
+  Expired = "EXPIRED",
+  Redeem = "REDEEM",
+  SpendOnCafe = "SPEND_ON_CAFE",
+  Void = "VOID",
+}
+
+export type Post = {
+  __typename?: "Post";
+  _count: PostCount;
+  approvedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  comments?: Maybe<Array<PostComment>>;
+  commentsCount: Scalars["Int"]["output"];
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  createdByUserId?: Maybe<Scalars["Int"]["output"]>;
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedByUserId?: Maybe<Scalars["Int"]["output"]>;
+  group: Group;
+  groupEvent?: Maybe<GroupEvent>;
+  groupId: Scalars["Int"]["output"];
+  id: Scalars["Int"]["output"];
+  likes?: Maybe<Array<PostLike>>;
+  likesCount: Scalars["Int"]["output"];
+  medias?: Maybe<Array<PostMedia>>;
+  rejectedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  rejectedReason?: Maybe<Scalars["String"]["output"]>;
+  reviewedById?: Maybe<Scalars["Int"]["output"]>;
+  status: ApprovalStatus;
+  updatedAt: Scalars["DateTime"]["output"];
+  updatedByUserId?: Maybe<Scalars["Int"]["output"]>;
+};
+
+export type PostComment = {
+  __typename?: "PostComment";
+  content: Scalars["String"]["output"];
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  deletedReason?: Maybe<Scalars["String"]["output"]>;
+  id: Scalars["Int"]["output"];
+  post: Post;
+  postId: Scalars["Int"]["output"];
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type PostCommentFindManyResult = {
+  __typename?: "PostCommentFindManyResult";
+  data: Array<PostComment>;
+  total: Scalars["Int"]["output"];
+};
+
+export type PostCommentListRelationFilter = {
+  every?: InputMaybe<PostCommentWhereInput>;
+  none?: InputMaybe<PostCommentWhereInput>;
+  some?: InputMaybe<PostCommentWhereInput>;
+};
+
+export type PostCommentOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum PostCommentOrderByRelevanceFieldEnum {
+  Content = "content",
+  DeletedReason = "deletedReason",
+}
+
+export type PostCommentOrderByRelevanceInput = {
+  fields: Array<PostCommentOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type PostCommentOrderByWithRelationInput = {
+  _relevance?: InputMaybe<PostCommentOrderByRelevanceInput>;
+  content?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  deletedReason?: InputMaybe<SortOrderInput>;
+  id?: InputMaybe<SortOrder>;
+  post?: InputMaybe<PostOrderByWithRelationInput>;
+  postId?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum PostCommentScalarFieldEnum {
+  Content = "content",
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
+  DeletedReason = "deletedReason",
+  Id = "id",
+  PostId = "postId",
+  UpdatedAt = "updatedAt",
+}
+
+export type PostCommentWhereInput = {
+  AND?: InputMaybe<Array<PostCommentWhereInput>>;
+  NOT?: InputMaybe<Array<PostCommentWhereInput>>;
+  OR?: InputMaybe<Array<PostCommentWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  deletedReason?: InputMaybe<StringNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type PostCommentWhereUniqueInput = {
+  AND?: InputMaybe<Array<PostCommentWhereInput>>;
+  NOT?: InputMaybe<Array<PostCommentWhereInput>>;
+  OR?: InputMaybe<Array<PostCommentWhereInput>>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  deletedReason?: InputMaybe<StringNullableFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type PostCount = {
+  __typename?: "PostCount";
+  comments: Scalars["Int"]["output"];
+  likes: Scalars["Int"]["output"];
+  medias: Scalars["Int"]["output"];
+};
+
+export type PostFindManyResult = {
+  __typename?: "PostFindManyResult";
+  data: Array<Post>;
+  total: Scalars["Int"]["output"];
+};
+
+export type PostLike = {
+  __typename?: "PostLike";
+  createdAt: Scalars["DateTime"]["output"];
+  customer: Customer;
+  customerId: Scalars["Int"]["output"];
+  post: Post;
+  postId: Scalars["Int"]["output"];
+};
+
+export type PostLikeListRelationFilter = {
+  every?: InputMaybe<PostLikeWhereInput>;
+  none?: InputMaybe<PostLikeWhereInput>;
+  some?: InputMaybe<PostLikeWhereInput>;
+};
+
+export type PostLikeOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type PostLikeWhereInput = {
+  AND?: InputMaybe<Array<PostLikeWhereInput>>;
+  NOT?: InputMaybe<Array<PostLikeWhereInput>>;
+  OR?: InputMaybe<Array<PostLikeWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<IntFilter>;
+};
+
+export type PostListRelationFilter = {
+  every?: InputMaybe<PostWhereInput>;
+  none?: InputMaybe<PostWhereInput>;
+  some?: InputMaybe<PostWhereInput>;
+};
+
+export type PostMedia = {
+  __typename?: "PostMedia";
+  createdAt: Scalars["DateTime"]["output"];
+  deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  id: Scalars["Int"]["output"];
+  post: Post;
+  postId: Scalars["Int"]["output"];
+  sequence: Scalars["Int"]["output"];
+  type: MedaiType;
+  updatedAt: Scalars["DateTime"]["output"];
+  url: Scalars["String"]["output"];
+};
+
+export type PostMediaListRelationFilter = {
+  every?: InputMaybe<PostMediaWhereInput>;
+  none?: InputMaybe<PostMediaWhereInput>;
+  some?: InputMaybe<PostMediaWhereInput>;
+};
+
+export type PostMediaOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type PostMediaWhereInput = {
+  AND?: InputMaybe<Array<PostMediaWhereInput>>;
+  NOT?: InputMaybe<Array<PostMediaWhereInput>>;
+  OR?: InputMaybe<Array<PostMediaWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  post?: InputMaybe<PostRelationFilter>;
+  postId?: InputMaybe<IntFilter>;
+  sequence?: InputMaybe<IntFilter>;
+  type?: InputMaybe<EnumMedaiTypeFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type PostOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum PostOrderByRelevanceFieldEnum {
+  Content = "content",
+  RejectedReason = "rejectedReason",
+}
+
+export type PostOrderByRelevanceInput = {
+  fields: Array<PostOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type PostOrderByWithRelationInput = {
+  _relevance?: InputMaybe<PostOrderByRelevanceInput>;
+  approvedAt?: InputMaybe<SortOrderInput>;
+  comments?: InputMaybe<PostCommentOrderByRelationAggregateInput>;
+  commentsCount?: InputMaybe<SortOrder>;
+  content?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdByUserId?: InputMaybe<SortOrderInput>;
+  customer?: InputMaybe<CustomerOrderByWithRelationInput>;
+  customerId?: InputMaybe<SortOrder>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedByUserId?: InputMaybe<SortOrderInput>;
+  group?: InputMaybe<GroupOrderByWithRelationInput>;
+  groupEvent?: InputMaybe<GroupEventOrderByWithRelationInput>;
+  groupId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  likes?: InputMaybe<PostLikeOrderByRelationAggregateInput>;
+  likesCount?: InputMaybe<SortOrder>;
+  medias?: InputMaybe<PostMediaOrderByRelationAggregateInput>;
+  rejectedAt?: InputMaybe<SortOrderInput>;
+  rejectedReason?: InputMaybe<SortOrderInput>;
+  reviewedById?: InputMaybe<SortOrderInput>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedByUserId?: InputMaybe<SortOrderInput>;
+};
+
+export type PostRelationFilter = {
+  is?: InputMaybe<PostWhereInput>;
+  isNot?: InputMaybe<PostWhereInput>;
+};
+
+export enum PostScalarFieldEnum {
+  ApprovedAt = "approvedAt",
+  CommentsCount = "commentsCount",
+  Content = "content",
+  CreatedAt = "createdAt",
+  CreatedByUserId = "createdByUserId",
+  CustomerId = "customerId",
+  DeletedAt = "deletedAt",
+  DeletedByUserId = "deletedByUserId",
+  GroupId = "groupId",
+  Id = "id",
+  LikesCount = "likesCount",
+  RejectedAt = "rejectedAt",
+  RejectedReason = "rejectedReason",
+  ReviewedById = "reviewedById",
+  Status = "status",
+  UpdatedAt = "updatedAt",
+  UpdatedByUserId = "updatedByUserId",
+}
+
+export type PostWhereInput = {
+  AND?: InputMaybe<Array<PostWhereInput>>;
+  NOT?: InputMaybe<Array<PostWhereInput>>;
+  OR?: InputMaybe<Array<PostWhereInput>>;
+  approvedAt?: InputMaybe<DateTimeNullableFilter>;
+  comments?: InputMaybe<PostCommentListRelationFilter>;
+  commentsCount?: InputMaybe<IntFilter>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUserId?: InputMaybe<IntNullableFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedByUserId?: InputMaybe<IntNullableFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupEvent?: InputMaybe<GroupEventNullableRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
+  id?: InputMaybe<IntFilter>;
+  likes?: InputMaybe<PostLikeListRelationFilter>;
+  likesCount?: InputMaybe<IntFilter>;
+  medias?: InputMaybe<PostMediaListRelationFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedReason?: InputMaybe<StringNullableFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUserId?: InputMaybe<IntNullableFilter>;
+};
+
+export type PostWhereUniqueInput = {
+  AND?: InputMaybe<Array<PostWhereInput>>;
+  NOT?: InputMaybe<Array<PostWhereInput>>;
+  OR?: InputMaybe<Array<PostWhereInput>>;
+  approvedAt?: InputMaybe<DateTimeNullableFilter>;
+  comments?: InputMaybe<PostCommentListRelationFilter>;
+  commentsCount?: InputMaybe<IntFilter>;
+  content?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdByUserId?: InputMaybe<IntNullableFilter>;
+  customer?: InputMaybe<CustomerRelationFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedByUserId?: InputMaybe<IntNullableFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupEvent?: InputMaybe<GroupEventNullableRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  likes?: InputMaybe<PostLikeListRelationFilter>;
+  likesCount?: InputMaybe<IntFilter>;
+  medias?: InputMaybe<PostMediaListRelationFilter>;
+  rejectedAt?: InputMaybe<DateTimeNullableFilter>;
+  rejectedReason?: InputMaybe<StringNullableFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumApprovalStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedByUserId?: InputMaybe<IntNullableFilter>;
 };
 
 export type Query = {
   __typename?: "Query";
+  activities: ActivityFindManyResult;
+  activity?: Maybe<Activity>;
+  activitySlot?: Maybe<ActivitySlot>;
+  activitySlots: ActivitySlotFindManyResult;
   admin?: Maybe<Admin>;
   admins: AdminFindManyResult;
-  bank?: Maybe<Bank>;
-  banks: BankFindManyResult;
-  blacklist?: Maybe<Blacklist>;
-  blacklists: BlacklistFindManyResult;
-  companies: CompanyFindManyResult;
-  company?: Maybe<Company>;
-  companyUser?: Maybe<CompanyUser>;
-  companyUsers: CompanyUserFindManyResult;
-  employee?: Maybe<Employee>;
-  employeeAttendance?: Maybe<EmployeeAttendance>;
-  employeeAttendances: EmployeeAttendanceFindManyResult;
-  employeeJob?: Maybe<EmployeeJob>;
-  employeeJobs: EmployeeJobFindManyResult;
-  employeePayment?: Maybe<EmployeePayment>;
-  employeePayments: EmployeePaymentFindManyResult;
-  employeeRating?: Maybe<EmployeeRating>;
-  employeeRatings: EmployeeRatingFindManyResult;
-  employeeWarningLetter?: Maybe<EmployeeWarningLetter>;
-  employeeWarningLetters: EmployeeWarningLetterFindManyResult;
-  employees: EmployeeFindManyResult;
-  equipment?: Maybe<Equipment>;
-  equipments: EquipmentFindManyResult;
-  industries: IndustryFindManyResult;
-  industry?: Maybe<Industry>;
-  invoice?: Maybe<Invoice>;
-  invoiceItem?: Maybe<InvoiceItem>;
-  invoiceItems: InvoiceItemFindManyResult;
-  invoices: InvoiceFindManyResult;
-  jobPosting?: Maybe<JobPosting>;
-  jobPostingPhoto?: Maybe<JobPostingPhoto>;
-  jobPostingPhotos: JobPostingPhotoFindManyResult;
-  jobPostings: JobPostingFindManyResult;
-  payroll?: Maybe<Payroll>;
-  payrolls: PayrollFindManyResult;
-  ping: Scalars["String"]["output"];
-  skillset?: Maybe<Skillset>;
-  skillsets: SkillsetFindManyResult;
+  booking?: Maybe<Booking>;
+  bookings: BookingFindManyResult;
+  checkIn?: Maybe<CheckIn>;
+  checkIns: CheckInFindManyResult;
+  customer?: Maybe<Customer>;
+  customerExperience?: Maybe<CustomerExperience>;
+  customerExperiences: CustomerExperienceFindManyResult;
+  customerPoint?: Maybe<CustomerPoint>;
+  customerPoints: CustomerPointFindManyResult;
+  customerReward?: Maybe<CustomerReward>;
+  customerRewards: CustomerRewardFindManyResult;
+  customers: CustomerFindManyResult;
+  getAccountInfo: Admin;
+  group?: Maybe<Group>;
+  groupEvent?: Maybe<GroupEvent>;
+  groupEventAttendee?: Maybe<GroupEventAttendee>;
+  groupEventAttendees: GroupEventAttendeeFindManyResult;
+  groupEvents: GroupEventFindManyResult;
+  groupUser?: Maybe<GroupUser>;
+  groupUsers: GroupUserFindManyResult;
+  groups: GroupFindManyResult;
+  hello: Scalars["String"]["output"];
+  newsfeed?: Maybe<Newsfeed>;
+  newsfeeds: NewsfeedFindManyResult;
+  outlet?: Maybe<Outlet>;
+  outlets: OutletFindManyResult;
+  post?: Maybe<Post>;
+  postComment?: Maybe<PostComment>;
+  postComments: PostCommentFindManyResult;
+  posts: PostFindManyResult;
+  reward?: Maybe<Reward>;
+  rewards: RewardFindManyResult;
+  setting?: Maybe<Setting>;
+  settings: SettingFindManyResult;
+  tier?: Maybe<Tier>;
+  tiers: TierFindManyResult;
+  userReport?: Maybe<UserReport>;
+  userReports: UserReportFindManyResult;
+};
+
+export type QueryActivitiesArgs = {
+  cursor?: InputMaybe<ActivityWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ActivityScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ActivityOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
+  where?: InputMaybe<ActivityWhereInput>;
+};
+
+export type QueryActivityArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: ActivityWhereUniqueInput;
+};
+
+export type QueryActivitySlotArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: ActivitySlotWhereUniqueInput;
+};
+
+export type QueryActivitySlotsArgs = {
+  cursor?: InputMaybe<ActivitySlotWhereUniqueInput>;
+  distinct?: InputMaybe<Array<ActivitySlotScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<ActivitySlotOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  skip?: InputMaybe<Scalars["Int"]["input"]>;
+  take?: InputMaybe<Scalars["Int"]["input"]>;
+  where?: InputMaybe<ActivitySlotWhereInput>;
 };
 
 export type QueryAdminArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   where: AdminWhereUniqueInput;
 };
 
@@ -3071,336 +3250,481 @@ export type QueryAdminsArgs = {
   cursor?: InputMaybe<AdminWhereUniqueInput>;
   distinct?: InputMaybe<Array<AdminScalarFieldEnum>>;
   orderBy?: InputMaybe<Array<AdminOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
   where?: InputMaybe<AdminWhereInput>;
 };
 
-export type QueryBankArgs = {
-  where: BankWhereUniqueInput;
+export type QueryBookingArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: BookingWhereUniqueInput;
 };
 
-export type QueryBanksArgs = {
-  cursor?: InputMaybe<BankWhereUniqueInput>;
-  distinct?: InputMaybe<Array<BankScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<BankOrderByWithRelationInput>>;
+export type QueryBookingsArgs = {
+  cursor?: InputMaybe<BookingWhereUniqueInput>;
+  distinct?: InputMaybe<Array<BookingScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<BookingOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<BankWhereInput>;
+  where?: InputMaybe<BookingWhereInput>;
 };
 
-export type QueryBlacklistArgs = {
-  where: BlacklistWhereUniqueInput;
+export type QueryCheckInArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: CheckInWhereUniqueInput;
 };
 
-export type QueryBlacklistsArgs = {
-  cursor?: InputMaybe<BlacklistWhereUniqueInput>;
-  distinct?: InputMaybe<Array<BlacklistScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<BlacklistOrderByWithRelationInput>>;
+export type QueryCheckInsArgs = {
+  cursor?: InputMaybe<CheckInWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CheckInScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CheckInOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<BlacklistWhereInput>;
+  where?: InputMaybe<CheckInWhereInput>;
 };
 
-export type QueryCompaniesArgs = {
-  cursor?: InputMaybe<CompanyWhereUniqueInput>;
-  distinct?: InputMaybe<Array<CompanyScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<CompanyOrderByWithRelationInput>>;
+export type QueryCustomerArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: CustomerWhereUniqueInput;
+};
+
+export type QueryCustomerExperienceArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: CustomerExperienceWhereUniqueInput;
+};
+
+export type QueryCustomerExperiencesArgs = {
+  cursor?: InputMaybe<CustomerExperienceWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerExperienceScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerExperienceOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<CompanyWhereInput>;
+  where?: InputMaybe<CustomerExperienceWhereInput>;
 };
 
-export type QueryCompanyArgs = {
-  where: CompanyWhereUniqueInput;
+export type QueryCustomerPointArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: CustomerPointWhereUniqueInput;
 };
 
-export type QueryCompanyUserArgs = {
-  where: CompanyUserWhereUniqueInput;
-};
-
-export type QueryCompanyUsersArgs = {
-  cursor?: InputMaybe<CompanyUserWhereUniqueInput>;
-  distinct?: InputMaybe<Array<CompanyUserScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<CompanyUserOrderByWithRelationInput>>;
+export type QueryCustomerPointsArgs = {
+  cursor?: InputMaybe<CustomerPointWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerPointScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerPointOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<CompanyUserWhereInput>;
+  where?: InputMaybe<CustomerPointWhereInput>;
 };
 
-export type QueryEmployeeArgs = {
-  where: EmployeeWhereUniqueInput;
+export type QueryCustomerRewardArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: CustomerRewardWhereUniqueInput;
 };
 
-export type QueryEmployeeAttendanceArgs = {
-  where: EmployeeAttendanceWhereUniqueInput;
-};
-
-export type QueryEmployeeAttendancesArgs = {
-  cursor?: InputMaybe<EmployeeAttendanceWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeeAttendanceScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeeAttendanceOrderByWithRelationInput>>;
+export type QueryCustomerRewardsArgs = {
+  cursor?: InputMaybe<CustomerRewardWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerRewardScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerRewardOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeeAttendanceWhereInput>;
+  where?: InputMaybe<CustomerRewardWhereInput>;
 };
 
-export type QueryEmployeeJobArgs = {
-  where: EmployeeJobWhereUniqueInput;
-};
-
-export type QueryEmployeeJobsArgs = {
-  cursor?: InputMaybe<EmployeeJobWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeeJobScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeeJobOrderByWithRelationInput>>;
+export type QueryCustomersArgs = {
+  cursor?: InputMaybe<CustomerWhereUniqueInput>;
+  distinct?: InputMaybe<Array<CustomerScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<CustomerOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeeJobWhereInput>;
+  where?: InputMaybe<CustomerWhereInput>;
 };
 
-export type QueryEmployeePaymentArgs = {
-  where: EmployeePaymentWhereUniqueInput;
+export type QueryGroupArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: GroupWhereUniqueInput;
 };
 
-export type QueryEmployeePaymentsArgs = {
-  cursor?: InputMaybe<EmployeePaymentWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeePaymentScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeePaymentOrderByWithRelationInput>>;
+export type QueryGroupEventArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: GroupEventWhereUniqueInput;
+};
+
+export type QueryGroupEventAttendeeArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: GroupEventAttendeeWhereUniqueInput;
+};
+
+export type QueryGroupEventAttendeesArgs = {
+  cursor?: InputMaybe<GroupEventAttendeeWhereUniqueInput>;
+  distinct?: InputMaybe<Array<GroupEventAttendeeScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<GroupEventAttendeeOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeePaymentWhereInput>;
+  where?: InputMaybe<GroupEventAttendeeWhereInput>;
 };
 
-export type QueryEmployeeRatingArgs = {
-  where: EmployeeRatingWhereUniqueInput;
-};
-
-export type QueryEmployeeRatingsArgs = {
-  cursor?: InputMaybe<EmployeeRatingWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeeRatingScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeeRatingOrderByWithRelationInput>>;
+export type QueryGroupEventsArgs = {
+  cursor?: InputMaybe<GroupEventWhereUniqueInput>;
+  distinct?: InputMaybe<Array<GroupEventScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<GroupEventOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeeRatingWhereInput>;
+  where?: InputMaybe<GroupEventWhereInput>;
 };
 
-export type QueryEmployeeWarningLetterArgs = {
-  where: EmployeeWarningLetterWhereUniqueInput;
+export type QueryGroupUserArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: GroupUserWhereUniqueInput;
 };
 
-export type QueryEmployeeWarningLettersArgs = {
-  cursor?: InputMaybe<EmployeeWarningLetterWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeeWarningLetterScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeeWarningLetterOrderByWithRelationInput>>;
+export type QueryGroupUsersArgs = {
+  cursor?: InputMaybe<GroupUserWhereUniqueInput>;
+  distinct?: InputMaybe<Array<GroupUserScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<GroupUserOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeeWarningLetterWhereInput>;
+  where?: InputMaybe<GroupUserWhereInput>;
 };
 
-export type QueryEmployeesArgs = {
-  cursor?: InputMaybe<EmployeeWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EmployeeScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EmployeeOrderByWithRelationInput>>;
+export type QueryGroupsArgs = {
+  cursor?: InputMaybe<GroupWhereUniqueInput>;
+  distinct?: InputMaybe<Array<GroupScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<GroupOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EmployeeWhereInput>;
+  where?: InputMaybe<GroupWhereInput>;
 };
 
-export type QueryEquipmentArgs = {
-  where: EquipmentWhereUniqueInput;
+export type QueryNewsfeedArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: NewsfeedWhereUniqueInput;
 };
 
-export type QueryEquipmentsArgs = {
-  cursor?: InputMaybe<EquipmentWhereUniqueInput>;
-  distinct?: InputMaybe<Array<EquipmentScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<EquipmentOrderByWithRelationInput>>;
+export type QueryNewsfeedsArgs = {
+  cursor?: InputMaybe<NewsfeedWhereUniqueInput>;
+  distinct?: InputMaybe<Array<NewsfeedScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<NewsfeedOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<EquipmentWhereInput>;
+  where?: InputMaybe<NewsfeedWhereInput>;
 };
 
-export type QueryIndustriesArgs = {
-  cursor?: InputMaybe<IndustryWhereUniqueInput>;
-  distinct?: InputMaybe<Array<IndustryScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<IndustryOrderByWithRelationInput>>;
+export type QueryOutletArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: OutletWhereUniqueInput;
+};
+
+export type QueryOutletsArgs = {
+  cursor?: InputMaybe<OutletWhereUniqueInput>;
+  distinct?: InputMaybe<Array<OutletScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<OutletOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<IndustryWhereInput>;
+  where?: InputMaybe<OutletWhereInput>;
 };
 
-export type QueryIndustryArgs = {
-  where: IndustryWhereUniqueInput;
+export type QueryPostArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: PostWhereUniqueInput;
 };
 
-export type QueryInvoiceArgs = {
-  where: InvoiceWhereUniqueInput;
+export type QueryPostCommentArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: PostCommentWhereUniqueInput;
 };
 
-export type QueryInvoiceItemArgs = {
-  where: InvoiceItemWhereUniqueInput;
-};
-
-export type QueryInvoiceItemsArgs = {
-  cursor?: InputMaybe<InvoiceItemWhereUniqueInput>;
-  distinct?: InputMaybe<Array<InvoiceItemScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<InvoiceItemOrderByWithRelationInput>>;
+export type QueryPostCommentsArgs = {
+  cursor?: InputMaybe<PostCommentWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PostCommentScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PostCommentOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<InvoiceItemWhereInput>;
+  where?: InputMaybe<PostCommentWhereInput>;
 };
 
-export type QueryInvoicesArgs = {
-  cursor?: InputMaybe<InvoiceWhereUniqueInput>;
-  distinct?: InputMaybe<Array<InvoiceScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<InvoiceOrderByWithRelationInput>>;
+export type QueryPostsArgs = {
+  cursor?: InputMaybe<PostWhereUniqueInput>;
+  distinct?: InputMaybe<Array<PostScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<PostOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<InvoiceWhereInput>;
+  where?: InputMaybe<PostWhereInput>;
 };
 
-export type QueryJobPostingArgs = {
-  where: JobPostingWhereUniqueInput;
+export type QueryRewardArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: RewardWhereUniqueInput;
 };
 
-export type QueryJobPostingPhotoArgs = {
-  where: JobPostingPhotoWhereUniqueInput;
-};
-
-export type QueryJobPostingPhotosArgs = {
-  cursor?: InputMaybe<JobPostingPhotoWhereUniqueInput>;
-  distinct?: InputMaybe<Array<JobPostingPhotoScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<JobPostingPhotoOrderByWithRelationInput>>;
+export type QueryRewardsArgs = {
+  cursor?: InputMaybe<RewardWhereUniqueInput>;
+  distinct?: InputMaybe<Array<RewardScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<RewardOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<JobPostingPhotoWhereInput>;
+  where?: InputMaybe<RewardWhereInput>;
 };
 
-export type QueryJobPostingsArgs = {
-  cursor?: InputMaybe<JobPostingWhereUniqueInput>;
-  distinct?: InputMaybe<Array<JobPostingScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<JobPostingOrderByWithRelationInput>>;
+export type QuerySettingArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: SettingWhereUniqueInput;
+};
+
+export type QuerySettingsArgs = {
+  cursor?: InputMaybe<SettingWhereUniqueInput>;
+  distinct?: InputMaybe<Array<SettingScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<SettingOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<JobPostingWhereInput>;
+  where?: InputMaybe<SettingWhereInput>;
 };
 
-export type QueryPayrollArgs = {
-  where: PayrollWhereUniqueInput;
+export type QueryTierArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: TierWhereUniqueInput;
 };
 
-export type QueryPayrollsArgs = {
-  cursor?: InputMaybe<PayrollWhereUniqueInput>;
-  distinct?: InputMaybe<Array<PayrollScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<PayrollOrderByWithRelationInput>>;
+export type QueryTiersArgs = {
+  cursor?: InputMaybe<TierWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TierScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TierOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<PayrollWhereInput>;
+  where?: InputMaybe<TierWhereInput>;
 };
 
-export type QuerySkillsetArgs = {
-  where: SkillsetWhereUniqueInput;
+export type QueryUserReportArgs = {
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
+  where: UserReportWhereUniqueInput;
 };
 
-export type QuerySkillsetsArgs = {
-  cursor?: InputMaybe<SkillsetWhereUniqueInput>;
-  distinct?: InputMaybe<Array<SkillsetScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<SkillsetOrderByWithRelationInput>>;
+export type QueryUserReportsArgs = {
+  cursor?: InputMaybe<UserReportWhereUniqueInput>;
+  distinct?: InputMaybe<Array<UserReportScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<UserReportOrderByWithRelationInput>>;
+  relationLoadStrategy?: InputMaybe<RelationLoadStrategy>;
   skip?: InputMaybe<Scalars["Int"]["input"]>;
   take?: InputMaybe<Scalars["Int"]["input"]>;
-  where?: InputMaybe<SkillsetWhereInput>;
+  where?: InputMaybe<UserReportWhereInput>;
 };
 
-export type Skillset = {
-  __typename?: "Skillset";
-  _count: SkillsetCount;
+export enum RelationLoadStrategy {
+  Join = "join",
+  Query = "query",
+}
+
+export type ReviewUserReportInput = {
+  status: UserReportStatus;
+};
+
+export type Reward = {
+  __typename?: "Reward";
+  _count: RewardCount;
+  active: Scalars["Boolean"]["output"];
   createdAt: Scalars["DateTime"]["output"];
-  createdById?: Maybe<Scalars["Int"]["output"]>;
+  createdById: Scalars["Int"]["output"];
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
   deletedById?: Maybe<Scalars["Int"]["output"]>;
-  description?: Maybe<Scalars["String"]["output"]>;
+  description: Scalars["String"]["output"];
   id: Scalars["Int"]["output"];
-  jobPostings?: Maybe<Array<JobPosting>>;
-  name: Scalars["String"]["output"];
+  redemptionPoint: Scalars["Int"]["output"];
+  termsAndConditions: Scalars["String"]["output"];
+  thumbnail: Scalars["String"]["output"];
+  title: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
   updatedById?: Maybe<Scalars["Int"]["output"]>;
+  validityDays: Scalars["Int"]["output"];
 };
 
-export type SkillsetCount = {
-  __typename?: "SkillsetCount";
-  jobPostings: Scalars["Int"]["output"];
+export type RewardCount = {
+  __typename?: "RewardCount";
+  CustomerRewards: Scalars["Int"]["output"];
+  TierBirthdayRewards: Scalars["Int"]["output"];
 };
 
-export type SkillsetFindManyResult = {
-  __typename?: "SkillsetFindManyResult";
-  data: Array<Skillset>;
+export type RewardFindManyResult = {
+  __typename?: "RewardFindManyResult";
+  data: Array<Reward>;
   total: Scalars["Int"]["output"];
 };
 
-export type SkillsetListRelationFilter = {
-  every?: InputMaybe<SkillsetWhereInput>;
-  none?: InputMaybe<SkillsetWhereInput>;
-  some?: InputMaybe<SkillsetWhereInput>;
+export type RewardNullableRelationFilter = {
+  is?: InputMaybe<RewardWhereInput>;
+  isNot?: InputMaybe<RewardWhereInput>;
 };
 
-export type SkillsetOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
+export enum RewardOrderByRelevanceFieldEnum {
+  Description = "description",
+  TermsAndConditions = "termsAndConditions",
+  Thumbnail = "thumbnail",
+  Title = "title",
+}
+
+export type RewardOrderByRelevanceInput = {
+  fields: Array<RewardOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
 };
 
-export type SkillsetOrderByWithRelationInput = {
+export type RewardOrderByWithRelationInput = {
+  CustomerRewards?: InputMaybe<CustomerRewardOrderByRelationAggregateInput>;
+  TierBirthdayRewards?: InputMaybe<TierOrderByRelationAggregateInput>;
+  _relevance?: InputMaybe<RewardOrderByRelevanceInput>;
+  active?: InputMaybe<SortOrder>;
   createdAt?: InputMaybe<SortOrder>;
-  createdById?: InputMaybe<SortOrderInput>;
+  createdById?: InputMaybe<SortOrder>;
   deletedAt?: InputMaybe<SortOrderInput>;
   deletedById?: InputMaybe<SortOrderInput>;
-  description?: InputMaybe<SortOrderInput>;
+  description?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
-  jobPostings?: InputMaybe<JobPostingOrderByRelationAggregateInput>;
-  name?: InputMaybe<SortOrder>;
+  redemptionPoint?: InputMaybe<SortOrder>;
+  termsAndConditions?: InputMaybe<SortOrder>;
+  thumbnail?: InputMaybe<SortOrder>;
+  title?: InputMaybe<SortOrder>;
   updatedAt?: InputMaybe<SortOrder>;
   updatedById?: InputMaybe<SortOrderInput>;
+  validityDays?: InputMaybe<SortOrder>;
 };
 
-export enum SkillsetScalarFieldEnum {
+export type RewardRelationFilter = {
+  is?: InputMaybe<RewardWhereInput>;
+  isNot?: InputMaybe<RewardWhereInput>;
+};
+
+export enum RewardScalarFieldEnum {
+  Active = "active",
   CreatedAt = "createdAt",
   CreatedById = "createdById",
   DeletedAt = "deletedAt",
   DeletedById = "deletedById",
   Description = "description",
   Id = "id",
-  Name = "name",
+  RedemptionPoint = "redemptionPoint",
+  TermsAndConditions = "termsAndConditions",
+  Thumbnail = "thumbnail",
+  Title = "title",
   UpdatedAt = "updatedAt",
   UpdatedById = "updatedById",
+  ValidityDays = "validityDays",
 }
 
-export type SkillsetWhereInput = {
-  AND?: InputMaybe<Array<SkillsetWhereInput>>;
-  NOT?: InputMaybe<Array<SkillsetWhereInput>>;
-  OR?: InputMaybe<Array<SkillsetWhereInput>>;
+export type RewardWhereInput = {
+  AND?: InputMaybe<Array<RewardWhereInput>>;
+  CustomerRewards?: InputMaybe<CustomerRewardListRelationFilter>;
+  NOT?: InputMaybe<Array<RewardWhereInput>>;
+  OR?: InputMaybe<Array<RewardWhereInput>>;
+  TierBirthdayRewards?: InputMaybe<TierListRelationFilter>;
+  active?: InputMaybe<BoolFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
+  createdById?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
-  jobPostings?: InputMaybe<JobPostingListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  redemptionPoint?: InputMaybe<IntFilter>;
+  termsAndConditions?: InputMaybe<StringFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
+  validityDays?: InputMaybe<IntFilter>;
 };
 
-export type SkillsetWhereUniqueInput = {
-  AND?: InputMaybe<Array<SkillsetWhereInput>>;
-  NOT?: InputMaybe<Array<SkillsetWhereInput>>;
-  OR?: InputMaybe<Array<SkillsetWhereInput>>;
+export type RewardWhereUniqueInput = {
+  AND?: InputMaybe<Array<RewardWhereInput>>;
+  CustomerRewards?: InputMaybe<CustomerRewardListRelationFilter>;
+  NOT?: InputMaybe<Array<RewardWhereInput>>;
+  OR?: InputMaybe<Array<RewardWhereInput>>;
+  TierBirthdayRewards?: InputMaybe<TierListRelationFilter>;
+  active?: InputMaybe<BoolFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  createdById?: InputMaybe<IntNullableFilter>;
+  createdById?: InputMaybe<IntFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
   deletedById?: InputMaybe<IntNullableFilter>;
-  description?: InputMaybe<StringNullableFilter>;
+  description?: InputMaybe<StringFilter>;
   id?: InputMaybe<Scalars["Int"]["input"]>;
-  jobPostings?: InputMaybe<JobPostingListRelationFilter>;
-  name?: InputMaybe<StringFilter>;
+  redemptionPoint?: InputMaybe<IntFilter>;
+  termsAndConditions?: InputMaybe<StringFilter>;
+  thumbnail?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedById?: InputMaybe<IntNullableFilter>;
+  validityDays?: InputMaybe<IntFilter>;
+};
+
+export enum Role {
+  Admin = "Admin",
+  Staff = "Staff",
+  SuperAdmin = "Super_Admin",
+}
+
+export type Setting = {
+  __typename?: "Setting";
+  id: Scalars["Int"]["output"];
+  key: SettingKey;
+  value: Scalars["Int"]["output"];
+};
+
+export type SettingFindManyResult = {
+  __typename?: "SettingFindManyResult";
+  data: Array<Setting>;
+  total: Scalars["Int"]["output"];
+};
+
+export enum SettingKey {
+  ExperienceAttendBookedActivity = "EXPERIENCE_ATTEND_BOOKED_ACTIVITY",
+  ExperienceAttendGroupEvent = "EXPERIENCE_ATTEND_GROUP_EVENT",
+  PointAttendBookedActivity = "POINT_ATTEND_BOOKED_ACTIVITY",
+  PointAttendGroupEvent = "POINT_ATTEND_GROUP_EVENT",
+  PointCheckin = "POINT_CHECKIN",
+}
+
+export type SettingOrderByWithRelationInput = {
+  id?: InputMaybe<SortOrder>;
+  key?: InputMaybe<SortOrder>;
+  value?: InputMaybe<SortOrder>;
+};
+
+export enum SettingScalarFieldEnum {
+  Id = "id",
+  Key = "key",
+  Value = "value",
+}
+
+export type SettingWhereInput = {
+  AND?: InputMaybe<Array<SettingWhereInput>>;
+  NOT?: InputMaybe<Array<SettingWhereInput>>;
+  OR?: InputMaybe<Array<SettingWhereInput>>;
+  id?: InputMaybe<IntFilter>;
+  key?: InputMaybe<EnumSettingKeyFilter>;
+  value?: InputMaybe<IntFilter>;
+};
+
+export type SettingWhereUniqueInput = {
+  AND?: InputMaybe<Array<SettingWhereInput>>;
+  NOT?: InputMaybe<Array<SettingWhereInput>>;
+  OR?: InputMaybe<Array<SettingWhereInput>>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  key?: InputMaybe<SettingKey>;
+  value?: InputMaybe<IntFilter>;
 };
 
 export enum SortOrder {
@@ -3424,6 +3748,7 @@ export type StringFilter = {
   lte?: InputMaybe<Scalars["String"]["input"]>;
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
   startsWith?: InputMaybe<Scalars["String"]["input"]>;
 };
 
@@ -3438,79 +3763,361 @@ export type StringNullableFilter = {
   lte?: InputMaybe<Scalars["String"]["input"]>;
   not?: InputMaybe<NestedStringNullableFilter>;
   notIn?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  search?: InputMaybe<Scalars["String"]["input"]>;
   startsWith?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type UpdateAdminInput = {
-  email?: InputMaybe<Scalars["String"]["input"]>;
-  name?: InputMaybe<Scalars["String"]["input"]>;
-  password?: InputMaybe<Scalars["String"]["input"]>;
-};
-
-export type User = {
-  __typename?: "User";
-  _count: UserCount;
-  admin?: Maybe<Admin>;
-  companyUser?: Maybe<CompanyUser>;
+export type Tier = {
+  __typename?: "Tier";
+  _count: TierCount;
+  badge?: Maybe<Scalars["String"]["output"]>;
+  birthdayReward?: Maybe<Reward>;
+  birthdayRewardId?: Maybe<Scalars["Int"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
+  createdById?: Maybe<Scalars["Int"]["output"]>;
   deletedAt?: Maybe<Scalars["DateTime"]["output"]>;
-  employee?: Maybe<Employee>;
+  deletedById?: Maybe<Scalars["Int"]["output"]>;
+  experiencePerCheckin: Scalars["Int"]["output"];
   id: Scalars["Int"]["output"];
-  type: UserType;
+  level: Scalars["Int"]["output"];
+  name: Scalars["String"]["output"];
+  pointMultiplier: Scalars["Int"]["output"];
+  requiredExperience: Scalars["Int"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
-  uuid: Scalars["String"]["output"];
+  updatedById?: Maybe<Scalars["Int"]["output"]>;
 };
 
-export type UserCount = {
-  __typename?: "UserCount";
-  authToken: Scalars["Int"]["output"];
+export type TierCount = {
+  __typename?: "TierCount";
+  Customer: Scalars["Int"]["output"];
+  CustomerNext: Scalars["Int"]["output"];
 };
 
-export type UserOrderByWithRelationInput = {
-  admin?: InputMaybe<AdminOrderByWithRelationInput>;
-  authToken?: InputMaybe<AuthTokenOrderByRelationAggregateInput>;
-  companyUser?: InputMaybe<CompanyUserOrderByWithRelationInput>;
-  createdAt?: InputMaybe<SortOrder>;
-  deletedAt?: InputMaybe<SortOrderInput>;
-  employee?: InputMaybe<EmployeeOrderByWithRelationInput>;
-  id?: InputMaybe<SortOrder>;
-  type?: InputMaybe<SortOrder>;
-  updatedAt?: InputMaybe<SortOrder>;
-  uuid?: InputMaybe<SortOrder>;
+export type TierFindManyResult = {
+  __typename?: "TierFindManyResult";
+  data: Array<Tier>;
+  total: Scalars["Int"]["output"];
 };
 
-export type UserRelationFilter = {
-  is?: InputMaybe<UserWhereInput>;
-  isNot?: InputMaybe<UserWhereInput>;
+export type TierListRelationFilter = {
+  every?: InputMaybe<TierWhereInput>;
+  none?: InputMaybe<TierWhereInput>;
+  some?: InputMaybe<TierWhereInput>;
 };
 
-export enum UserType {
-  Admin = "ADMIN",
-  CompanyUser = "COMPANY_USER",
-  Employee = "EMPLOYEE",
-  User = "USER",
+export type TierNullableRelationFilter = {
+  is?: InputMaybe<TierWhereInput>;
+  isNot?: InputMaybe<TierWhereInput>;
+};
+
+export type TierOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum TierOrderByRelevanceFieldEnum {
+  Badge = "badge",
+  Name = "name",
 }
 
-export type UserWhereInput = {
-  AND?: InputMaybe<Array<UserWhereInput>>;
-  NOT?: InputMaybe<Array<UserWhereInput>>;
-  OR?: InputMaybe<Array<UserWhereInput>>;
-  admin?: InputMaybe<AdminNullableRelationFilter>;
-  authToken?: InputMaybe<AuthTokenListRelationFilter>;
-  companyUser?: InputMaybe<CompanyUserNullableRelationFilter>;
+export type TierOrderByRelevanceInput = {
+  fields: Array<TierOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type TierOrderByWithRelationInput = {
+  Customer?: InputMaybe<CustomerOrderByRelationAggregateInput>;
+  CustomerNext?: InputMaybe<CustomerOrderByRelationAggregateInput>;
+  _relevance?: InputMaybe<TierOrderByRelevanceInput>;
+  badge?: InputMaybe<SortOrderInput>;
+  birthdayReward?: InputMaybe<RewardOrderByWithRelationInput>;
+  birthdayRewardId?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  createdById?: InputMaybe<SortOrderInput>;
+  deletedAt?: InputMaybe<SortOrderInput>;
+  deletedById?: InputMaybe<SortOrderInput>;
+  experiencePerCheckin?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  level?: InputMaybe<SortOrder>;
+  name?: InputMaybe<SortOrder>;
+  pointMultiplier?: InputMaybe<SortOrder>;
+  requiredExperience?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+  updatedById?: InputMaybe<SortOrderInput>;
+};
+
+export enum TierScalarFieldEnum {
+  Badge = "badge",
+  BirthdayRewardId = "birthdayRewardId",
+  CreatedAt = "createdAt",
+  CreatedById = "createdById",
+  DeletedAt = "deletedAt",
+  DeletedById = "deletedById",
+  ExperiencePerCheckin = "experiencePerCheckin",
+  Id = "id",
+  Level = "level",
+  Name = "name",
+  PointMultiplier = "pointMultiplier",
+  RequiredExperience = "requiredExperience",
+  UpdatedAt = "updatedAt",
+  UpdatedById = "updatedById",
+}
+
+export type TierWhereInput = {
+  AND?: InputMaybe<Array<TierWhereInput>>;
+  Customer?: InputMaybe<CustomerListRelationFilter>;
+  CustomerNext?: InputMaybe<CustomerListRelationFilter>;
+  NOT?: InputMaybe<Array<TierWhereInput>>;
+  OR?: InputMaybe<Array<TierWhereInput>>;
+  badge?: InputMaybe<StringNullableFilter>;
+  birthdayReward?: InputMaybe<RewardNullableRelationFilter>;
+  birthdayRewardId?: InputMaybe<IntNullableFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntNullableFilter>;
   deletedAt?: InputMaybe<DateTimeNullableFilter>;
-  employee?: InputMaybe<EmployeeNullableRelationFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  experiencePerCheckin?: InputMaybe<IntFilter>;
   id?: InputMaybe<IntFilter>;
-  type?: InputMaybe<EnumUserTypeFilter>;
+  level?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  pointMultiplier?: InputMaybe<IntFilter>;
+  requiredExperience?: InputMaybe<IntFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
-  uuid?: InputMaybe<StringFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type TierWhereUniqueInput = {
+  AND?: InputMaybe<Array<TierWhereInput>>;
+  Customer?: InputMaybe<CustomerListRelationFilter>;
+  CustomerNext?: InputMaybe<CustomerListRelationFilter>;
+  NOT?: InputMaybe<Array<TierWhereInput>>;
+  OR?: InputMaybe<Array<TierWhereInput>>;
+  badge?: InputMaybe<StringNullableFilter>;
+  birthdayReward?: InputMaybe<RewardNullableRelationFilter>;
+  birthdayRewardId?: InputMaybe<IntNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdById?: InputMaybe<IntNullableFilter>;
+  deletedAt?: InputMaybe<DateTimeNullableFilter>;
+  deletedById?: InputMaybe<IntNullableFilter>;
+  experiencePerCheckin?: InputMaybe<IntFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  level?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  pointMultiplier?: InputMaybe<IntFilter>;
+  requiredExperience?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedById?: InputMaybe<IntNullableFilter>;
+};
+
+export type UpdateAccountInfoInput = {
+  fullName?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateActivityInput = {
+  coverImage?: InputMaybe<Scalars["Upload"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  outletId?: InputMaybe<Scalars["Float"]["input"]>;
+  requirement?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<ActivityStatus>;
+};
+
+export type UpdateActivitySlotInput = {
+  activityId?: InputMaybe<Scalars["Float"]["input"]>;
+  endTime?: InputMaybe<Scalars["String"]["input"]>;
+  maxParticipants?: InputMaybe<Scalars["Float"]["input"]>;
+  startTime?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateAdminInput = {
+  allOutlets?: InputMaybe<Scalars["Boolean"]["input"]>;
+  email?: InputMaybe<Scalars["String"]["input"]>;
+  fullName?: InputMaybe<Scalars["String"]["input"]>;
+  password?: InputMaybe<Scalars["String"]["input"]>;
+  role?: InputMaybe<Role>;
+};
+
+export type UpdateCustomerInput = {
+  dob: Scalars["String"]["input"];
+  email: Scalars["String"]["input"];
+  fullName: Scalars["String"]["input"];
+  phoneCode: Scalars["String"]["input"];
+  phoneNo: Scalars["String"]["input"];
+  status?: InputMaybe<AccountStatus>;
+};
+
+export type UpdateGroupEventInput = {
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  eventDate?: InputMaybe<Scalars["String"]["input"]>;
+  minAge?: InputMaybe<Scalars["Float"]["input"]>;
+  startTime?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<ApprovalStatus>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateGroupInput = {
+  adminId?: InputMaybe<Scalars["Float"]["input"]>;
+  coverImage?: InputMaybe<Scalars["Upload"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  minAge?: InputMaybe<Scalars["Float"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  tagLine?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateNewsfeedInput = {
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  coverImage?: InputMaybe<Scalars["Upload"]["input"]>;
+  deeplink?: InputMaybe<Scalars["String"]["input"]>;
+  thumbnail?: InputMaybe<Scalars["Upload"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateOutletInput = {
+  active?: InputMaybe<Scalars["Boolean"]["input"]>;
+  address?: InputMaybe<Scalars["String"]["input"]>;
+  branchCode?: InputMaybe<Scalars["String"]["input"]>;
+  branchFnbCode?: InputMaybe<Scalars["String"]["input"]>;
+  checkInRadius?: InputMaybe<Scalars["Float"]["input"]>;
+  coverImage?: InputMaybe<Scalars["String"]["input"]>;
+  endTime?: InputMaybe<Scalars["String"]["input"]>;
+  latitude?: InputMaybe<Scalars["Float"]["input"]>;
+  longitude?: InputMaybe<Scalars["Float"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  startTime?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type UpdateRewardInput = {
+  active?: InputMaybe<Scalars["Boolean"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  redemptionPoint?: InputMaybe<Scalars["Float"]["input"]>;
+  termsAndConditions?: InputMaybe<Scalars["String"]["input"]>;
+  thumbnail?: InputMaybe<Scalars["String"]["input"]>;
+  title?: InputMaybe<Scalars["String"]["input"]>;
+  validityDays?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
+export type UpdateSettingInput = {
+  key: SettingKey;
+  value: Scalars["Float"]["input"];
+};
+
+export type UpdateTierInput = {
+  badge?: InputMaybe<Scalars["String"]["input"]>;
+  birthdayRewardId?: InputMaybe<Scalars["Float"]["input"]>;
+  experiencePerCheckin?: InputMaybe<Scalars["Float"]["input"]>;
+  name?: InputMaybe<Scalars["String"]["input"]>;
+  pointMultiplier?: InputMaybe<Scalars["Float"]["input"]>;
+  requiredExperience?: InputMaybe<Scalars["Float"]["input"]>;
+};
+
+export type UserReport = {
+  __typename?: "UserReport";
+  commentId?: Maybe<Scalars["Int"]["output"]>;
+  createdAt: Scalars["DateTime"]["output"];
+  customerId: Scalars["Int"]["output"];
+  id: Scalars["Int"]["output"];
+  postId?: Maybe<Scalars["Int"]["output"]>;
+  reason: Scalars["String"]["output"];
+  reviewedBy?: Maybe<Admin>;
+  reviewedById?: Maybe<Scalars["Int"]["output"]>;
+  status: UserReportStatus;
+  updatedAt: Scalars["DateTime"]["output"];
+};
+
+export type UserReportFindManyResult = {
+  __typename?: "UserReportFindManyResult";
+  data: Array<UserReport>;
+  total: Scalars["Int"]["output"];
+};
+
+export type UserReportListRelationFilter = {
+  every?: InputMaybe<UserReportWhereInput>;
+  none?: InputMaybe<UserReportWhereInput>;
+  some?: InputMaybe<UserReportWhereInput>;
+};
+
+export type UserReportOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export enum UserReportOrderByRelevanceFieldEnum {
+  Reason = "reason",
+}
+
+export type UserReportOrderByRelevanceInput = {
+  fields: Array<UserReportOrderByRelevanceFieldEnum>;
+  search: Scalars["String"]["input"];
+  sort: SortOrder;
+};
+
+export type UserReportOrderByWithRelationInput = {
+  _relevance?: InputMaybe<UserReportOrderByRelevanceInput>;
+  commentId?: InputMaybe<SortOrderInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  customerId?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  postId?: InputMaybe<SortOrderInput>;
+  reason?: InputMaybe<SortOrder>;
+  reviewedBy?: InputMaybe<AdminOrderByWithRelationInput>;
+  reviewedById?: InputMaybe<SortOrderInput>;
+  status?: InputMaybe<SortOrder>;
+  updatedAt?: InputMaybe<SortOrder>;
+};
+
+export enum UserReportScalarFieldEnum {
+  CommentId = "commentId",
+  CreatedAt = "createdAt",
+  CustomerId = "customerId",
+  Id = "id",
+  PostId = "postId",
+  Reason = "reason",
+  ReviewedById = "reviewedById",
+  Status = "status",
+  UpdatedAt = "updatedAt",
+}
+
+export enum UserReportStatus {
+  Pending = "Pending",
+  Rejected = "Rejected",
+  Resolved = "Resolved",
+}
+
+export type UserReportWhereInput = {
+  AND?: InputMaybe<Array<UserReportWhereInput>>;
+  NOT?: InputMaybe<Array<UserReportWhereInput>>;
+  OR?: InputMaybe<Array<UserReportWhereInput>>;
+  commentId?: InputMaybe<IntNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  id?: InputMaybe<IntFilter>;
+  postId?: InputMaybe<IntNullableFilter>;
+  reason?: InputMaybe<StringFilter>;
+  reviewedBy?: InputMaybe<AdminNullableRelationFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumUserReportStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type UserReportWhereUniqueInput = {
+  AND?: InputMaybe<Array<UserReportWhereInput>>;
+  NOT?: InputMaybe<Array<UserReportWhereInput>>;
+  OR?: InputMaybe<Array<UserReportWhereInput>>;
+  commentId?: InputMaybe<IntNullableFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  customerId?: InputMaybe<IntFilter>;
+  id?: InputMaybe<Scalars["Int"]["input"]>;
+  postId?: InputMaybe<IntNullableFilter>;
+  reason?: InputMaybe<StringFilter>;
+  reviewedBy?: InputMaybe<AdminNullableRelationFilter>;
+  reviewedById?: InputMaybe<IntNullableFilter>;
+  status?: InputMaybe<EnumUserReportStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type AdminFragment = {
   __typename?: "Admin";
   id: number;
-  name: string;
+  fullName: string;
   email: string;
   active: boolean;
   createdAt: Date | string;
@@ -3519,7 +4126,7 @@ export type AdminFragment = {
 export type AdminInfoFragment = {
   __typename?: "Admin";
   id: number;
-  name: string;
+  fullName: string;
   email: string;
   active: boolean;
   createdAt: Date | string;
@@ -3544,7 +4151,7 @@ export type AdminsQuery = {
     data: Array<{
       __typename?: "Admin";
       id: number;
-      name: string;
+      fullName: string;
       email: string;
       active: boolean;
       createdAt: Date | string;
@@ -3561,7 +4168,7 @@ export type AdminQuery = {
   admin?: {
     __typename?: "Admin";
     id: number;
-    name: string;
+    fullName: string;
     email: string;
     active: boolean;
     createdAt: Date | string;
@@ -3577,7 +4184,7 @@ export type CreateAdminMutation = {
   createAdmin: {
     __typename?: "Admin";
     id: number;
-    name: string;
+    fullName: string;
     email: string;
     active: boolean;
     createdAt: Date | string;
@@ -3594,7 +4201,7 @@ export type UpdateAdminMutation = {
   updateAdmin: {
     __typename?: "Admin";
     id: number;
-    name: string;
+    fullName: string;
     email: string;
     active: boolean;
     createdAt: Date | string;
@@ -3607,13 +4214,13 @@ export type DeleteAdminMutationVariables = Exact<{
 
 export type DeleteAdminMutation = {
   __typename?: "Mutation";
-  deleteAdmin: string;
+  deleteAdmin: boolean;
 };
 
 export const AdminFragmentDoc = `
     fragment Admin on Admin {
   id
-  name
+  fullName
   email
   active
   createdAt
@@ -3622,7 +4229,7 @@ export const AdminFragmentDoc = `
 export const AdminInfoFragmentDoc = `
     fragment AdminInfo on Admin {
   id
-  name
+  fullName
   email
   active
   createdAt
@@ -3682,7 +4289,7 @@ export const useInfiniteAdminsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options;
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ["Admins.infinite"]
             : ["Admins.infinite", variables],
         queryFn: (metaData) =>

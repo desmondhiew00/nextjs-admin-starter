@@ -14,9 +14,9 @@ export const columns = ({ onEdit, onDelete }: Props): Column<DataType>[] => {
   return [
     {
       accessorKey: "name",
-      header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Full Name" />,
       cell: ({ row }) => {
-        return row.original.name;
+        return row.original.fullName;
       },
     },
     {

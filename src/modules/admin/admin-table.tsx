@@ -15,9 +15,9 @@ import {
   SortOrder,
   useAdminsQuery,
 } from "@/graphql";
-import { useAuthSession } from "@/lib/auth/client";
 import { getListingQueryParams } from "@/lib/query-router";
 import { parseErrorMessage } from "@/lib/utils";
+import { useSession } from "next-auth/react";
 import { columns } from "./admin-columns";
 
 const DataTable = createDataTable<AdminFragment, AdminFragment>();
@@ -25,12 +25,12 @@ const DataTable = createDataTable<AdminFragment, AdminFragment>();
 export default function AdminTable() {
   const _router = useRouter();
   const searchParams = useSearchParams();
-  const session = useAuthSession();
+  const { data: session } = useSession();
 
   const ref = useRef<DataTableRef<AdminFragment>>(null);
   const { confirmDelete } = useConfirmModal();
 
-  const authId = session?.user?.id as number;
+  const authId = session?.authUser.id;
 
   const queryOptions = useMemo(() => getQueryOptions(searchParams, authId), [searchParams, authId]);
   const query = useAdminsQuery(queryOptions);
@@ -71,20 +71,24 @@ export default function AdminTable() {
   );
 }
 
-const getQueryOptions = (searchParams: ReadonlyURLSearchParams, authId: number) => {
+const getQueryOptions = (searchParams: ReadonlyURLSearchParams, authId: number | undefined) => {
   const { from, to, sortBy, direction, limit, offset } = getListingQueryParams(searchParams, "client");
   const keyword = searchParams.get("keyword");
 
-  const where: InputMaybe<AdminWhereInput> = {
-    id: { not: { equals: authId } },
-    AND: [],
-  };
-
+  const where: InputMaybe<AdminWhereInput> = { AND: [] };
+  if (authId) where.AND?.push({ id: { not: { equals: authId } } });
   if (from) where.AND?.push({ createdAt: { gte: from } });
   if (to) where.AND?.push({ createdAt: { lte: to } });
-  if (keyword) where.AND?.push({ name: { contains: keyword } });
+  if (keyword) {
+    const keywords = keyword.split(" ").filter(Boolean);
+    where.AND?.push({
+      OR: keywords.map((keyword) => ({ fullName: { contains: keyword } })),
+    });
+  }
 
-  const orderBy: InputMaybe<AdminOrderByWithRelationInput> = sortBy ? { [sortBy]: direction } : { name: SortOrder.Asc };
+  const orderBy: InputMaybe<AdminOrderByWithRelationInput> = sortBy
+    ? { [sortBy]: direction }
+    : { fullName: SortOrder.Asc };
 
   return { where, orderBy, take: limit, skip: offset };
 };

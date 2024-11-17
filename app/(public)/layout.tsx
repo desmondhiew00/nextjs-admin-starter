@@ -1,10 +1,10 @@
-import { getSession } from "@/lib/auth";
+import { auth } from "@/auth";
 import AuthPageHeader from "@/modules/auth/auth-page-header";
 import { redirect } from "next/navigation";
 
 export default async function RootPage({ children }: { children: React.ReactNode }) {
-  const { session } = await getSession();
-  if (session?.accessToken) redirect("/dashboard");
+  const session = await auth();
+  if (session?.user) redirect("/");
 
   return (
     <>
